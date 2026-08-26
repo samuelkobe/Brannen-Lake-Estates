@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/*
+ * Source scanning — tell Tailwind which files to scan for utility classes.
+ * Add additional @source directives if new template types are introduced.
+ */
+@source "../../**/*.php";
+@source "../../**/*.html";
+@source "../../blocks/**/*.ts";
+@source "../../patterns/**/*.php";
+
+/*
+ * Theme-level custom CSS lives below this line.
+ * Block-specific CSS belongs in each block's own style.css, not here.
+ *
+ * Phase 2: add global typographic defaults, custom properties, and any
+ * styles that apply across the whole site (e.g. focus rings, scroll behaviour).
+ */

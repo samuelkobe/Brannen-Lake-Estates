@@ -1,0 +1,18 @@
+/*
+Theme Name:   Brannen Lake Estates
+Description:  TT5 child theme for Brannen Lake Estates — a wedding venue in Nanaimo, BC.
+Author:       Web Ok Solutions Inc.
+Author URI:   https://webok.io
+Template:     twentytwentyfive
+Version:      1.0.0
+Text Domain:  brannen-lake-estates
+License:      GNU General Public License v2 or later
+License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/*
+ * This file is intentionally minimal. Global theme styles are compiled by Vite
+ * from src/css/theme.css → assets/css/theme.css and enqueued in functions.php.
+ * Block-specific styles live in each block's own directory and are loaded by
+ * WordPress only on pages where that block is present.
+ */
