@@ -2,10 +2,10 @@
 /**
  * Theme setup: supports, navigation menus, and image sizes.
  *
- * @package WebOk\ProjectName
+ * @package WebOk\BrannenLakeEstates
  */
 
-namespace WebOk\ProjectName;
+namespace WebOk\BrannenLakeEstates;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

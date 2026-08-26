@@ -3,14 +3,14 @@
  * Brannen Lake Estates — TT5 Child Theme
  * Functions and definitions.
  *
- * Namespace pattern: WebOk\{ProjectName}
- * When using this theme as a starter template, replace "ProjectName"
+ * Namespace pattern: WebOk\{BrannenLakeEstates}
+ * When using this theme as a starter template, replace "BrannenLakeEstates"
  * in the namespace declaration of each inc/ file and this file. That's it.
  *
- * @package WebOk\ProjectName
+ * @package WebOk\BrannenLakeEstates
  */
 
-namespace WebOk\ProjectName;
+namespace WebOk\BrannenLakeEstates;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

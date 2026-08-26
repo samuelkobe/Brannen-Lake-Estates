@@ -8,10 +8,10 @@
  *
  * Phase 2: populate with real NAP, coordinates, and opening hours.
  *
- * @package WebOk\ProjectName
+ * @package WebOk\BrannenLakeEstates
  */
 
-namespace WebOk\ProjectName;
+namespace WebOk\BrannenLakeEstates;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
