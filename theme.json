@@ -1,0 +1,94 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{
+					"slug": "primary",
+					"color": "#1a1a1a",
+					"name": "Primary"
+				},
+				{
+					"slug": "secondary",
+					"color": "#ffffff",
+					"name": "Secondary"
+				},
+				{
+					"slug": "accent",
+					"color": "#1a1a1a",
+					"name": "Accent"
+				},
+				{
+					"slug": "neutral",
+					"color": "#f5f5f5",
+					"name": "Neutral"
+				},
+				{
+					"slug": "white",
+					"color": "#ffffff",
+					"name": "White"
+				},
+				{
+					"slug": "black",
+					"color": "#000000",
+					"name": "Black"
+				}
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fluid": true,
+			"fontSizes": [
+				{ "slug": "xs",   "size": "0.75rem",  "name": "XS"   },
+				{ "slug": "sm",   "size": "0.875rem", "name": "SM"   },
+				{ "slug": "base", "size": "1rem",     "name": "Base" },
+				{ "slug": "lg",   "size": "1.125rem", "name": "LG"   },
+				{ "slug": "xl",   "size": "1.25rem",  "name": "XL"   },
+				{ "slug": "2xl",  "size": "1.5rem",   "name": "2XL"  },
+				{ "slug": "3xl",  "size": "1.875rem", "name": "3XL"  },
+				{ "slug": "4xl",  "size": "2.25rem",  "name": "4XL"  },
+				{ "slug": "5xl",  "size": "3rem",     "name": "5XL"  },
+				{ "slug": "6xl",  "size": "3.75rem",  "name": "6XL"  }
+			],
+			"fontFamilies": []
+		},
+		"spacing": {
+			"spacingScale": {
+				"operator": "*",
+				"increment": 1.5,
+				"steps": 7,
+				"mediumStep": 1.5,
+				"unit": "rem"
+			},
+			"spacingSizes": [
+				{ "slug": "10", "size": "0.25rem",  "name": "XS"  },
+				{ "slug": "20", "size": "0.5rem",   "name": "S"   },
+				{ "slug": "30", "size": "1rem",     "name": "M"   },
+				{ "slug": "40", "size": "1.5rem",   "name": "L"   },
+				{ "slug": "50", "size": "2rem",     "name": "XL"  },
+				{ "slug": "60", "size": "3rem",     "name": "2XL" },
+				{ "slug": "70", "size": "5rem",     "name": "3XL" },
+				{ "slug": "80", "size": "8rem",     "name": "4XL" }
+			],
+			"units": [ "px", "%", "em", "rem", "vh", "vw" ]
+		},
+		"layout": {
+			"contentSize": "720px",
+			"wideSize": "1200px"
+		},
+		"useRootPaddingAwareAlignments": true,
+		"appearanceTools": true
+	},
+	"styles": {
+		"spacing": {
+			"blockGap": "1.5rem"
+		},
+		"typography": {
+			"lineHeight": "1.6"
+		}
+	}
+}
