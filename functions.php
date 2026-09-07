@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once get_stylesheet_directory() . '/inc/setup.php';
 require_once get_stylesheet_directory() . '/inc/blocks.php';
 require_once get_stylesheet_directory() . '/inc/schema.php';
+require_once get_stylesheet_directory() . '/inc/editor-resizable-sidebar.php';
 
 /**
  * Enqueue compiled theme assets and block view scripts.
