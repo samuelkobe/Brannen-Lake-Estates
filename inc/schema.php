@@ -22,29 +22,31 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function output_schema(): void {
 	$schema = [
-		'@context' => 'https://schema.org',
-		'@type'    => [ 'EventVenue', 'LocalBusiness' ],
-		'name'     => \get_bloginfo( 'name' ),
-		'url'      => \home_url( '/' ),
-
-		// Phase 2: add real NAP and venue details.
-		// 'address' => [
-		// 	'@type'           => 'PostalAddress',
-		// 	'streetAddress'   => '',
-		// 	'addressLocality' => 'Nanaimo',
-		// 	'addressRegion'   => 'BC',
-		// 	'postalCode'      => '',
-		// 	'addressCountry'  => 'CA',
-		// ],
-		// 'telephone'    => '',
-		// 'geo' => [
-		// 	'@type'     => 'GeoCoordinates',
-		// 	'latitude'  => '',
-		// 	'longitude' => '',
-		// ],
-		// 'openingHoursSpecification' => [],
-		// 'image' => [],
-		// 'sameAs' => [],
+		'@context'   => 'https://schema.org',
+		'@type'      => [ 'EventVenue', 'LocalBusiness' ],
+		'name'       => 'Brannen Lake Estates',
+		'legalName'  => 'Brannen Lake Estates Ltd.',
+		'url'        => \home_url( '/' ),
+		'email'      => 'info@brannenlakeestates.ca',
+		'telephone'  => '+12506671407',
+		'address'    => [
+			'@type'           => 'PostalAddress',
+			'streetAddress'   => '6650 Doumont Rd',
+			'addressLocality' => 'Nanaimo',
+			'addressRegion'   => 'BC',
+			'postalCode'      => 'V9T 6H1',
+			'addressCountry'  => 'CA',
+		],
+		'geo' => [
+			'@type'     => 'GeoCoordinates',
+			'latitude'  => '49.2163968322082',
+			'longitude' => '-124.06534862458074',
+		],
+		'sameAs' => [
+			'https://www.instagram.com/brannenlakeestates/',
+			'https://www.facebook.com/Brannenlakeestates/',
+		],
+		// TODO: add openingHoursSpecification and image once confirmed with client.
 	];
 
 	\printf(

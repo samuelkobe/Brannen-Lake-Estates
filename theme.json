@@ -8,34 +8,39 @@
 			"defaultDuotone": false,
 			"palette": [
 				{
-					"slug": "primary",
-					"color": "#1a1a1a",
-					"name": "Primary"
+					"slug": "ivory",
+					"color": "#FAF7F2",
+					"name": "Ivory"
 				},
 				{
-					"slug": "secondary",
-					"color": "#ffffff",
-					"name": "Secondary"
+					"slug": "cream",
+					"color": "#F2EBE0",
+					"name": "Cream"
 				},
 				{
-					"slug": "accent",
-					"color": "#1a1a1a",
-					"name": "Accent"
+					"slug": "champagne",
+					"color": "#DDC7A9",
+					"name": "Champagne"
 				},
 				{
-					"slug": "neutral",
-					"color": "#f5f5f5",
-					"name": "Neutral"
+					"slug": "taupe",
+					"color": "#B5A898",
+					"name": "Taupe"
+				},
+				{
+					"slug": "sage",
+					"color": "#6B7C5E",
+					"name": "Sage"
+				},
+				{
+					"slug": "charcoal",
+					"color": "#2C2A27",
+					"name": "Charcoal"
 				},
 				{
 					"slug": "white",
-					"color": "#ffffff",
+					"color": "#FFFFFF",
 					"name": "White"
-				},
-				{
-					"slug": "black",
-					"color": "#000000",
-					"name": "Black"
 				}
 			]
 		},
@@ -54,16 +59,52 @@
 				{ "slug": "5xl",  "size": "3rem",     "name": "5XL"  },
 				{ "slug": "6xl",  "size": "3.75rem",  "name": "6XL"  }
 			],
-			"fontFamilies": []
+			"fontFamilies": [
+				{
+					"slug": "cormorant",
+					"name": "Cormorant Garamond",
+					"fontFamily": "'Cormorant Garamond', serif",
+					"fontFace": [
+						{
+							"fontFamily": "Cormorant Garamond",
+							"fontWeight": "300 700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/CormorantGaramond-VariableFont_wght.ttf" ]
+						},
+						{
+							"fontFamily": "Cormorant Garamond",
+							"fontWeight": "300 700",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/CormorantGaramond-Italic-VariableFont_wght.ttf" ]
+						}
+					]
+				},
+				{
+					"slug": "dm-sans",
+					"name": "DM Sans",
+					"fontFamily": "'DM Sans', sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "DM Sans",
+							"fontWeight": "100 900",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/DMSans-VariableFont_opsz,wght.ttf" ]
+						},
+						{
+							"fontFamily": "DM Sans",
+							"fontWeight": "100 900",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/DMSans-Italic-VariableFont_opsz,wght.ttf" ]
+						}
+					]
+				}
+			]
 		},
 		"spacing": {
-			"spacingScale": {
-				"operator": "*",
-				"increment": 1.5,
-				"steps": 7,
-				"mediumStep": 1.5,
-				"unit": "rem"
-			},
 			"spacingSizes": [
 				{ "slug": "10", "size": "0.25rem",  "name": "XS"  },
 				{ "slug": "20", "size": "0.5rem",   "name": "S"   },
@@ -83,12 +124,45 @@
 		"useRootPaddingAwareAlignments": true,
 		"appearanceTools": true
 	},
+	"customTemplates": [
+		{
+			"name": "page-hero",
+			"title": "Hero Page (Full-bleed, no title)",
+			"postTypes": [ "page" ]
+		}
+	],
 	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--ivory)",
+			"text": "var(--wp--preset--color--charcoal)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+			"lineHeight": "1.6"
+		},
 		"spacing": {
 			"blockGap": "1.5rem"
 		},
-		"typography": {
-			"lineHeight": "1.6"
+		"elements": {
+			"h1": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--cormorant)",
+					"fontWeight": "300",
+					"fontStyle": "italic"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--cormorant)",
+					"fontWeight": "300"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--cormorant)",
+					"fontWeight": "400"
+				}
+			}
 		}
 	}
 }

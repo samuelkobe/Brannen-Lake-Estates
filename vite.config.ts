@@ -32,13 +32,17 @@ function blockEntries(): Record<string, string> {
 export default defineConfig({
 	plugins: [tailwindcss()],
 	build: {
-		// Output into the theme root so block.json relative paths resolve correctly.
-		outDir: '.',
+		// Rollup 4 refuses --watch when outDir overlaps the project root.
+		// Output to dist/, then assetFileNames paths place files where
+		// WordPress expects them (assets/css/, blocks/<name>/).
+		outDir: 'dist',
 		emptyOutDir: false,
 		rollupOptions: {
 			input: {
 				// Global theme stylesheet — Tailwind + theme-level CSS.
 				'assets/css/theme': path.resolve(__dirname, 'src/css/theme.css'),
+				// Global scripts — shared utilities loaded on every page.
+				'assets/js/scroll-reveal': path.resolve(__dirname, 'src/js/scroll-reveal.ts'),
 				// Block JS entries are discovered automatically.
 				// Add edit.ts / view.ts inside a blocks/<name>/ directory to register.
 				...blockEntries(),

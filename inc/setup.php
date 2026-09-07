@@ -25,6 +25,15 @@ function setup(): void {
 			'footer'  => \__( 'Footer Navigation', 'brannen-lake-estates' ),
 		]
 	);
+
+	// Inject stylesheets into the block editor iframe.
+	// Without this, Tailwind utilities and block-specific CSS have no effect
+	// in the editor preview (WP 6.x renders blocks inside an iframe).
+	\add_editor_style( 'dist/assets/css/theme.css' );
+	\add_editor_style( 'blocks/hero/style.css' );
+	\add_editor_style( 'blocks/welcome-intro/style.css' );
+	\add_editor_style( 'blocks/venue-cards/style.css' );
+	\add_editor_style( 'blocks/cta-banner/style.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 

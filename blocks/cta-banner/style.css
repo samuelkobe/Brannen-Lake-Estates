@@ -1,0 +1,76 @@
+/*
+ * CTA Banner — block styles.
+ *
+ * Loaded by WordPress only on pages where this block is present.
+ * Tailwind utilities (layout, spacing, colour) live in render.php class attrs.
+ * This file handles: typography sizing, transitions, hover states, animations.
+ */
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+
+.ble-cta-banner__heading {
+	font-size: clamp(2.25rem, 5vw, 3.75rem);
+	letter-spacing: -0.01em;
+}
+
+/* ── Scroll-reveal — initial state ──────────────────────────────────────── */
+/*
+ * Elements animate in when .is-visible is added by view.js.
+ * Stagger is applied via --delay custom property set per-child in view.js.
+ */
+
+.ble-cta-banner__heading,
+.ble-cta-banner__body,
+.ble-cta-banner__actions {
+	opacity: 0;
+	transform: translateY(24px);
+	transition:
+		opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1),
+		transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+	transition-delay: var(--delay, 0ms);
+}
+
+.ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__heading,
+.ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__body,
+.ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__actions {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* ── Button transitions ───────────────────────────────────────────────────── */
+
+.ble-cta-banner__btn {
+	transition:
+		background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		color            0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		transform        0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.ble-cta-banner__btn--primary:hover {
+	background-color: #ffffff;
+	color: #6B7C5E;
+}
+
+.ble-cta-banner__btn--secondary:hover {
+	color: rgba(255, 255, 255, 0.95);
+}
+
+.ble-cta-banner__btn:active {
+	transform: scale(0.98);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+	.ble-cta-banner__heading,
+	.ble-cta-banner__body,
+	.ble-cta-banner__actions {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.ble-cta-banner__btn {
+		transition: none;
+	}
+}

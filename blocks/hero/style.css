@@ -1,0 +1,227 @@
+/*
+ * Hero — block styles.
+ *
+ * Loaded by WordPress only on pages where this block is present.
+ * Tailwind utilities (layout, spacing, colour) live in render.php class attrs.
+ * This file handles: frosted glass, typography sizing, load animation,
+ * button transitions, and parallax preparation.
+ */
+
+/* ── Full-width breakout ─────────────────────────────────────────────────── */
+/*
+ * Two layers of defence:
+ *
+ * 1. alignfull — when the block is set to Full Width in the editor WordPress
+ *    adds .alignfull to the ACF wrapper div. Ensure our section fills it.
+ *
+ * 2. Constrained-layout escape — if the hero ever ends up inside a
+ *    is-layout-constrained container (e.g. the default page template), this
+ *    rule uses the classic negative-margin / 100vw trick to break out.
+ *    The page-hero.html template avoids this entirely, but the fallback is
+ *    here in case the hero is placed on a page using the standard template.
+ */
+
+.wp-block-acf-hero.alignfull,
+.wp-block-acf-hero.alignfull .ble-hero {
+  width: 100%;
+  max-width: none;
+}
+
+/* Remove any max-width the ACF wrapper might inherit */
+.wp-block-acf-hero {
+  width: 100%;
+  max-width: none !important;
+}
+
+/* Strip padding/margin that TT5 applies to constrained post-content */
+.wp-block-post-content.is-layout-constrained:has(.wp-block-acf-hero) {
+  padding-inline: 0;
+}
+
+/* ── Minimum height ──────────────────────────────────────────────────────── */
+
+.ble-hero {
+  min-height: 72svh; /* svh accounts for mobile browser chrome */
+}
+
+@media (min-width: 1024px) {
+  .ble-hero {
+    min-height: 84svh;
+  }
+}
+
+/* ── Background / parallax layer ─────────────────────────────────────────── */
+/*
+ * The parallax element is translated on scroll by view.js.
+ * It starts slightly oversized (110%) so there's room to move without
+ * exposing the edges of the image.
+ *
+ * Explicit fill rules here mirror the Tailwind utility classes used in
+ * render.php (absolute, inset-0, w-full, h-full, object-cover). This ensures
+ * the editor preview renders correctly even before theme.css loads, and acts
+ * as a reliable fallback.
+ */
+
+.ble-hero__bg {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.ble-hero__bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform-origin: center center;
+}
+
+.ble-hero__overlay {
+  position: absolute;
+  inset: 0;
+  /* background-color set via inline style from ACF overlay_color + overlay_opacity fields */
+}
+
+/* ── Frosted glass container ─────────────────────────────────────────────── */
+
+.ble-hero__glass {
+  background: rgba(20, 18, 15, 0.35);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+/*
+ * Heading font-size is set via inline style in render.php using the
+ * user-controlled ACF field. Only non-size properties live here.
+ */
+
+.ble-hero__heading {
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 32px rgba(0, 0, 0, 0.4);
+  line-height: 1.05;
+}
+
+.ble-hero__tagline {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  letter-spacing: 0.04em;
+}
+
+/* ── Load animation — initial state ─────────────────────────────────────── */
+/*
+ * The glass container fades and lifts in on page load.
+ * view.js adds .is-loaded to the section after a short delay,
+ * giving the image time to begin rendering first.
+ */
+
+.ble-hero__glass {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 1.1s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s,
+    transform 1.1s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s;
+}
+
+.ble-hero[data-ble-hero].is-loaded .ble-hero__glass {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+/*
+ * All visual button properties live here, NOT in Tailwind utility classes.
+ * style.css is enqueued after theme.css so these always win without !important.
+ * Tailwind classes on the element handle layout only (padding, flex, tracking).
+ */
+
+.ble-hero__btn {
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Primary — champagne */
+.ble-hero__btn.ble-hero__btn--primary {
+  background-color: #ddc7a9;
+  color: #2c2a27;
+}
+
+.ble-hero__btn.ble-hero__btn--primary:hover {
+  background-color: #ebd9bf;
+}
+
+/* Secondary — white */
+.ble-hero__btn.ble-hero__btn--secondary {
+  background-color: #ffffff;
+  color: #2c2a27;
+}
+
+.ble-hero__btn.ble-hero__btn--secondary:hover {
+  background-color: #f5f0ea;
+}
+
+.ble-hero__btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ble-hero__glass {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ble-hero__bg {
+    will-change: auto;
+  }
+
+  .ble-hero__btn {
+    transition:
+      background-color 0.2s linear,
+      color 0.2s linear;
+  }
+}
+
+/* ── Block editor overrides ───────────────────────────────────────────────── */
+/*
+ * WordPress wraps the editor canvas in .editor-styles-wrapper.
+ * These rules ensure the hero preview displays correctly inside the editor
+ * iframe, where TT5's layout constraints and reset styles are also active.
+ */
+
+.editor-styles-wrapper .wp-block-acf-hero,
+.editor-styles-wrapper .ble-hero {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Keep the glass visible at all times in editor (no view.js animation) */
+.editor-styles-wrapper .ble-hero__glass {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Ensure button colours survive editor resets */
+.editor-styles-wrapper .ble-hero__btn.ble-hero__btn--primary {
+  background-color: #ddc7a9 !important;
+  color: #2c2a27 !important;
+}
+
+.editor-styles-wrapper .ble-hero__btn.ble-hero__btn--secondary {
+  background-color: #ffffff !important;
+  color: #2c2a27 !important;
+}
+
+.editor-styles-wrapper .ble-hero__btn {
+  font-weight: 500 !important;
+}

@@ -1,0 +1,154 @@
+/*
+ * Venue Cards — block styles.
+ *
+ * Responsive card grid: 1 col → 2 col → 4 col.
+ * Cards have a tall image, title, and short description.
+ * Linked cards get a subtle hover lift.
+ */
+
+/* ── Section heading ─────────────────────────────────────────────────────── */
+
+.ble-venue-cards__heading {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 1280px) {
+  .ble-venue-cards__heading {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-venue-cards__heading {
+    font-size: 3.75rem;
+  }
+}
+
+/* ── Eyebrow decorative rule ─────────────────────────────────────────────── */
+
+.ble-venue-cards__eyebrow {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.ble-venue-cards__eyebrow::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background-color: var(--color-champagne, #DDC7A9);
+  margin: 1.25rem auto 0;
+}
+
+/* ── Card grid ───────────────────────────────────────────────────────────── */
+
+.ble-venue-cards__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .ble-venue-cards__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ble-venue-cards__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .ble-venue-cards__grid {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-venue-cards__grid {
+    gap: 2.5rem;
+  }
+}
+
+/* ── Individual card ─────────────────────────────────────────────────────── */
+
+.ble-venue-cards__card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+a.ble-venue-cards__card:hover {
+  transform: translateY(-4px);
+}
+
+/* ── Card image ──────────────────────────────────────────────────────────── */
+
+.ble-venue-cards__image-wrap {
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 1.25rem;
+}
+
+.ble-venue-cards__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+a.ble-venue-cards__card:hover .ble-venue-cards__image {
+  transform: scale(1.03);
+}
+
+/* ── Card text ───────────────────────────────────────────────────────────── */
+
+.ble-venue-cards__title {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  margin-bottom: 0.5rem;
+}
+
+.ble-venue-cards__desc {
+  font-size: 0.9375rem;
+  color: var(--color-charcoal, #2C2A27);
+  opacity: 0.75;
+}
+
+@media (min-width: 1280px) {
+  .ble-venue-cards__title {
+    font-size: 1.625rem;
+  }
+
+  .ble-venue-cards__desc {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-venue-cards__title {
+    font-size: 1.75rem;
+  }
+
+  .ble-venue-cards__desc {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ble-venue-cards__card {
+    transition: none;
+  }
+
+  .ble-venue-cards__image {
+    transition: none;
+  }
+}

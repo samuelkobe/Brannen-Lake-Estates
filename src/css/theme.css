@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Source scanning — tell Tailwind which files to scan for utility classes.
- * Add additional @source directives if new template types are introduced.
+ * Source scanning — Tailwind scans these files for utility classes used in
+ * render.php templates, patterns, and block editor JS.
  */
 @source "../../**/*.php";
 @source "../../**/*.html";
@@ -10,9 +10,99 @@
 @source "../../patterns/**/*.php";
 
 /*
- * Theme-level custom CSS lives below this line.
- * Block-specific CSS belongs in each block's own style.css, not here.
+ * Design tokens — mirrors theme.json so utility class names (bg-sage,
+ * text-charcoal, font-serif, etc.) are available in render.php templates.
+ * Update both here and in theme.json if colours or fonts change.
+ */
+@theme {
+	/* Colour palette */
+	--color-ivory:      #FAF7F2;
+	--color-cream:      #F2EBE0;
+	--color-champagne:  #DDC7A9;
+	--color-taupe:      #B5A898;
+	--color-sage:       #6B7C5E;
+	--color-charcoal:   #2C2A27;
+
+	/* Typography */
+	--font-serif: 'Cormorant Garamond', serif;
+	--font-sans:  'DM Sans', sans-serif;
+
+	/* Easing — used in CSS transitions and JS motion */
+	--ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/*
+ * Base — applied globally via theme.json styles, mirrored here so
+ * Tailwind's base layer doesn't override them.
+ */
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font-sans);
+	color: var(--color-charcoal);
+	background-color: var(--color-ivory);
+	-webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+	font-family: var(--font-serif);
+}
+
+/*
+ * Reduced motion — disable all transitions and animations globally.
+ * Block view.ts files also check this before adding motion classes.
+ */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/*
+ * Scroll reveal — shared across all blocks.
  *
- * Phase 2: add global typographic defaults, custom properties, and any
- * styles that apply across the whole site (e.g. focus rings, scroll behaviour).
+ * Add data-ble-reveal to any element to get a subtle fade-up on scroll.
+ * scroll-reveal.js adds .is-revealed via IntersectionObserver.
+ * The reduced-motion rule above kills the transition automatically.
+ */
+
+[data-ble-reveal] {
+	opacity: 0;
+	transform: translateY(16px);
+	transition:
+		opacity   0.8s var(--ease-luxury),
+		transform 0.8s var(--ease-luxury);
+}
+
+[data-ble-reveal].is-revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Editor: show all reveal elements immediately — no JS runs in the iframe. */
+.editor-styles-wrapper [data-ble-reveal] {
+	opacity: 1 !important;
+	transform: none !important;
+	transition: none !important;
+}
+
+/* Editor: give our ACF blocks more room without touching Gutenberg's layout. */
+.editor-styles-wrapper .wp-block-acf-welcome-intro,
+.editor-styles-wrapper .wp-block-acf-cta-banner {
+	max-width: 1080px !important;
+	margin-inline: auto;
+}
+
+.editor-styles-wrapper .wp-block-acf-venue-cards {
+	max-width: 1280px !important;
+	margin-inline: auto;
+}
+
+/*
+ * Theme-level custom CSS below.
+ * Block-specific CSS belongs in each block's own style.css.
  */
