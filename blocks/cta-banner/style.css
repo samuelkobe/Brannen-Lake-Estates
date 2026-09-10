@@ -13,12 +13,25 @@
 	letter-spacing: -0.01em;
 }
 
+@media (min-width: 1280px) {
+	.ble-cta-banner__heading {
+		font-size: 4rem;
+	}
+}
+
+@media (min-width: 1536px) {
+	.ble-cta-banner__heading {
+		font-size: 4.25rem;
+	}
+}
+
 /* ── Scroll-reveal — initial state ──────────────────────────────────────── */
 /*
  * Elements animate in when .is-visible is added by view.js.
  * Stagger is applied via --delay custom property set per-child in view.js.
  */
 
+.ble-cta-banner__eyebrow,
 .ble-cta-banner__heading,
 .ble-cta-banner__body,
 .ble-cta-banner__actions {
@@ -30,6 +43,7 @@
 	transition-delay: var(--delay, 0ms);
 }
 
+.ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__eyebrow,
 .ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__heading,
 .ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__body,
 .ble-cta-banner[data-ble-animate].is-visible .ble-cta-banner__actions {
@@ -40,10 +54,15 @@
 /* ── Button transitions ───────────────────────────────────────────────────── */
 
 .ble-cta-banner__btn {
+	font-weight: 500;
 	transition:
 		background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
 		color            0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
 		transform        0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.ble-cta-banner__btn--primary {
+	color: #ffffff;
 }
 
 .ble-cta-banner__btn--primary:hover {
@@ -51,8 +70,20 @@
 	color: #6B7C5E;
 }
 
+.ble-cta-banner__btn--secondary {
+	color: #ffffff;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	text-decoration-color: rgba(255, 255, 255, 0.4);
+	transition:
+		color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		text-decoration-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
 .ble-cta-banner__btn--secondary:hover {
-	color: rgba(255, 255, 255, 0.95);
+	color: var(--color-champagne, #DDC7A9);
+	text-decoration-color: var(--color-champagne, #DDC7A9);
 }
 
 .ble-cta-banner__btn:active {
@@ -62,6 +93,7 @@
 /* ── Reduced motion ───────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
+	.ble-cta-banner__eyebrow,
 	.ble-cta-banner__heading,
 	.ble-cta-banner__body,
 	.ble-cta-banner__actions {
@@ -73,4 +105,15 @@
 	.ble-cta-banner__btn {
 		transition: none;
 	}
+}
+
+/* ── Block editor overrides ─────────────────────────────────────────────── */
+
+.editor-styles-wrapper .ble-cta-banner__eyebrow,
+.editor-styles-wrapper .ble-cta-banner__heading,
+.editor-styles-wrapper .ble-cta-banner__body,
+.editor-styles-wrapper .ble-cta-banner__actions {
+	opacity: 1 !important;
+	transform: none !important;
+	transition: none !important;
 }

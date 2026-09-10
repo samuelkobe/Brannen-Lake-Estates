@@ -43,6 +43,8 @@ export default defineConfig({
 				'assets/css/theme': path.resolve(__dirname, 'src/css/theme.css'),
 				// Global scripts — shared utilities loaded on every page.
 				'assets/js/scroll-reveal': path.resolve(__dirname, 'src/js/scroll-reveal.ts'),
+				// Navigation — header scroll behavior + mobile drawer.
+				'assets/js/navigation': path.resolve(__dirname, 'src/js/navigation.ts'),
 				// Block JS entries are discovered automatically.
 				// Add edit.ts / view.ts inside a blocks/<name>/ directory to register.
 				...blockEntries(),

@@ -1,0 +1,95 @@
+/*
+ * Testimonial — block styles.
+ *
+ * Single centered testimonial with decorative quotation mark.
+ * Elegant, minimal, focused on the words.
+ */
+
+/* ── Section heading ────────────────────────────────────────────────────── */
+
+.ble-testimonial__heading {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.01em;
+}
+
+/* ── Eyebrow decorative rule ────────────────────────────────────────────── */
+
+.ble-testimonial__eyebrow {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.ble-testimonial__eyebrow::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background-color: var(--color-champagne, #DDC7A9);
+  margin: 1.25rem auto 0;
+}
+
+/* ── Decorative quote mark ──────────────────────────────────────────────── */
+
+.ble-testimonial__quote {
+  position: relative;
+}
+
+.ble-testimonial__quote::before {
+  content: '\201C';
+  display: block;
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-champagne, #DDC7A9);
+  margin-bottom: -1rem;
+}
+
+/* ── Quote text ─────────────────────────────────────────────────────────── */
+
+.ble-testimonial__text {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+}
+
+/* ── Attribution ────────────────────────────────────────────────────────── */
+
+.ble-testimonial__name {
+  font-size: 0.9375rem;
+}
+
+.ble-testimonial__date {
+  font-size: 0.8125rem;
+}
+
+/* ── Responsive scaling ─────────────────────────────────────────────────── */
+
+@media (min-width: 1280px) {
+  .ble-testimonial__heading {
+    font-size: 3.5rem;
+  }
+
+  .ble-testimonial__text {
+    font-size: 1.625rem;
+  }
+
+  .ble-testimonial__quote::before {
+    font-size: 6rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-testimonial__heading {
+    font-size: 3.75rem;
+  }
+
+  .ble-testimonial__text {
+    font-size: 1.75rem;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ble-testimonial__quote {
+    transition: none;
+  }
+}

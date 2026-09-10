@@ -21,7 +21,7 @@ if ( ! $heading || empty( $items ) ) {
 	return;
 }
 ?>
-<section class="ble-venue-cards py-24 lg:py-32 px-6" aria-labelledby="ble-venue-cards-heading">
+<section class="ble-venue-cards px-6" aria-labelledby="ble-venue-cards-heading">
 	<div class="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
 
 		<?php /* ── Section header ──────────────────────────────────────────── */ ?>
@@ -63,7 +63,8 @@ if ( ! $heading || empty( $items ) ) {
 						target="<?= \esc_attr( $link['target'] ); ?>"
 						rel="noopener noreferrer"
 					<?php endif; ?>
-					aria-label="<?= \esc_attr( $link['title'] ?? $title ); ?>"
+					aria-label="<?= \esc_attr( sprintf( 'Learn more about the %s venue at Brannen Lake Estates', $title ) ); ?>"
+					title="<?= \esc_attr( sprintf( 'Learn more about the %s venue at Brannen Lake Estates', $title ) ); ?>"
 				<?php endif; ?>
 			>
 
@@ -80,7 +81,7 @@ if ( ! $heading || empty( $items ) ) {
 				</div>
 				<?php endif; ?>
 
-				<h3 class="ble-venue-cards__title font-serif font-light italic text-charcoal">
+				<h3 class="ble-venue-cards__title font-serif font-normal italic text-charcoal">
 					<?= \esc_html( $title ); ?>
 				</h3>
 
@@ -88,6 +89,12 @@ if ( ! $heading || empty( $items ) ) {
 				<p class="ble-venue-cards__desc font-sans font-light text-charcoal leading-relaxed">
 					<?= \esc_html( $desc ); ?>
 				</p>
+				<?php endif; ?>
+
+				<?php if ( $tag === 'a' ) : ?>
+				<span class="ble-venue-cards__link-text font-sans text-sm text-sage">
+					<?= \esc_html( $link['title'] ?: sprintf( 'Explore %s', $title ) ); ?>
+				</span>
 				<?php endif; ?>
 
 			</<?= $tag; ?>>

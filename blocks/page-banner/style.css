@@ -1,0 +1,103 @@
+/*
+ * Page Banner — block styles.
+ *
+ * Half-height banner with full-bleed background image,
+ * overlay, and centered text. Shares parallax with the hero
+ * via data-ble-hero / data-ble-parallax attributes.
+ */
+
+/* ── Full-width breakout ────────────────────────────────────────────────── */
+
+.wp-block-acf-page-banner.alignfull,
+.wp-block-acf-page-banner.alignfull .ble-page-banner {
+  width: 100%;
+  max-width: none;
+}
+
+.wp-block-acf-page-banner {
+  width: 100%;
+  max-width: none !important;
+}
+
+/* ── Height ─────────────────────────────────────────────────────────────── */
+
+.ble-page-banner {
+  min-height: 36svh;
+}
+
+@media (min-width: 1024px) {
+  .ble-page-banner {
+    min-height: 42svh;
+  }
+}
+
+/* ── Background / parallax layer ────────────────────────────────────────── */
+
+.ble-page-banner__bg {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.ble-page-banner__bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform-origin: center center;
+}
+
+.ble-page-banner__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+
+.ble-page-banner__heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.ble-page-banner__tagline {
+  font-size: clamp(0.9375rem, 2vw, 1.125rem);
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 1280px) {
+  .ble-page-banner__heading {
+    font-size: 3.75rem;
+  }
+
+  .ble-page-banner__tagline {
+    font-size: 1.1875rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-page-banner__heading {
+    font-size: 4rem;
+  }
+
+  .ble-page-banner__tagline {
+    font-size: 1.25rem;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ble-page-banner__bg {
+    will-change: auto;
+  }
+}
+
+/* ── Block editor overrides ─────────────────────────────────────────────── */
+
+.editor-styles-wrapper .wp-block-acf-page-banner,
+.editor-styles-wrapper .ble-page-banner {
+  width: 100% !important;
+  max-width: none !important;
+}

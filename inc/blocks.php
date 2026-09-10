@@ -77,11 +77,11 @@ function register_blocks(): void {
 
 	\acf_register_block_type( [
 		'name'            => 'welcome-intro',
-		'title'           => \__( 'Welcome Intro', 'brannen-lake-estates' ),
-		'description'     => \__( 'Centered text section introducing the venue\'s story and heritage.', 'brannen-lake-estates' ),
+		'title'           => \__( 'Title + Content', 'brannen-lake-estates' ),
+		'description'     => \__( 'Centered text section with optional eyebrow, heading, and body copy. Reusable across any page.', 'brannen-lake-estates' ),
 		'category'        => 'webok-blocks',
 		'icon'            => 'editor-aligncenter',
-		'keywords'        => [ 'welcome', 'intro', 'about', 'story' ],
+		'keywords'        => [ 'content', 'text', 'intro', 'section' ],
 		'render_template' => $theme_dir . '/blocks/welcome-intro/render.php',
 		'enqueue_assets'  => function () {
 			\wp_enqueue_style( 'ble-welcome-intro' );
@@ -109,6 +109,200 @@ function register_blocks(): void {
 		'render_template' => $theme_dir . '/blocks/venue-cards/render.php',
 		'enqueue_assets'  => function () {
 			\wp_enqueue_style( 'ble-venue-cards' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Gallery Grid ────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-gallery-grid',
+		$theme_uri . '/blocks/gallery-grid/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'gallery-grid',
+		'title'           => \__( 'Gallery Grid', 'brannen-lake-estates' ),
+		'description'     => \__( 'Masonry-style image gallery with staggered scroll reveal. On mobile, a random subset is displayed to keep the page scroll manageable.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'format-gallery',
+		'keywords'        => [ 'gallery', 'masonry', 'images', 'photos' ],
+		'render_template' => $theme_dir . '/blocks/gallery-grid/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-gallery-grid' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Testimonial ─────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-testimonial',
+		$theme_uri . '/blocks/testimonial/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'testimonial',
+		'title'           => \__( 'Testimonial', 'brannen-lake-estates' ),
+		'description'     => \__( 'Displays a single randomly selected testimonial. Add multiple quotes and one is chosen on each page load.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'format-quote',
+		'keywords'        => [ 'testimonial', 'quote', 'review', 'feedback' ],
+		'render_template' => $theme_dir . '/blocks/testimonial/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-testimonial' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Page Banner ─────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-page-banner',
+		$theme_uri . '/blocks/page-banner/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'page-banner',
+		'title'           => \__( 'Page Banner', 'brannen-lake-estates' ),
+		'description'     => \__( 'Half-height banner with background image, overlay, and centered heading. Use as the page header on interior pages.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'format-image',
+		'keywords'        => [ 'banner', 'header', 'page', 'hero' ],
+		'render_template' => $theme_dir . '/blocks/page-banner/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-page-banner' );
+		},
+		'supports'        => [ 'align' => [ 'full' ] ],
+		'align'           => 'full',
+		'mode'            => 'preview',
+	] );
+
+	// ── Image + Content ─────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-image-content',
+		$theme_uri . '/blocks/image-content/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'image-content',
+		'title'           => \__( 'Image + Content', 'brannen-lake-estates' ),
+		'description'     => \__( 'Two-column layout with an image on one side and text on the other. Toggle image position left or right.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'align-pull-left',
+		'keywords'        => [ 'image', 'content', 'about', 'story', 'split' ],
+		'render_template' => $theme_dir . '/blocks/image-content/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-image-content' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Image + Form ────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-image-form',
+		$theme_uri . '/blocks/image-form/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'image-form',
+		'title'           => \__( 'Image + Form', 'brannen-lake-estates' ),
+		'description'     => \__( 'Two-column layout with an image on one side and a shortcode form on the other.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'feedback',
+		'keywords'        => [ 'form', 'contact', 'image', 'shortcode' ],
+		'render_template' => $theme_dir . '/blocks/image-form/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-image-form' );
+		},
+		'supports'        => [ 'align' => [ 'full', 'wide' ] ],
+		'align'           => 'full',
+		'mode'            => 'preview',
+	] );
+
+	// ── FAQ ─────────────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-faq',
+		$theme_uri . '/blocks/faq/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'faq',
+		'title'           => \__( 'FAQ', 'brannen-lake-estates' ),
+		'description'     => \__( 'Accordion-style frequently asked questions with FAQPage structured data for SEO.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'editor-help',
+		'keywords'        => [ 'faq', 'questions', 'accordion', 'help' ],
+		'render_template' => $theme_dir . '/blocks/faq/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-faq' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Venue Details ───────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-venue-details',
+		$theme_uri . '/blocks/venue-details/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'venue-details',
+		'title'           => \__( 'Venue Details', 'brannen-lake-estates' ),
+		'description'     => \__( 'Structured venue data card with capacity, features, and EventVenue schema. Use once per venue page.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'location',
+		'keywords'        => [ 'venue', 'details', 'capacity', 'features' ],
+		'render_template' => $theme_dir . '/blocks/venue-details/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-venue-details' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Photographer Credits ────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-photographer-credits',
+		$theme_uri . '/blocks/photographer-credits/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'photographer-credits',
+		'title'           => \__( 'Photographer Credits', 'brannen-lake-estates' ),
+		'description'     => \__( 'Grid of photographer cards with external portfolio links and Person schema.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'camera',
+		'keywords'        => [ 'photographer', 'credits', 'portfolio', 'links' ],
+		'render_template' => $theme_dir . '/blocks/photographer-credits/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-photographer-credits' );
 		},
 		'supports'        => [ 'align' => false ],
 		'mode'            => 'preview',
@@ -154,7 +348,15 @@ function load_block_fields(): void {
 	require_once \get_stylesheet_directory() . '/blocks/hero/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/welcome-intro/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/venue-cards/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/gallery-grid/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/testimonial/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/page-banner/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/cta-banner/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/image-content/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/image-form/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/faq/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/venue-details/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/photographer-credits/fields.php';
 }
 \add_action( 'acf/init', __NAMESPACE__ . '\\load_block_fields' );
 

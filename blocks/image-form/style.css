@@ -1,0 +1,569 @@
+/*
+ * Image + Form — block styles.
+ *
+ * Two-column layout with image and form.
+ * Form styling adapted from Summit Law theme, branded for BLE.
+ * Targets CF7 default markup.
+ */
+
+/* ── Background colour variants ─────────────────────────────────────────── */
+
+.ble-image-form--ivory {
+	background-color: var(--color-ivory, #FAF7F2);
+}
+
+.ble-image-form--cream {
+	background-color: var(--color-cream, #F2EBE0);
+}
+
+.ble-image-form--sage {
+	background-color: var(--color-sage, #6B7C5E);
+}
+
+.ble-image-form--charcoal {
+	background-color: var(--color-charcoal, #2C2A27);
+}
+
+/* Dark backgrounds — swap text to light */
+.ble-image-form--sage .ble-image-form__eyebrow,
+.ble-image-form--charcoal .ble-image-form__eyebrow {
+	color: var(--color-champagne, #DDC7A9);
+}
+
+.ble-image-form--sage .ble-image-form__eyebrow::after,
+.ble-image-form--charcoal .ble-image-form__eyebrow::after {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.ble-image-form--sage .ble-image-form__heading,
+.ble-image-form--sage .ble-image-form__desc,
+.ble-image-form--charcoal .ble-image-form__heading,
+.ble-image-form--charcoal .ble-image-form__desc {
+	color: #ffffff;
+}
+
+/* Dark bg — form labels */
+.ble-image-form--sage .ble-image-form__form label,
+.ble-image-form--sage .ble-image-form__form .form-label,
+.ble-image-form--sage .ble-image-form__form .form-col > p > label,
+.ble-image-form--sage .ble-image-form__form .wpcf7-list-item-label,
+.ble-image-form--charcoal .ble-image-form__form label,
+.ble-image-form--charcoal .ble-image-form__form .form-label,
+.ble-image-form--charcoal .ble-image-form__form .form-col > p > label,
+.ble-image-form--charcoal .ble-image-form__form .wpcf7-list-item-label {
+	color: #ffffff;
+}
+
+.ble-image-form--sage .ble-image-form__form .form-note,
+.ble-image-form--charcoal .ble-image-form__form .form-note {
+	color: var(--color-champagne, #DDC7A9);
+}
+
+/* Dark bg — submit button inverts to white outline */
+.ble-image-form--sage .ble-image-form__form input[type="submit"],
+.ble-image-form--sage .ble-image-form__form button[type="submit"] {
+	background-color: #ffffff;
+	color: var(--color-sage, #6B7C5E);
+	border-color: #ffffff;
+}
+
+.ble-image-form--sage .ble-image-form__form input[type="submit"]:hover,
+.ble-image-form--sage .ble-image-form__form button[type="submit"]:hover {
+	background-color: transparent;
+	color: #ffffff;
+	border-color: #ffffff;
+}
+
+.ble-image-form--charcoal .ble-image-form__form input[type="submit"],
+.ble-image-form--charcoal .ble-image-form__form button[type="submit"] {
+	background-color: var(--color-sage, #6B7C5E);
+	color: #ffffff;
+	border-color: var(--color-sage, #6B7C5E);
+}
+
+.ble-image-form--charcoal .ble-image-form__form input[type="submit"]:hover,
+.ble-image-form--charcoal .ble-image-form__form button[type="submit"]:hover {
+	background-color: #ffffff;
+	color: var(--color-charcoal, #2C2A27);
+	border-color: #ffffff;
+}
+
+/* Dark bg — CF7 success/error messages */
+.ble-image-form--sage .ble-image-form__form .wpcf7 form.sent > div.wpcf7-response-output,
+.ble-image-form--sage .ble-image-form__form .wpcf7 form.invalid > div.wpcf7-response-output {
+	color: var(--color-champagne, #DDC7A9);
+}
+
+.ble-image-form--charcoal .ble-image-form__form .wpcf7 form.sent > div.wpcf7-response-output,
+.ble-image-form--charcoal .ble-image-form__form .wpcf7 form.invalid > div.wpcf7-response-output {
+	color: var(--color-champagne, #DDC7A9);
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+
+.ble-image-form__heading {
+	font-size: clamp(2rem, 4vw, 3rem);
+	letter-spacing: -0.01em;
+}
+
+.ble-image-form__eyebrow {
+	position: relative;
+	padding-bottom: 1.5rem;
+}
+
+.ble-image-form__eyebrow::after {
+	content: '';
+	display: block;
+	width: 3rem;
+	height: 1px;
+	background-color: var(--color-champagne, #DDC7A9);
+	margin-top: 1.25rem;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+
+.ble-image-form__image img {
+	aspect-ratio: 3 / 4;
+}
+
+/* ── Form layout ─────────────────────────────────────────────────────────── */
+
+.ble-image-form__form .form-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1rem;
+}
+
+.ble-image-form__form .form-wrapper .form-col {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.ble-image-form__form .form-wrapper .col-half {
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.ble-image-form__form .form-wrapper .col-half {
+		width: calc(50% - 0.5rem);
+	}
+}
+
+@media (min-width: 1024px) {
+	.ble-image-form__form .form-wrapper {
+		gap: 0 1.5rem;
+	}
+
+	.ble-image-form__form .form-wrapper .col-half {
+		width: calc(50% - 0.75rem);
+	}
+
+	.ble-image-form__form .form-wrapper .col-third {
+		width: calc(33.333% - 1rem);
+	}
+}
+
+/* ── Labels ──────────────────────────────────────────────────────────────── */
+
+.ble-image-form__form label,
+.ble-image-form__form .form-label {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--color-charcoal, #2C2A27);
+	display: inline-block;
+	margin-bottom: 0.25rem;
+}
+
+.ble-image-form__form .form-note {
+	font-size: 0.75rem;
+	color: var(--color-taupe, #B5A898);
+	margin-bottom: 0.25rem;
+	display: inline-block;
+}
+
+/* Labels wrapping selects (without .form-label class) — match label sizing */
+.ble-image-form__form .form-col > p > label {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--color-charcoal, #2C2A27);
+}
+
+@media (min-width: 1024px) {
+	.ble-image-form__form label,
+	.ble-image-form__form .form-label,
+	.ble-image-form__form .form-col > p > label {
+		font-size: 1rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	.ble-image-form__form label,
+	.ble-image-form__form .form-label,
+	.ble-image-form__form .form-col > p > label {
+		font-size: 1.125rem;
+	}
+}
+
+/* ── Form fields ─────────────────────────────────────────────────────────── */
+
+.ble-image-form__form input[type="text"],
+.ble-image-form__form input[type="email"],
+.ble-image-form__form input[type="tel"],
+.ble-image-form__form input[type="url"],
+.ble-image-form__form input[type="date"],
+.ble-image-form__form input[type="number"],
+.ble-image-form__form .wpcf7-select,
+.ble-image-form__form select,
+.ble-image-form__form textarea {
+	width: 100%;
+	max-width: 100%;
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 1rem;
+	font-weight: 400;
+	color: var(--color-charcoal, #2C2A27);
+	background-color: #ffffff;
+	border: 2px solid var(--color-champagne, #DDC7A9);
+	border-radius: 2px;
+	padding: 0.625rem 0.75rem;
+	margin-bottom: 1rem;
+	outline: none;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: all 0.3s ease;
+}
+
+.ble-image-form__form input[type="text"],
+.ble-image-form__form input[type="email"],
+.ble-image-form__form input[type="tel"],
+.ble-image-form__form input[type="url"],
+.ble-image-form__form input[type="date"],
+.ble-image-form__form input[type="number"],
+.ble-image-form__form .wpcf7-select,
+.ble-image-form__form select {
+	height: 2.75rem;
+}
+
+@media (min-width: 1024px) {
+	.ble-image-form__form input[type="text"],
+	.ble-image-form__form input[type="email"],
+	.ble-image-form__form input[type="tel"],
+	.ble-image-form__form input[type="url"],
+	.ble-image-form__form input[type="date"],
+	.ble-image-form__form input[type="number"],
+	.ble-image-form__form .wpcf7-select,
+	.ble-image-form__form select {
+		height: 3rem;
+		padding: 0.75rem 1rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.ble-image-form__form textarea {
+		padding: 0.75rem 1rem;
+		margin-bottom: 1.25rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	.ble-image-form__form input[type="text"],
+	.ble-image-form__form input[type="email"],
+	.ble-image-form__form input[type="tel"],
+	.ble-image-form__form input[type="url"],
+	.ble-image-form__form input[type="date"],
+	.ble-image-form__form input[type="number"],
+	.ble-image-form__form .wpcf7-select,
+	.ble-image-form__form select {
+		height: 3.25rem;
+		padding: 0.875rem 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.ble-image-form__form textarea {
+		padding: 0.875rem 1rem;
+		margin-bottom: 1.5rem;
+	}
+}
+
+.ble-image-form__form input::placeholder,
+.ble-image-form__form textarea::placeholder {
+	font-weight: 400;
+	color: var(--color-taupe, #B5A898);
+}
+
+.ble-image-form__form textarea {
+	min-height: 8rem;
+	resize: vertical;
+}
+
+/* Focus states */
+.ble-image-form__form input[type="text"]:focus,
+.ble-image-form__form input[type="email"]:focus,
+.ble-image-form__form input[type="tel"]:focus,
+.ble-image-form__form input[type="url"]:focus,
+.ble-image-form__form input[type="date"]:focus,
+.ble-image-form__form input[type="number"]:focus,
+.ble-image-form__form select:focus,
+.ble-image-form__form .wpcf7-select:focus,
+.ble-image-form__form textarea:focus {
+	outline: none;
+	border-color: var(--color-sage, #6B7C5E);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ── CF7 control wrappers — force full width so selects fill their column */
+
+.ble-image-form__form .wpcf7-form-control-wrap {
+	display: block;
+	width: 100%;
+}
+
+/* CF7 wraps form tags in <p> and <label> — make the full chain block-level
+   so the select dropdown fills the column width like other inputs. */
+.ble-image-form__form .form-col > p,
+.ble-image-form__form .form-col > p > label,
+.ble-image-form__form .form-col > label {
+	display: block;
+	width: 100%;
+}
+
+/* ── Select dropdown ─────────────────────────────────────────────────────── */
+
+.ble-image-form__form .wpcf7-select,
+.ble-image-form__form select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7.57 3.75'%3E%3Cpolygon points='1.22 0.5 6.36 0.5 3.79 3.04 3.79 3.04 1.22 0.5' style='fill:%232C2A27;stroke:%232C2A27;stroke-miterlimit:10'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.75em center;
+	background-size: 0.65em auto;
+	padding-right: 2.5rem;
+}
+
+.ble-image-form__form .wpcf7-select:has(option[value=""]:checked) {
+	color: var(--color-taupe, #B5A898);
+}
+
+/* ── Checkbox ────────────────────────────────────────────────────────────── */
+
+.ble-image-form__form .wpcf7-checkbox {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-top: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+.ble-image-form__form .wpcf7-list-item {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 1rem;
+	margin-left: 0;
+}
+
+.ble-image-form__form .wpcf7-list-item label {
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 0.75rem;
+	align-items: center;
+	cursor: pointer;
+}
+
+.ble-image-form__form input[type="checkbox"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 1.375rem;
+	height: 1.375rem;
+	min-width: 1.375rem;
+	border: 2px solid var(--color-champagne, #DDC7A9);
+	background-color: #ffffff;
+	border-radius: 2px;
+	cursor: pointer;
+	position: relative;
+	flex-shrink: 0;
+	transition: all 0.2s ease;
+}
+
+.ble-image-form__form input[type="checkbox"]:checked {
+	background-color: var(--color-sage, #6B7C5E);
+	border-color: var(--color-sage, #6B7C5E);
+}
+
+.ble-image-form__form input[type="checkbox"]:checked::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+	background-size: 12px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ble-image-form__form input[type="checkbox"]:focus {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--color-sage, #6B7C5E), 0 0 0 4px rgba(107, 124, 94, 0.2);
+}
+
+.ble-image-form__form input[type="checkbox"]:hover:not(:checked) {
+	border-color: var(--color-sage, #6B7C5E);
+	background-color: rgba(107, 124, 94, 0.05);
+}
+
+.ble-image-form__form .wpcf7-list-item-label {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 1rem;
+	color: var(--color-charcoal, #2C2A27);
+	line-height: 1.5;
+}
+
+/* ── Submit button ───────────────────────────────────────────────────────── */
+
+.ble-image-form__form input[type="submit"],
+.ble-image-form__form button[type="submit"] {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	color: #ffffff;
+	background-color: var(--color-sage, #6B7C5E);
+	border: 2px solid var(--color-sage, #6B7C5E);
+	border-radius: 0;
+	padding: 1rem 3rem;
+	width: fit-content;
+	cursor: pointer;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition:
+		background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		box-shadow 0.3s ease;
+}
+
+.ble-image-form__form input[type="submit"]:hover,
+.ble-image-form__form button[type="submit"]:hover {
+	background-color: #ffffff;
+	color: var(--color-sage, #6B7C5E);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ble-image-form__form input[type="submit"]:active,
+.ble-image-form__form button[type="submit"]:active {
+	transform: scale(0.98);
+}
+
+/* ── CF7 spinner ─────────────────────────────────────────────────────────── */
+
+.ble-image-form__form .wpcf7-spinner {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+/* ── Validation messages ─────────────────────────────────────────────────── */
+
+.ble-image-form__form .wpcf7-not-valid-tip {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: #c0392b;
+	background: transparent;
+	transform: translateY(-0.75rem);
+}
+
+@media (min-width: 1024px) {
+	.ble-image-form__form .wpcf7-not-valid-tip {
+		transform: translateY(-1rem);
+	}
+}
+
+.ble-image-form__form .wpcf7-form-control-wrap[data-name="message"] .wpcf7-not-valid-tip {
+	transform: translateY(-1.25rem);
+}
+
+@media (min-width: 1024px) {
+	.ble-image-form__form .wpcf7-form-control-wrap[data-name="message"] .wpcf7-not-valid-tip {
+		transform: translateY(-1.5rem);
+	}
+}
+
+/* Response output */
+.ble-image-form__form .wpcf7 form.invalid > div.wpcf7-response-output,
+.ble-image-form__form .wpcf7 form.sent > div.wpcf7-response-output {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: var(--color-sage, #6B7C5E);
+	border: none;
+	margin: 2rem 0 0;
+	padding: 0;
+}
+
+.ble-image-form__form .wpcf7 form.failed > div.wpcf7-response-output,
+.ble-image-form__form .wpcf7 form.aborted > div.wpcf7-response-output {
+	font-family: var(--font-sans, 'DM Sans', sans-serif);
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: #c0392b;
+	border: none;
+	margin: 2rem 0 0;
+	padding: 0;
+}
+
+/* ── Autofill states ─────────────────────────────────────────────────────── */
+
+.ble-image-form__form input:-webkit-autofill,
+.ble-image-form__form input:-webkit-autofill:hover,
+.ble-image-form__form input:-webkit-autofill:focus,
+.ble-image-form__form input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px rgba(221, 199, 169, 0.15) inset !important;
+	-webkit-text-fill-color: var(--color-charcoal, #2C2A27) !important;
+}
+
+/* ── Responsive heading scaling ──────────────────────────────────────────── */
+
+@media (min-width: 1280px) {
+	.ble-image-form__heading {
+		font-size: 3.25rem;
+	}
+}
+
+@media (min-width: 1536px) {
+	.ble-image-form__heading {
+		font-size: 3.5rem;
+	}
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+	.ble-image-form__form input[type="submit"],
+	.ble-image-form__form button[type="submit"] {
+		transition: none;
+	}
+
+	.ble-image-form__form input,
+	.ble-image-form__form textarea,
+	.ble-image-form__form select {
+		transition: none;
+	}
+}
+
+/* ── Block editor overrides ──────────────────────────────────────────────── */
+
+/* ACF wraps the render in a div that gets alignfull — make our section fill it */
+.editor-styles-wrapper .wp-block-acf-image-form {
+	max-width: none !important;
+}
+
+.editor-styles-wrapper .ble-image-form__image,
+.editor-styles-wrapper .ble-image-form__content {
+	opacity: 1 !important;
+	transform: none !important;
+	transition: none !important;
+}

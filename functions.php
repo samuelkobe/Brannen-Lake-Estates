@@ -23,6 +23,10 @@ require_once get_stylesheet_directory() . '/inc/setup.php';
 require_once get_stylesheet_directory() . '/inc/blocks.php';
 require_once get_stylesheet_directory() . '/inc/schema.php';
 require_once get_stylesheet_directory() . '/inc/editor-resizable-sidebar.php';
+require_once get_stylesheet_directory() . '/inc/acf-json.php';
+require_once get_stylesheet_directory() . '/inc/class-nav-walker.php';
+require_once get_stylesheet_directory() . '/inc/header-block.php';
+require_once get_stylesheet_directory() . '/inc/footer-block.php';
 
 /**
  * Enqueue compiled theme assets and block view scripts.
@@ -59,8 +63,17 @@ function enqueue_assets(): void {
 		$version
 	);
 
+	// Navigation — header scroll behavior + mobile drawer.
+	\wp_enqueue_script_module(
+		'ble-navigation',
+		$theme_uri . '/dist/assets/js/navigation.js',
+		[],
+		$version
+	);
+
 	// Hero view script — parallax + load animation.
-	if ( \has_block( 'acf/hero' ) ) {
+	// Also loaded for page-banner (shares the same parallax data attributes).
+	if ( \has_block( 'acf/hero' ) || \has_block( 'acf/page-banner' ) ) {
 		\wp_enqueue_script_module(
 			'ble-hero-view',
 			$theme_uri . '/dist/blocks/hero/view.js',

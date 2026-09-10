@@ -2,8 +2,9 @@
 /**
  * CTA Banner — ACF field group registration.
  *
- * Registering fields in PHP keeps them in version control.
- * Do not duplicate these in the WP Admin field group UI.
+ * Full-width call-to-action band. Eyebrow, heading, body text,
+ * and up to two buttons using ACF link fields for full
+ * accessibility control (url, title, target).
  *
  * @package WebOk\BrannenLakeEstates
  */
@@ -19,46 +20,43 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 	'title'  => 'CTA Banner',
 	'fields' => [
 		[
+			'key'          => 'field_ble_cta_banner_eyebrow',
+			'label'        => 'Eyebrow',
+			'name'         => 'eyebrow',
+			'type'         => 'text',
+			'instructions' => 'Small uppercase label above the heading. Optional.',
+		],
+		[
 			'key'          => 'field_ble_cta_banner_heading',
 			'label'        => 'Heading',
 			'name'         => 'heading',
 			'type'         => 'text',
 			'required'     => 1,
-			'instructions' => 'The main headline. Displayed in Cormorant Garamond.',
+			'instructions' => 'The main headline.',
 		],
 		[
 			'key'          => 'field_ble_cta_banner_subheading',
-			'label'        => 'Subheading',
+			'label'        => 'Body Text',
 			'name'         => 'subheading',
 			'type'         => 'textarea',
 			'rows'         => 3,
 			'instructions' => 'Optional supporting text beneath the heading.',
 		],
 		[
-			'key'          => 'field_ble_cta_banner_primary_label',
-			'label'        => 'Primary Button Label',
-			'name'         => 'primary_cta_label',
-			'type'         => 'text',
-			'instructions' => 'e.g. "Inquire Now" or "Check Availability".',
+			'key'           => 'field_ble_cta_banner_primary_cta',
+			'label'         => 'Primary Button',
+			'name'          => 'primary_cta',
+			'type'          => 'link',
+			'return_format' => 'array',
+			'instructions'  => 'Main call to action. Set the Title field for the aria-label.',
 		],
 		[
-			'key'  => 'field_ble_cta_banner_primary_url',
-			'label' => 'Primary Button URL',
-			'name' => 'primary_cta_url',
-			'type' => 'url',
-		],
-		[
-			'key'          => 'field_ble_cta_banner_secondary_label',
-			'label'        => 'Secondary Button Label',
-			'name'         => 'secondary_cta_label',
-			'type'         => 'text',
-			'instructions' => 'Optional. Displayed as a quieter text link.',
-		],
-		[
-			'key'  => 'field_ble_cta_banner_secondary_url',
-			'label' => 'Secondary Button URL',
-			'name' => 'secondary_cta_url',
-			'type' => 'url',
+			'key'           => 'field_ble_cta_banner_secondary_cta',
+			'label'         => 'Secondary Button',
+			'name'          => 'secondary_cta',
+			'type'          => 'link',
+			'return_format' => 'array',
+			'instructions'  => 'Optional. Displayed as a quieter text link. Set the Title field for the aria-label.',
 		],
 	],
 	'location' => [

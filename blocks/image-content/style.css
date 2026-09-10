@@ -1,0 +1,90 @@
+/*
+ * Image + Content — block styles.
+ *
+ * Two-column layout with image and text.
+ * Tailwind handles grid, spacing, and colour.
+ * This file: typography sizing, transitions, hover states.
+ */
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+
+.ble-image-content__heading {
+	font-size: clamp(2rem, 4vw, 3rem);
+	letter-spacing: -0.01em;
+}
+
+.ble-image-content__eyebrow {
+	position: relative;
+	padding-bottom: 1.5rem;
+}
+
+.ble-image-content__eyebrow::after {
+	content: '';
+	display: block;
+	width: 3rem;
+	height: 1px;
+	background-color: var(--color-champagne, #DDC7A9);
+	margin-top: 1.25rem;
+}
+
+/* ── Body paragraphs ─────────────────────────────────────────────────────── */
+
+.ble-image-content__body p + p {
+	margin-top: 1.25em;
+}
+
+/* ── Image ───────────────────────────────────────────────────────────────── */
+
+.ble-image-content__image img {
+	aspect-ratio: 4 / 3;
+}
+
+/* ── Button transitions ──────────────────────────────────────────────────── */
+
+.ble-image-content__btn {
+	font-weight: 500;
+	transition:
+		background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		color            0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+		transform        0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.ble-image-content__btn:hover {
+	background-color: var(--color-sage, #6B7C5E);
+	color: #ffffff;
+}
+
+.ble-image-content__btn:active {
+	transform: scale(0.98);
+}
+
+/* ── Responsive scaling ──────────────────────────────────────────────────── */
+
+@media (min-width: 1280px) {
+	.ble-image-content__heading {
+		font-size: 3.25rem;
+	}
+}
+
+@media (min-width: 1536px) {
+	.ble-image-content__heading {
+		font-size: 3.5rem;
+	}
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+	.ble-image-content__btn {
+		transition: none;
+	}
+}
+
+/* ── Block editor overrides ──────────────────────────────────────────────── */
+
+.editor-styles-wrapper .ble-image-content__image,
+.editor-styles-wrapper .ble-image-content__text {
+	opacity: 1 !important;
+	transform: none !important;
+	transition: none !important;
+}

@@ -1,0 +1,98 @@
+/* Venue Details block styles */
+
+.ble-venue-details__card {
+	background-color: var(--color-cream);
+	padding: 2.5rem 2rem;
+	border-radius: 4px;
+}
+
+/* Setting type badge */
+.ble-venue-details__type {
+	font-family: var(--font-sans);
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+	color: var(--color-sage);
+	margin-bottom: 1.5rem;
+}
+
+/* Stats row */
+.ble-venue-details__stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
+.ble-venue-details__stat {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--font-sans);
+	font-size: 0.9375rem;
+	font-weight: 400;
+	color: var(--color-charcoal);
+}
+
+.ble-venue-details__stat svg {
+	color: var(--color-sage);
+	flex-shrink: 0;
+}
+
+/* Divider */
+.ble-venue-details__divider {
+	border: none;
+	border-top: 1px solid var(--color-champagne);
+	margin: 0 0 1.5rem;
+}
+
+/* Features heading */
+.ble-venue-details__features-heading {
+	font-family: var(--font-sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--color-charcoal);
+	margin-bottom: 1rem;
+}
+
+/* Features grid */
+.ble-venue-details__features {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.75rem;
+}
+
+.ble-venue-details__feature {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.625rem;
+	font-family: var(--font-sans);
+	font-size: 0.9375rem;
+	font-weight: 300;
+	color: var(--color-charcoal);
+	line-height: 1.5;
+}
+
+.ble-venue-details__feature svg {
+	color: var(--color-sage);
+	flex-shrink: 0;
+	margin-top: 0.1875rem;
+}
+
+/* Desktop: 2-column features */
+@media (min-width: 768px) {
+	.ble-venue-details__card {
+		padding: 3rem 3.5rem;
+	}
+
+	.ble-venue-details__features {
+		grid-template-columns: 1fr 1fr;
+	}
+}

@@ -22,7 +22,7 @@ if ( ! $heading ) {
 	return;
 }
 ?>
-<section class="ble-welcome-intro py-24 lg:py-32 px-6" aria-labelledby="ble-welcome-heading">
+<section class="ble-welcome-intro px-6" aria-labelledby="ble-welcome-heading">
 	<div class="max-w-3xl mx-auto text-center" data-ble-reveal>
 
 		<?php if ( $eyebrow ) : ?>

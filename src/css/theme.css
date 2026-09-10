@@ -15,20 +15,20 @@
  * Update both here and in theme.json if colours or fonts change.
  */
 @theme {
-	/* Colour palette */
-	--color-ivory:      #FAF7F2;
-	--color-cream:      #F2EBE0;
-	--color-champagne:  #DDC7A9;
-	--color-taupe:      #B5A898;
-	--color-sage:       #6B7C5E;
-	--color-charcoal:   #2C2A27;
+  /* Colour palette */
+  --color-ivory: #faf7f2;
+  --color-cream: #f2ebe0;
+  --color-champagne: #ddc7a9;
+  --color-taupe: #b5a898;
+  --color-sage: #6b7c5e;
+  --color-charcoal: #2c2a27;
 
-	/* Typography */
-	--font-serif: 'Cormorant Garamond', serif;
-	--font-sans:  'DM Sans', sans-serif;
+  /* Typography */
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "DM Sans", sans-serif;
 
-	/* Easing — used in CSS transitions and JS motion */
-	--ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Easing — used in CSS transitions and JS motion */
+  --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /*
@@ -36,18 +36,20 @@
  * Tailwind's base layer doesn't override them.
  */
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-	font-family: var(--font-sans);
-	color: var(--color-charcoal);
-	background-color: var(--color-ivory);
-	-webkit-font-smoothing: antialiased;
+  font-family: var(--font-sans);
+  color: var(--color-charcoal);
+  background-color: var(--color-ivory);
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
-	font-family: var(--font-serif);
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
 }
 
 /*
@@ -55,11 +57,13 @@ h1, h2, h3 {
  * Block view.ts files also check this before adding motion classes.
  */
 @media (prefers-reduced-motion: reduce) {
-	*, *::before, *::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-	}
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /*
@@ -71,35 +75,1095 @@ h1, h2, h3 {
  */
 
 [data-ble-reveal] {
-	opacity: 0;
-	transform: translateY(16px);
-	transition:
-		opacity   0.8s var(--ease-luxury),
-		transform 0.8s var(--ease-luxury);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s var(--ease-luxury),
+    transform 0.8s var(--ease-luxury);
 }
 
 [data-ble-reveal].is-revealed {
-	opacity: 1;
-	transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*
+ * Block section spacing — owned here, not via Tailwind utilities.
+ * This gives us cascade control for the adjacent-block collapse below.
+ */
+.ble-welcome-intro,
+.ble-venue-cards,
+.ble-gallery-grid,
+.ble-testimonial,
+.ble-image-content,
+.ble-image-form,
+.ble-faq,
+.ble-venue-details,
+.ble-photographer-credits {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .ble-welcome-intro,
+  .ble-venue-cards,
+  .ble-gallery-grid,
+  .ble-testimonial,
+  .ble-image-content,
+  .ble-image-form,
+  .ble-faq,
+  .ble-venue-details,
+  .ble-photographer-credits {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/*
+ * Adjacent ivory-background blocks — collapse doubled spacing.
+ *
+ * When two ivory blocks stack, the combined bottom+gap+top creates
+ * a visually doubled gap. Remove the second block's top padding
+ * so only the first block's bottom padding remains.
+ *
+ * Two selector tiers: one for ACF wrapper divs (margin/blockGap),
+ * one for the sections directly (padding), covering both DOM shapes.
+ */
+
+/* Wrapper-level: kill WordPress blockGap margin */
+:is(
+    .wp-block-acf-welcome-intro,
+    .wp-block-acf-venue-cards,
+    .wp-block-acf-gallery-grid,
+    .wp-block-acf-testimonial,
+    .wp-block-acf-image-content,
+    .wp-block-acf-image-form,
+    .wp-block-acf-faq,
+    .wp-block-acf-venue-details,
+    .wp-block-acf-photographer-credits
+  )
+  + :is(
+    .wp-block-acf-welcome-intro,
+    .wp-block-acf-venue-cards,
+    .wp-block-acf-gallery-grid,
+    .wp-block-acf-testimonial,
+    .wp-block-acf-image-content,
+    .wp-block-acf-image-form,
+    .wp-block-acf-faq,
+    .wp-block-acf-venue-details,
+    .wp-block-acf-photographer-credits
+  ) {
+  margin-block-start: 0;
+}
+
+/* Section-level: collapse top padding when sections are direct siblings */
+:is(
+    .ble-welcome-intro,
+    .ble-venue-cards,
+    .ble-gallery-grid,
+    .ble-testimonial,
+    .ble-image-content,
+    .ble-image-form,
+    .ble-faq,
+    .ble-venue-details,
+    .ble-photographer-credits
+  )
+  + :is(
+    .ble-welcome-intro,
+    .ble-venue-cards,
+    .ble-gallery-grid,
+    .ble-testimonial,
+    .ble-image-content,
+    .ble-image-form,
+    .ble-faq,
+    .ble-venue-details,
+    .ble-photographer-credits
+  ) {
+  padding-top: 0;
+}
+
+/*
+ * Restore spacing when Image + Form has a non-default background.
+ * The colour change creates a visual boundary, so spacing should not collapse.
+ * Double-class specificity (0,2,0) matches the collapse rule; source order wins.
+ */
+
+/* Section-level: restore padding on the colored block itself */
+.ble-image-form.ble-image-form--cream,
+.ble-image-form.ble-image-form--sage,
+.ble-image-form.ble-image-form--charcoal {
+  padding-top: 6rem;
+}
+
+/* Section-level: restore padding on the next sibling after a colored block */
+:is(
+    .ble-image-form--cream,
+    .ble-image-form--sage,
+    .ble-image-form--charcoal
+  )
+  + :is(
+    .ble-welcome-intro,
+    .ble-venue-cards,
+    .ble-gallery-grid,
+    .ble-testimonial,
+    .ble-image-content,
+    .ble-image-form,
+    .ble-faq,
+    .ble-venue-details,
+    .ble-photographer-credits
+  ) {
+  padding-top: 6rem;
+}
+
+/* Wrapper-level: restore blockGap margin on colored block and its next sibling */
+.wp-block-acf-image-form:has(
+    .ble-image-form--cream,
+    .ble-image-form--sage,
+    .ble-image-form--charcoal
+  ),
+.wp-block-acf-image-form:has(
+    .ble-image-form--cream,
+    .ble-image-form--sage,
+    .ble-image-form--charcoal
+  )
+  + * {
+  margin-block-start: var(--wp--style--block-gap, 1.5rem);
+}
+
+@media (min-width: 1024px) {
+  .ble-image-form.ble-image-form--cream,
+  .ble-image-form.ble-image-form--sage,
+  .ble-image-form.ble-image-form--charcoal {
+    padding-top: 8rem;
+  }
+
+  :is(
+      .ble-image-form--cream,
+      .ble-image-form--sage,
+      .ble-image-form--charcoal
+    )
+    + :is(
+      .ble-welcome-intro,
+      .ble-venue-cards,
+      .ble-gallery-grid,
+      .ble-testimonial,
+      .ble-image-content,
+      .ble-image-form,
+      .ble-faq,
+      .ble-venue-details,
+      .ble-photographer-credits
+    ) {
+    padding-top: 8rem;
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+/* Remove block gap above header template part. */
+.wp-block-template-part:has(.ble-header) {
+  margin-block-start: 0 !important;
+}
+
+/* Skip link */
+.ble-header__skip {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
+  background-color: var(--color-sage);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: top 0.2s ease;
+}
+
+.ble-header__skip:focus {
+  top: 1rem;
+}
+
+/* Header base */
+.ble-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  transition:
+    transform 0.5s ease-out,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  transform: translateY(-100%);
+}
+
+.ble-header--ready {
+  transform: translateY(0);
+}
+
+.ble-header--hidden {
+  transform: translateY(-100%);
+}
+
+/* Skip entrance transition for internal nav or refresh-while-scrolled */
+.ble-header--no-transition,
+.ble-header--no-transition * {
+  transition: none !important;
+}
+
+/* Spacer — reserves space for the fixed header on interior pages */
+.ble-header__spacer {
+  height: 5rem; /* matches .ble-header__inner height */
+}
+
+/* Inner layout */
+.ble-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 5rem;
+  position: relative;
+  z-index: 51;
+}
+
+/* ── Header variants ─────────────────────────────────────────────────────── */
+
+/* Transparent (home page, top of page) */
+.ble-header--transparent {
+  background-color: transparent;
+}
+
+.ble-header--transparent .ble-header__menu > li > a,
+.ble-header--transparent .ble-header__menu > li > button {
+  color: #ffffff;
+}
+
+.ble-header--transparent .ble-header__hamburger-box span {
+  background-color: #ffffff;
+}
+
+.ble-header--transparent .ble-header__logo-img {
+  filter: brightness(0) invert(1);
+}
+
+.ble-header--transparent .ble-header__site-name {
+  color: #ffffff;
+}
+
+/* Larger logo + name at top of home page — desktop only */
+@media (min-width: 1024px) {
+  .ble-header--transparent .ble-header__inner {
+    height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .ble-header--transparent .ble-header__logo a img.ble-header__logo-img {
+    height: 10rem;
+  }
+
+  .ble-header--transparent .ble-header__site-name {
+    font-size: 2.25rem;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* Solid (scrolled or interior pages) */
+.ble-header--solid {
+  background-color: var(--color-ivory);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.ble-header--solid .ble-header__menu > li > a,
+.ble-header--solid .ble-header__menu > li > button {
+  color: var(--color-charcoal);
+}
+
+.ble-header--solid .ble-header__hamburger-box span {
+  background-color: var(--color-charcoal);
+}
+
+.ble-header--solid .ble-header__site-name {
+  color: var(--color-charcoal);
+}
+
+/* ── Logo ────────────────────────────────────────────────────────────────── */
+
+.ble-header__logo {
+  flex-shrink: 0;
+}
+
+.ble-header__logo a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.ble-header__logo a img.ble-header__logo-img {
+  display: block;
+  height: 4rem;
+  width: auto;
+  max-height: none;
+  transition:
+    height 0.3s ease,
+    filter 0.3s ease;
+}
+
+.ble-header__logo--small .ble-header__logo-img {
+  height: 3.125rem;
+}
+
+.ble-header__site-name {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-charcoal);
+  line-height: 1.2;
+  transition:
+    color 0.3s ease,
+    font-size 0.3s ease;
+}
+
+@media (min-width: 1280px) {
+  .ble-header__site-name {
+    font-size: 1.3125rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-header__site-name {
+    font-size: 1.4375rem;
+  }
+}
+
+/* Hide site name on small mobile, show emblem + name from 480px up */
+@media (max-width: 479px) {
+  .ble-header__site-name {
+    display: none;
+  }
+}
+
+.ble-header__site-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+/* ── Desktop navigation ──────────────────────────────────────────────────── */
+
+.ble-header__nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ble-header__nav {
+    display: flex;
+  }
+}
+
+.ble-header__menu {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ble-header__menu > li {
+  position: relative;
+}
+
+.ble-header__menu > li.menu-item-has-children {
+  display: flex;
+  align-items: center;
+}
+
+.ble-header__menu > li > a {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.ble-header__menu > li > a:hover {
+  opacity: 0.7;
+}
+
+/* Reduce right padding on parent links (chevron follows) */
+.ble-header__menu > li.menu-item-has-children > a {
+  padding-right: 0.25rem;
+}
+
+/* Chevron toggle button */
+.ble-header__menu > li > button[data-ble-submenu-toggle] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.ble-header__menu > li > button[data-ble-submenu-toggle]:hover {
+  opacity: 0.7;
+}
+
+.ble-header__menu > li > button[data-ble-submenu-toggle] svg {
+  transition: transform 0.3s ease;
+}
+
+.ble-header__menu > li > button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* ── Desktop dropdown ────────────────────────────────────────────────────── */
+
+.ble-header__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background-color: var(--color-ivory);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin: 0;
+  z-index: 60;
+}
+
+.ble-header__dropdown:not([hidden]) {
+  animation: ble-dropdown-in 0.2s ease-out;
+}
+
+@keyframes ble-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ble-header__dropdown li a {
+  display: block;
+  padding: 0.625rem 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.ble-header__dropdown li a:hover {
+  background-color: var(--color-cream);
+  color: var(--color-sage);
+}
+
+/* ── CTA button (Book Now) ───────────────────────────────────────────────── */
+
+.ble-header__menu > .ble-header__cta {
+  margin-left: 0.5rem;
+}
+
+.ble-header__cta-link {
+  position: relative;
+  color: #ffffff !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 2px;
+  border: 2px solid var(--color-sage);
+  background: transparent;
+  z-index: 0;
+  transition:
+    color 0.5s ease,
+    border-color 0.5s ease;
+}
+
+/* Sage fill lives on a pseudo-element so we can fade it with opacity */
+.ble-header__cta-link::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background-color: var(--color-sage);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.ble-header__cta-link:hover {
+  color: var(--color-sage) !important;
+  border-color: var(--color-sage);
+  opacity: 1 !important;
+}
+
+.ble-header__cta-link:hover::before {
+  opacity: 0;
+}
+
+/* Transparent header: CTA keeps sage bg (stands out against hero) */
+.ble-header--transparent .ble-header__cta-link {
+  color: #ffffff !important;
+  border-color: var(--color-sage);
+}
+
+.ble-header--transparent .ble-header__cta-link:hover {
+  color: #ffffff !important;
+  border-color: #ffffff;
+}
+
+.ble-header--transparent .ble-header__cta-link:hover::before {
+  opacity: 0;
+}
+
+/* ── Hamburger (mobile) ──────────────────────────────────────────────────── */
+
+.ble-header__hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .ble-header__hamburger {
+    display: none;
+  }
+}
+
+.ble-header__hamburger-box {
+  position: relative;
+  width: 1.5rem;
+  height: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ble-header__hamburger-box span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animate to X */
+.ble-header__hamburger[aria-expanded="true"]
+  .ble-header__hamburger-box
+  span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.ble-header__hamburger[aria-expanded="true"]
+  .ble-header__hamburger-box
+  span:nth-child(2) {
+  opacity: 0;
+}
+
+.ble-header__hamburger[aria-expanded="true"]
+  .ble-header__hamburger-box
+  span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ── Mobile drawer ───────────────────────────────────────────────────────── */
+
+.ble-header__drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background-color: var(--color-ivory);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+  z-index: 45;
+  padding-top: 5rem;
+}
+
+.ble-header__drawer:not([hidden]) {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Mobile nav menu */
+.ble-header__mobile-menu {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ble-header__mobile-menu > li {
+  border-bottom: 1px solid var(--color-champagne);
+}
+
+.ble-header__mobile-menu > li.menu-item-has-children {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ble-header__mobile-menu > li > a {
+  display: block;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.ble-header__mobile-menu > li.menu-item-has-children > a {
+  flex: 1;
+}
+
+.ble-header__mobile-menu > li > a:active {
+  background-color: var(--color-cream);
+}
+
+/* Mobile submenu toggle */
+.ble-header__mobile-menu > li > button[data-ble-mobile-submenu-toggle] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  color: var(--color-charcoal);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ble-header__mobile-menu > li > button[data-ble-mobile-submenu-toggle] svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.ble-header__mobile-menu > li > button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* Mobile dropdown */
+.ble-header__mobile-dropdown {
+  width: 100%;
+  background-color: var(--color-cream);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ble-header__mobile-dropdown:not([hidden]) {
+  max-height: 500px;
+  padding: 0.5rem 0;
+}
+
+.ble-header__mobile-dropdown li a {
+  display: block;
+  padding: 0.75rem 1.5rem 0.75rem 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.ble-header__mobile-dropdown li a:active {
+  background-color: var(--color-ivory);
+  color: var(--color-sage);
+}
+
+/* Mobile CTA */
+.ble-header__mobile-menu > .ble-header__cta {
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+}
+
+.ble-header__mobile-menu > .ble-header__cta > .ble-header__cta-link {
+  display: block;
+  text-align: center;
+  background-color: var(--color-sage);
+  color: #ffffff !important;
+  padding: 0.875rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 2px solid var(--color-sage);
+  border-radius: 2px;
+  transition: opacity 0.3s ease;
+}
+
+/* Mobile CTA: no color swap — just a subtle press effect */
+.ble-header__mobile-menu > .ble-header__cta > .ble-header__cta-link::before {
+  display: none;
+}
+
+.ble-header__mobile-menu > .ble-header__cta > .ble-header__cta-link:hover,
+.ble-header__mobile-menu > .ble-header__cta > .ble-header__cta-link:active {
+  background-color: var(--color-sage);
+  color: #ffffff !important;
+  opacity: 0.85;
+}
+
+/* ── Focus styles ────────────────────────────────────────────────────────── */
+
+/* Kill default browser focus ring on click/tap — only show on keyboard nav */
+.ble-header button:focus,
+.ble-header a:focus {
+  outline: none;
+}
+
+.ble-header button:focus-visible,
+.ble-header a:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: -2px;
+}
+
+.ble-header--transparent button:focus-visible,
+.ble-header--transparent a:focus-visible {
+  outline-color: #ffffff;
+}
+
+.ble-header__dropdown a:focus-visible,
+.ble-header__drawer a:focus-visible,
+.ble-header__drawer button:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: -2px;
+}
+
+/* ── Scroll lock ─────────────────────────────────────────────────────────── */
+
+body.scroll-locked {
+  overflow: hidden;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Admin bar adjustments ───────────────────────────────────────────────── */
+
+.admin-bar .ble-header {
+  top: 32px;
+}
+
+@media (max-width: 782px) {
+  .admin-bar .ble-header {
+    top: 46px;
+  }
+}
+
+.admin-bar .ble-header__drawer {
+  padding-top: calc(5rem + 32px);
+}
+
+@media (max-width: 782px) {
+  .admin-bar .ble-header__drawer {
+    padding-top: calc(5rem + 46px);
+  }
 }
 
 /* Editor: show all reveal elements immediately — no JS runs in the iframe. */
 .editor-styles-wrapper [data-ble-reveal] {
-	opacity: 1 !important;
-	transform: none !important;
-	transition: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 /* Editor: give our ACF blocks more room without touching Gutenberg's layout. */
-.editor-styles-wrapper .wp-block-acf-welcome-intro,
-.editor-styles-wrapper .wp-block-acf-cta-banner {
-	max-width: 1080px !important;
-	margin-inline: auto;
+.editor-styles-wrapper .wp-block-acf-welcome-intro {
+  max-width: 1080px !important;
+  margin-inline: auto;
 }
 
-.editor-styles-wrapper .wp-block-acf-venue-cards {
-	max-width: 1280px !important;
-	margin-inline: auto;
+.editor-styles-wrapper .wp-block-acf-venue-cards,
+.editor-styles-wrapper .wp-block-acf-image-content,
+.editor-styles-wrapper .wp-block-acf-image-form {
+  max-width: 1280px !important;
+  margin-inline: auto;
+}
+
+/* Full-width blocks in the editor. */
+.editor-styles-wrapper .wp-block-acf-cta-banner,
+.editor-styles-wrapper .wp-block-acf-page-banner {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Editor: prevent links inside blocks from navigating away. */
+.editor-styles-wrapper [class*="ble-"] a {
+  pointer-events: none;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+
+.ble-footer {
+  background-color: var(--color-charcoal);
+  color: var(--color-ivory);
+  padding: 8rem 1.5rem 2rem;
+}
+
+/* Remove block gap above footer template part. */
+.wp-block-template-part:has(.ble-footer) {
+  margin-block-start: 0 !important;
+}
+
+.ble-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Row 1: Brand + Nav */
+.ble-footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.ble-footer__title {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 3.25rem;
+  line-height: 1.2;
+}
+
+.ble-footer__title a {
+  color: var(--color-ivory);
+  text-decoration: none;
+}
+
+.ble-footer__tagline {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--color-champagne);
+  margin-top: 0.5rem;
+}
+
+/* Nav columns */
+.ble-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.ble-footer__col-heading {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-champagne);
+  margin-bottom: 1.25rem;
+}
+
+.ble-footer__menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ble-footer__menu li {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.ble-footer__menu li a {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--color-ivory);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ble-footer__menu li a:hover {
+  color: var(--color-champagne);
+}
+
+/* Separator */
+.ble-footer__rule {
+  border: none;
+  height: 1px;
+  background-color: #3d3b38;
+  margin: 2.5rem 0;
+}
+
+/* Logo */
+.ble-footer__logo-img {
+  width: auto;
+  height: 8rem;
+  object-fit: contain;
+  mix-blend-mode: color-dodge;
+}
+
+/* Row 2: NAP + Socials */
+.ble-footer__middle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.ble-footer__nap-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ble-footer__nap p {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  color: var(--color-taupe);
+  margin: 0;
+  line-height: 1.8;
+}
+
+.ble-footer__nap a {
+  color: var(--color-taupe);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ble-footer__nap a:hover {
+  color: var(--color-ivory);
+}
+
+.ble-footer__dot {
+  margin: 0 0.75rem;
+  opacity: 0.5;
+}
+
+/* Social icons */
+.ble-footer__social {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.ble-footer__social a {
+  color: var(--color-ivory);
+  transition: color 0.3s ease;
+}
+
+.ble-footer__social a:hover {
+  color: var(--color-champagne);
+}
+
+/* Row 3: Copyright */
+.ble-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ble-footer__bottom p {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-taupe);
+  margin: 0;
+}
+
+.ble-footer__bottom a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ble-footer__bottom a:hover {
+  color: var(--color-champagne);
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 767px) {
+  .ble-footer {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .ble-footer__top {
+    flex-direction: column;
+  }
+
+  .ble-footer__middle {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ble-footer__logo-img {
+    height: 5rem;
+  }
+
+  .ble-footer__bottom {
+    flex-direction: column;
+  }
 }
 
 /*

@@ -21,8 +21,10 @@ function setup(): void {
 
 	\register_nav_menus(
 		[
-			'primary' => \__( 'Primary Navigation', 'brannen-lake-estates' ),
-			'footer'  => \__( 'Footer Navigation', 'brannen-lake-estates' ),
+			'primary'  => \__( 'Primary Navigation', 'brannen-lake-estates' ),
+			'footer-1' => \__( 'Footer Column 1', 'brannen-lake-estates' ),
+			'footer-2' => \__( 'Footer Column 2', 'brannen-lake-estates' ),
+			'footer-3' => \__( 'Footer Column 3', 'brannen-lake-estates' ),
 		]
 	);
 
@@ -33,7 +35,15 @@ function setup(): void {
 	\add_editor_style( 'blocks/hero/style.css' );
 	\add_editor_style( 'blocks/welcome-intro/style.css' );
 	\add_editor_style( 'blocks/venue-cards/style.css' );
+	\add_editor_style( 'blocks/gallery-grid/style.css' );
+	\add_editor_style( 'blocks/testimonial/style.css' );
+	\add_editor_style( 'blocks/page-banner/style.css' );
 	\add_editor_style( 'blocks/cta-banner/style.css' );
+	\add_editor_style( 'blocks/image-content/style.css' );
+	\add_editor_style( 'blocks/image-form/style.css' );
+	\add_editor_style( 'blocks/faq/style.css' );
+	\add_editor_style( 'blocks/venue-details/style.css' );
+	\add_editor_style( 'blocks/photographer-credits/style.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 

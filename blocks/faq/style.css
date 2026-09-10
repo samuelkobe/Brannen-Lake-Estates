@@ -1,0 +1,122 @@
+/* FAQ block styles */
+
+.ble-faq__heading {
+	font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+/* Accordion list */
+.ble-faq__list {
+	border-top: 1px solid var(--color-champagne);
+}
+
+/* Each item */
+.ble-faq__item {
+	border-bottom: 1px solid var(--color-champagne);
+}
+
+/* Summary (question row) */
+.ble-faq__question {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1.25rem 0;
+	cursor: pointer;
+	list-style: none;
+	font-family: var(--font-sans);
+	font-size: 1.0625rem;
+	font-weight: 500;
+	color: var(--color-charcoal);
+	transition: color 0.2s ease;
+}
+
+/* Remove default marker in all browsers */
+.ble-faq__question::-webkit-details-marker {
+	display: none;
+}
+
+.ble-faq__question::marker {
+	display: none;
+	content: '';
+}
+
+.ble-faq__question:hover {
+	color: var(--color-sage);
+}
+
+/* Question text */
+.ble-faq__question-text {
+	flex: 1;
+}
+
+/* Plus/minus icon */
+.ble-faq__icon {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	color: var(--color-sage);
+}
+
+.ble-faq__icon svg {
+	transition: transform 0.3s ease;
+}
+
+/* Rotate vertical line to 0 when open (+ becomes –) */
+.ble-faq__icon-vertical {
+	transition: transform 0.3s ease, opacity 0.3s ease;
+	transform-origin: center;
+}
+
+details[open] .ble-faq__icon-vertical {
+	opacity: 0;
+	transform: rotate(90deg);
+}
+
+/* Answer content */
+.ble-faq__answer {
+	padding: 0 0 1.5rem;
+	font-family: var(--font-sans);
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: 1.75;
+	color: var(--color-charcoal);
+}
+
+.ble-faq__answer p {
+	margin-bottom: 0.75rem;
+}
+
+.ble-faq__answer p:last-child {
+	margin-bottom: 0;
+}
+
+.ble-faq__answer a {
+	color: var(--color-sage);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.ble-faq__answer a:hover {
+	color: var(--color-charcoal);
+}
+
+/* Focus styles */
+.ble-faq__question:focus {
+	outline: none;
+}
+
+.ble-faq__question:focus-visible {
+	outline: 2px solid var(--color-sage);
+	outline-offset: -2px;
+	border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+	.ble-faq__question {
+		padding: 1.5rem 0;
+		font-size: 1.125rem;
+	}
+}

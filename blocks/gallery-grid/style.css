@@ -1,0 +1,118 @@
+/*
+ * Gallery Grid — block styles.
+ *
+ * Masonry layout via CSS columns.
+ * 1 col (mobile) → 3 col (tablet) → 4 col (desktop).
+ * On mobile, items marked --desktop-only are hidden to keep scroll short.
+ */
+
+/* ── Section heading ────────────────────────────────────────────────────── */
+
+.ble-gallery-grid__heading {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.01em;
+}
+
+/* ── Eyebrow decorative rule ────────────────────────────────────────────── */
+
+.ble-gallery-grid__eyebrow {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.ble-gallery-grid__eyebrow::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background-color: var(--color-champagne, #DDC7A9);
+  margin: 1.25rem auto 0;
+}
+
+/* ── Masonry layout ─────────────────────────────────────────────────────── */
+
+.ble-gallery-grid__masonry {
+  columns: 1;
+  column-gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .ble-gallery-grid__masonry {
+    columns: 3;
+    column-gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ble-gallery-grid__masonry {
+    columns: 4;
+    column-gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .ble-gallery-grid__masonry {
+    column-gap: 1.75rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-gallery-grid__masonry {
+    column-gap: 2rem;
+  }
+
+  .ble-gallery-grid__heading {
+    font-size: 3.75rem;
+  }
+}
+
+/* ── Individual item ────────────────────────────────────────────────────── */
+
+.ble-gallery-grid__item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .ble-gallery-grid__item {
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ble-gallery-grid__item {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ── Image ──────────────────────────────────────────────────────────────── */
+
+.ble-gallery-grid__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ── Mobile: hide desktop-only items ────────────────────────────────────── */
+
+@media (max-width: 639px) {
+  .ble-gallery-grid__item--desktop-only {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ble-gallery-grid__image {
+    transition: none;
+  }
+}
+
+/* ── Block editor overrides ─────────────────────────────────────────────── */
+
+.editor-styles-wrapper .ble-gallery-grid__item--desktop-only {
+  display: block;
+  opacity: 0.5;
+}
