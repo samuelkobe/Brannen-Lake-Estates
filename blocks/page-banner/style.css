@@ -53,6 +53,58 @@
   inset: 0;
 }
 
+/* ── Breadcrumbs ───────────────────────────────────────────────────────── */
+
+.ble-page-banner__breadcrumbs {
+  margin-bottom: 1.25rem;
+}
+
+.ble-page-banner__breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ble-page-banner__breadcrumbs li {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1;
+}
+
+.ble-page-banner__breadcrumbs li + li::before {
+  content: "/";
+  margin: 0 0.5rem;
+  opacity: 0.4;
+}
+
+.ble-page-banner__breadcrumbs a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ble-page-banner__breadcrumbs a:hover {
+  color: #ffffff;
+}
+
+.ble-page-banner__breadcrumbs a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.ble-page-banner__breadcrumbs [aria-current="page"] span {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
 /* ── Typography ─────────────────────────────────────────────────────────── */
 
 .ble-page-banner__heading {

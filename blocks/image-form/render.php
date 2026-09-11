@@ -15,6 +15,7 @@ namespace WebOk\BrannenLakeEstates;
 $image          = \get_field( 'image' );
 $image_position = \get_field( 'image_position' ) ?: 'left';
 $bg_color       = \get_field( 'bg_color' ) ?: 'ivory';
+$anchor_id      = \get_field( 'anchor_id' );
 $eyebrow        = \get_field( 'eyebrow' );
 $heading        = \get_field( 'heading' );
 $description    = \get_field( 'description' );
@@ -34,6 +35,7 @@ $is_right = $image_position === 'right';
 $uid = 'ble-image-form-' . ( $block['id'] ?? wp_unique_id() );
 ?>
 <section
+	<?php if ( $anchor_id ) : ?>id="<?= \esc_attr( \sanitize_title( $anchor_id ) ); ?>"<?php endif; ?>
 	class="ble-image-form ble-image-form--<?= \esc_attr( $bg_color ); ?> px-6"
 	aria-labelledby="<?= \esc_attr( $uid ); ?>"
 >

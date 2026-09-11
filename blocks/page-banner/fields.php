@@ -43,6 +43,15 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'instructions'  => 'Full-bleed banner image. Minimum 1920px wide. Write descriptive alt text.',
 		],
 		[
+			'key'           => 'field_ble_page_banner_show_breadcrumbs',
+			'label'         => 'Show Breadcrumbs',
+			'name'          => 'show_breadcrumbs',
+			'type'          => 'true_false',
+			'default_value' => 1,
+			'ui'            => 1,
+			'instructions'  => 'Display breadcrumb navigation above the heading.',
+		],
+		[
 			'key'           => 'field_ble_page_banner_overlay_color',
 			'label'         => 'Overlay Colour',
 			'name'          => 'overlay_color',

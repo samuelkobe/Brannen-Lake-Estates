@@ -77,3 +77,17 @@ $mobile_keys  = (array) array_rand( $images, $mobile_limit );
 
 	</div>
 </section>
+<?php
+// ImageGallery structured data.
+$gallery_schema = [
+	'@context' => 'https://schema.org',
+	'@type'    => 'ImageGallery',
+	'name'     => $heading,
+	'url'      => \get_permalink(),
+	'image'    => \array_map(
+		fn( $img ) => $img['sizes']['large'] ?? $img['url'],
+		$images
+	),
+];
+?>
+<script type="application/ld+json"><?= \wp_json_encode( $gallery_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); ?></script>

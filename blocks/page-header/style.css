@@ -1,0 +1,128 @@
+/* Page Header block styles */
+
+/* ── Container ─────────────────────────────────────────────────────────── */
+
+.ble-page-header {
+  background-color: var(--color-ivory);
+  padding-top: 7rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .ble-page-header {
+    padding-top: 8rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ble-page-header {
+    padding-top: 9rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ── Alignment variants ────────────────────────────────────────────────── */
+
+.ble-page-header--center {
+  text-align: center;
+}
+
+.ble-page-header--left {
+  text-align: left;
+}
+
+/* ── Breadcrumbs ───────────────────────────────────────────────────────── */
+
+.ble-page-header__breadcrumbs {
+  margin-bottom: 1.5rem;
+}
+
+.ble-page-header__breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ble-page-header--center .ble-page-header__breadcrumbs ol {
+  justify-content: center;
+}
+
+.ble-page-header__breadcrumbs li {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--color-taupe);
+  line-height: 1;
+}
+
+.ble-page-header__breadcrumbs li + li::before {
+  content: "/";
+  margin: 0 0.5rem;
+  opacity: 0.5;
+}
+
+.ble-page-header__breadcrumbs a {
+  color: var(--color-taupe);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ble-page-header__breadcrumbs a:hover {
+  color: var(--color-sage);
+}
+
+.ble-page-header__breadcrumbs a:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: 2px;
+}
+
+.ble-page-header__breadcrumbs [aria-current="page"] span {
+  color: var(--color-charcoal);
+  font-weight: 500;
+}
+
+/* ── Heading ───────────────────────────────────────────────────────────── */
+
+.ble-page-header__heading {
+  font-size: clamp(2.75rem, 6vw, 4rem);
+  color: var(--color-charcoal);
+  margin: 0;
+}
+
+@media (min-width: 1280px) {
+  .ble-page-header__heading {
+    font-size: 4.5rem;
+  }
+}
+
+/* ── Tagline ───────────────────────────────────────────────────────────── */
+
+.ble-page-header__tagline {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-taupe);
+  max-width: 48ch;
+  margin: 1rem auto 0;
+}
+
+.ble-page-header--left .ble-page-header__tagline {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .ble-page-header__tagline {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ── Block editor overrides ────────────────────────────────────────────── */
+
+.editor-styles-wrapper .ble-page-header {
+  padding-top: 3rem !important;
+}

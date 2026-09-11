@@ -86,10 +86,10 @@
 /* ── Frosted glass container ─────────────────────────────────────────────── */
 
 .ble-hero__glass {
-  background: rgba(20, 18, 15, 0.35);
+  background: rgba(80, 76, 60, 0.2);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: clamp(2rem, 5vw, 4rem);
 }
 
@@ -171,6 +171,75 @@
   transform: scale(0.97);
 }
 
+/* ── Scroll-down arrow (hidden on desktop) ─────────────────────────────── */
+
+.ble-hero__scroll-arrow {
+  display: none;
+}
+
+/* ── Mobile: remove glass, full height, scroll arrow ───────────────────── */
+
+@media (max-width: 767px) {
+  .ble-hero {
+    min-height: 100svh;
+  }
+
+  .ble-hero__bg img {
+    object-position: center 30%;
+  }
+
+  .ble-hero__glass {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    padding: 0;
+  }
+
+  .ble-hero__content {
+    padding-bottom: 5rem;
+  }
+
+  .ble-hero__btn {
+    white-space: normal;
+  }
+
+  .ble-hero__scroll-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    margin-left: -1.2rem;
+    z-index: 20;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    background: rgba(20, 18, 15, 0.35);
+    color: #ffffff;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    animation: ble-hero-bounce 2s ease-in-out infinite;
+  }
+
+  .ble-hero__scroll-arrow:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+}
+
+@keyframes ble-hero-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
 /* ── Reduced motion ───────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
@@ -188,6 +257,22 @@
     transition:
       background-color 0.2s linear,
       color 0.2s linear;
+  }
+
+  .ble-hero__scroll-arrow {
+    animation: none;
+  }
+}
+
+/* ── Admin bar: push hero down so it doesn't peek above the header ──────── */
+
+.admin-bar .ble-hero {
+  margin-top: 32px;
+}
+
+@media (max-width: 782px) {
+  .admin-bar .ble-hero {
+    margin-top: 46px;
   }
 }
 

@@ -99,12 +99,13 @@ h3 {
 .ble-image-form,
 .ble-faq,
 .ble-venue-details,
-.ble-photographer-credits {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+.ble-photographer-credits,
+.ble-contact-details {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .ble-welcome-intro,
   .ble-venue-cards,
   .ble-gallery-grid,
@@ -113,9 +114,26 @@ h3 {
   .ble-image-form,
   .ble-faq,
   .ble-venue-details,
-  .ble-photographer-credits {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+  .ble-photographer-credits,
+  .ble-contact-details {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-welcome-intro,
+  .ble-venue-cards,
+  .ble-gallery-grid,
+  .ble-testimonial,
+  .ble-image-content,
+  .ble-image-form,
+  .ble-faq,
+  .ble-venue-details,
+  .ble-photographer-credits,
+  .ble-contact-details {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
 }
 
@@ -140,7 +158,9 @@ h3 {
     .wp-block-acf-image-form,
     .wp-block-acf-faq,
     .wp-block-acf-venue-details,
-    .wp-block-acf-photographer-credits
+    .wp-block-acf-photographer-credits,
+    .wp-block-acf-contact-details,
+    .wp-block-acf-page-header
   )
   + :is(
     .wp-block-acf-welcome-intro,
@@ -151,7 +171,8 @@ h3 {
     .wp-block-acf-image-form,
     .wp-block-acf-faq,
     .wp-block-acf-venue-details,
-    .wp-block-acf-photographer-credits
+    .wp-block-acf-photographer-credits,
+    .wp-block-acf-contact-details
   ) {
   margin-block-start: 0;
 }
@@ -166,7 +187,9 @@ h3 {
     .ble-image-form,
     .ble-faq,
     .ble-venue-details,
-    .ble-photographer-credits
+    .ble-photographer-credits,
+    .ble-contact-details,
+    .ble-page-header
   )
   + :is(
     .ble-welcome-intro,
@@ -177,7 +200,8 @@ h3 {
     .ble-image-form,
     .ble-faq,
     .ble-venue-details,
-    .ble-photographer-credits
+    .ble-photographer-credits,
+    .ble-contact-details
   ) {
   padding-top: 0;
 }
@@ -192,7 +216,7 @@ h3 {
 .ble-image-form.ble-image-form--cream,
 .ble-image-form.ble-image-form--sage,
 .ble-image-form.ble-image-form--charcoal {
-  padding-top: 6rem;
+  padding-top: 4rem;
 }
 
 /* Section-level: restore padding on the next sibling after a colored block */
@@ -212,7 +236,7 @@ h3 {
     .ble-venue-details,
     .ble-photographer-credits
   ) {
-  padding-top: 6rem;
+  padding-top: 4rem;
 }
 
 /* Wrapper-level: restore blockGap margin on colored block and its next sibling */
@@ -230,11 +254,11 @@ h3 {
   margin-block-start: var(--wp--style--block-gap, 1.5rem);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .ble-image-form.ble-image-form--cream,
   .ble-image-form.ble-image-form--sage,
   .ble-image-form.ble-image-form--charcoal {
-    padding-top: 8rem;
+    padding-top: 5rem;
   }
 
   :is(
@@ -253,7 +277,34 @@ h3 {
       .ble-venue-details,
       .ble-photographer-credits
     ) {
-    padding-top: 8rem;
+    padding-top: 5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .ble-image-form.ble-image-form--cream,
+  .ble-image-form.ble-image-form--sage,
+  .ble-image-form.ble-image-form--charcoal {
+    padding-top: 6rem;
+  }
+
+  :is(
+      .ble-image-form--cream,
+      .ble-image-form--sage,
+      .ble-image-form--charcoal
+    )
+    + :is(
+      .ble-welcome-intro,
+      .ble-venue-cards,
+      .ble-gallery-grid,
+      .ble-testimonial,
+      .ble-image-content,
+      .ble-image-form,
+      .ble-faq,
+      .ble-venue-details,
+      .ble-photographer-credits
+    ) {
+    padding-top: 6rem;
   }
 }
 
@@ -444,10 +495,10 @@ h3 {
   }
 }
 
-/* Hide site name on small mobile, show emblem + name from 480px up */
+/* Scale site name down on very small screens so it fits beside the logo */
 @media (max-width: 479px) {
   .ble-header__site-name {
-    display: none;
+    font-size: 1.125rem;
   }
 }
 
@@ -952,6 +1003,22 @@ body.scroll-locked {
   pointer-events: none;
 }
 
+/* ── Mobile button padding ─────────────────────────────────────────────────── */
+/*
+ * Buttons use Tailwind px-12 (3rem) inline — too wide on mobile, causing
+ * text wrapping. Override to 2rem on small screens.
+ */
+
+@media (max-width: 767px) {
+  .ble-hero__btn,
+  .ble-cta-banner__btn,
+  .ble-image-content__btn,
+  .ble-welcome-intro__btn {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
 /* ── Footer ───────────────────────────────────────────────────────────────── */
 
 .ble-footer {
@@ -1157,8 +1224,17 @@ body.scroll-locked {
     text-align: center;
   }
 
+  .ble-footer__nap-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ble-footer__nap {
+    text-align: center;
+  }
+
   .ble-footer__logo-img {
-    height: 5rem;
+    height: 7.5rem;
   }
 
   .ble-footer__bottom {

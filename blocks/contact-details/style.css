@@ -1,0 +1,112 @@
+/* Contact Details block styles */
+
+/* ── Grid layout ────────────────────────────────────────────────────────── */
+
+.ble-contact-details__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+	.ble-contact-details__grid {
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		align-items: center;
+	}
+}
+
+@media (min-width: 1024px) {
+	.ble-contact-details__grid {
+		gap: 4rem;
+	}
+}
+
+/* ── Info column ────────────────────────────────────────────────────────── */
+
+.ble-contact-details__heading {
+	font-size: clamp(1.75rem, 3vw, 2.5rem);
+	margin-bottom: 2rem;
+}
+
+.ble-contact-details__info {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+/* ── Item ───────────────────────────────────────────────────────────────── */
+
+.ble-contact-details__item {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	font-family: var(--font-sans);
+	font-size: 0.9375rem;
+	font-weight: 400;
+	color: var(--color-charcoal);
+	line-height: 1.5;
+}
+
+.ble-contact-details__item svg {
+	color: var(--color-sage);
+	flex-shrink: 0;
+	margin-top: 0.125rem;
+}
+
+/* ── Links ──────────────────────────────────────────────────────────────── */
+
+.ble-contact-details__link {
+	color: var(--color-charcoal);
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.ble-contact-details__link:hover {
+	color: var(--color-sage);
+}
+
+.ble-contact-details__link:focus {
+	outline: none;
+}
+
+.ble-contact-details__link:focus-visible {
+	outline: 2px solid var(--color-sage);
+	outline-offset: 2px;
+}
+
+/* ── Map column ─────────────────────────────────────────────────────────── */
+
+.ble-contact-details__map {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.ble-contact-details__map iframe {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+@media (min-width: 768px) {
+	.ble-contact-details__map {
+		aspect-ratio: 1 / 1;
+	}
+}
+
+@media (min-width: 1024px) {
+	.ble-contact-details__map {
+		aspect-ratio: 4 / 3;
+	}
+}
+
+/* ── Block editor overrides ─────────────────────────────────────────────── */
+
+.editor-styles-wrapper .ble-contact-details__info,
+.editor-styles-wrapper .ble-contact-details__map {
+	opacity: 1 !important;
+	transform: none !important;
+	transition: none !important;
+}

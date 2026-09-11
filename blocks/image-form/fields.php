@@ -16,6 +16,13 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 	'title'  => 'Image + Form',
 	'fields' => [
 		[
+			'key'          => 'field_ble_image_form_anchor_id',
+			'label'        => 'Anchor ID',
+			'name'         => 'anchor_id',
+			'type'         => 'text',
+			'instructions' => 'Optional. Used for anchor links (e.g. "photography-inquiry" lets you link to this block with #photography-inquiry). Lowercase, no spaces.',
+		],
+		[
 			'key'           => 'field_ble_image_form_bg_color',
 			'label'         => 'Background Colour',
 			'name'          => 'bg_color',

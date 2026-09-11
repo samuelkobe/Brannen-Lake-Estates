@@ -187,6 +187,30 @@ function register_blocks(): void {
 		'mode'            => 'preview',
 	] );
 
+	// ── Page Header ─────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-page-header',
+		$theme_uri . '/blocks/page-header/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'page-header',
+		'title'           => \__( 'Page Header', 'brannen-lake-estates' ),
+		'description'     => \__( 'Lightweight ivory-background page header with H1, optional tagline, and breadcrumbs. Use instead of Page Banner when no background image is needed.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'heading',
+		'keywords'        => [ 'header', 'page', 'h1', 'title', 'breadcrumb' ],
+		'render_template' => $theme_dir . '/blocks/page-header/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-page-header' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
 	// ── Image + Content ─────────────────────────────────────────────────────
 
 	\wp_register_style(
@@ -308,6 +332,30 @@ function register_blocks(): void {
 		'mode'            => 'preview',
 	] );
 
+	// ── Contact Details ─────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-contact-details',
+		$theme_uri . '/blocks/contact-details/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'contact-details',
+		'title'           => \__( 'Contact Details + Map', 'brannen-lake-estates' ),
+		'description'     => \__( 'Google Maps embed with address, phone, and email details.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'location-alt',
+		'keywords'        => [ 'contact', 'map', 'address', 'phone', 'email', 'nap' ],
+		'render_template' => $theme_dir . '/blocks/contact-details/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-contact-details' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
 	// ── CTA Banner ───────────────────────────────────────────────────────────
 
 	\wp_register_style(
@@ -351,12 +399,14 @@ function load_block_fields(): void {
 	require_once \get_stylesheet_directory() . '/blocks/gallery-grid/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/testimonial/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/page-banner/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/page-header/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/cta-banner/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/image-content/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/image-form/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/faq/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/venue-details/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/photographer-credits/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/contact-details/fields.php';
 }
 \add_action( 'acf/init', __NAMESPACE__ . '\\load_block_fields' );
 

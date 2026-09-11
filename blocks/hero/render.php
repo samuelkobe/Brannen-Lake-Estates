@@ -126,4 +126,15 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 		</div>
 	</div>
 
+	<?php /* ── Scroll-down indicator (mobile only) ──────────────────────── */ ?>
+	<button
+		class="ble-hero__scroll-arrow"
+		aria-label="<?= \esc_attr__( 'Scroll to content', 'brannen-lake-estates' ); ?>"
+		data-ble-scroll-next
+	>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<polyline points="6 9 12 15 18 9"/>
+		</svg>
+	</button>
+
 </section>

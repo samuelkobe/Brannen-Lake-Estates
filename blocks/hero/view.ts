@@ -1,13 +1,15 @@
 /**
  * Hero — view script.
  *
- * Two motion behaviours:
+ * Three behaviours:
  *   1. Load fade-in: adds .is-loaded to the hero section shortly after
  *      DOMContentLoaded, triggering the CSS glass container reveal.
  *   2. Parallax: translates the background image layer at 0.4× scroll
  *      speed, creating depth without aggressive movement.
+ *   3. Scroll-down arrow: on mobile, a circled chevron scrolls smoothly
+ *      to the next content block, offset by the fixed header height.
  *
- * Bails out entirely if prefers-reduced-motion is set.
+ * Motion (1 & 2) bails out if prefers-reduced-motion is set.
  * Does not run in the block editor (checks for wp-admin body class).
  */
 
@@ -88,3 +90,30 @@ if ( prefersReducedMotion ) {
 		}, { passive: true } )
 	}
 }
+
+// ── 3. Scroll-down arrow ────────────────────────────────────────────────────
+//
+// Runs regardless of motion preference — this is navigation, not decoration.
+// Scrolls to the next sibling block, offset by the fixed header height so
+// the eyebrow/heading of the next section isn't hidden behind the nav bar.
+
+document.querySelectorAll<HTMLButtonElement>( '[data-ble-scroll-next]' ).forEach( ( btn ) => {
+	btn.addEventListener( 'click', () => {
+		const hero = btn.closest<HTMLElement>( '[data-ble-hero]' )
+		if ( ! hero ) return
+
+		// The ACF wrapper div sits between the hero section and the next block.
+		const wrapper = hero.closest( '.wp-block-acf-hero' ) || hero
+		const next    = wrapper.nextElementSibling as HTMLElement | null
+
+		if ( next ) {
+			// Account for the fixed header (5rem = 80px) + a little breathing room.
+			const header = document.querySelector<HTMLElement>( '.ble-header' )
+			const headerHeight = header ? header.offsetHeight : 80
+			const offset = headerHeight + 16
+
+			const targetY = next.getBoundingClientRect().top + window.scrollY - offset
+			window.scrollTo( { top: targetY, behavior: 'smooth' } )
+		}
+	} )
+} )

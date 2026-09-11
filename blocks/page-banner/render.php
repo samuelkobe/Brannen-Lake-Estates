@@ -13,14 +13,42 @@
 
 namespace WebOk\BrannenLakeEstates;
 
-$heading         = \get_field( 'heading' );
-$tagline         = \get_field( 'tagline' );
-$image           = \get_field( 'background_image' );
-$overlay_color   = \get_field( 'overlay_color' ) ?: '#2C2A27';
-$overlay_opacity = \get_field( 'overlay_opacity' );
+$heading          = \get_field( 'heading' );
+$tagline          = \get_field( 'tagline' );
+$image            = \get_field( 'background_image' );
+$overlay_color    = \get_field( 'overlay_color' ) ?: '#2C2A27';
+$overlay_opacity  = \get_field( 'overlay_opacity' );
+$show_breadcrumbs = \get_field( 'show_breadcrumbs' ) ?? true;
 
 if ( ! $heading ) {
 	return;
+}
+
+// Build breadcrumb trail from page ancestors.
+$crumbs = [];
+if ( $show_breadcrumbs ) {
+	$post = \get_post();
+
+	if ( $post ) {
+		$crumbs[] = [
+			'label' => 'Home',
+			'url'   => \home_url( '/' ),
+		];
+
+		$ancestors = \array_reverse( \get_ancestors( $post->ID, 'page', 'post_type' ) );
+		foreach ( $ancestors as $ancestor_id ) {
+			$crumbs[] = [
+				'label' => \get_the_title( $ancestor_id ),
+				'url'   => \get_permalink( $ancestor_id ),
+			];
+		}
+
+		// Current page — no link.
+		$crumbs[] = [
+			'label' => \get_the_title(),
+			'url'   => '',
+		];
+	}
 }
 
 // Overlay rgba.
@@ -62,6 +90,22 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 
 	<?php /* ── Centered text ─────────────────────────────────────────────── */ ?>
 	<div class="ble-page-banner__content relative z-10 text-center px-6 py-16" data-ble-reveal>
+
+		<?php if ( ! empty( $crumbs ) ) : ?>
+		<nav class="ble-page-banner__breadcrumbs" aria-label="<?= \esc_attr__( 'Breadcrumb', 'brannen-lake-estates' ); ?>">
+			<ol>
+				<?php foreach ( $crumbs as $i => $crumb ) : ?>
+				<li<?php if ( $i === count( $crumbs ) - 1 ) : ?> aria-current="page"<?php endif; ?>>
+					<?php if ( $crumb['url'] ) : ?>
+					<a href="<?= \esc_url( $crumb['url'] ); ?>"><?= \esc_html( $crumb['label'] ); ?></a>
+					<?php else : ?>
+					<span><?= \esc_html( $crumb['label'] ); ?></span>
+					<?php endif; ?>
+				</li>
+				<?php endforeach; ?>
+			</ol>
+		</nav>
+		<?php endif; ?>
 
 		<h1
 			id="ble-page-banner-heading"

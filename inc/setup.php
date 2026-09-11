@@ -38,12 +38,14 @@ function setup(): void {
 	\add_editor_style( 'blocks/gallery-grid/style.css' );
 	\add_editor_style( 'blocks/testimonial/style.css' );
 	\add_editor_style( 'blocks/page-banner/style.css' );
+	\add_editor_style( 'blocks/page-header/style.css' );
 	\add_editor_style( 'blocks/cta-banner/style.css' );
 	\add_editor_style( 'blocks/image-content/style.css' );
 	\add_editor_style( 'blocks/image-form/style.css' );
 	\add_editor_style( 'blocks/faq/style.css' );
 	\add_editor_style( 'blocks/venue-details/style.css' );
 	\add_editor_style( 'blocks/photographer-credits/style.css' );
+	\add_editor_style( 'blocks/contact-details/style.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 
