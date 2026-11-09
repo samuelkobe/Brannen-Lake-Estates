@@ -356,6 +356,102 @@ function register_blocks(): void {
 		'mode'            => 'preview',
 	] );
 
+	// ── Vendor List ─────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-vendor-list',
+		$theme_uri . '/blocks/vendor-list/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'vendor-list',
+		'title'           => \__( 'Vendor List', 'brannen-lake-estates' ),
+		'description'     => \__( 'Preferred vendor directory grouped by type. Pulls from the Vendors CPT.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'businessperson',
+		'keywords'        => [ 'vendor', 'preferred', 'supplier', 'partner' ],
+		'render_template' => $theme_dir . '/blocks/vendor-list/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-vendor-list' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Nearby Accommodations ───────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-nearby-accommodations',
+		$theme_uri . '/blocks/nearby-accommodations/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'nearby-accommodations',
+		'title'           => \__( 'Nearby Accommodations', 'brannen-lake-estates' ),
+		'description'     => \__( 'Card list of nearby lodging options with images, distances, and map links.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'building',
+		'keywords'        => [ 'accommodations', 'hotel', 'lodging', 'nearby', 'stay' ],
+		'render_template' => $theme_dir . '/blocks/nearby-accommodations/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-nearby-accommodations' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Availability Calendar ───────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-availability-calendar',
+		$theme_uri . '/blocks/availability-calendar/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'availability-calendar',
+		'title'           => \__( 'Availability Calendar', 'brannen-lake-estates' ),
+		'description'     => \__( 'Read-only Google Calendar embed showing venue availability.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'calendar-alt',
+		'keywords'        => [ 'calendar', 'availability', 'dates', 'booking', 'schedule' ],
+		'render_template' => $theme_dir . '/blocks/availability-calendar/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-availability-calendar' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
+	// ── Info ────────────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-info',
+		$theme_uri . '/blocks/info/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'info',
+		'title'           => \__( 'Info', 'brannen-lake-estates' ),
+		'description'     => \__( 'Simple text section with optional eyebrow, heading, and rich-text body. For notes, tips, or supplementary content.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'info-outline',
+		'keywords'        => [ 'info', 'text', 'note', 'content', 'section' ],
+		'render_template' => $theme_dir . '/blocks/info/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-info' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
 	// ── CTA Banner ───────────────────────────────────────────────────────────
 
 	\wp_register_style(
@@ -407,6 +503,10 @@ function load_block_fields(): void {
 	require_once \get_stylesheet_directory() . '/blocks/venue-details/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/photographer-credits/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/contact-details/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/vendor-list/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/nearby-accommodations/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/availability-calendar/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/info/fields.php';
 }
 \add_action( 'acf/init', __NAMESPACE__ . '\\load_block_fields' );
 

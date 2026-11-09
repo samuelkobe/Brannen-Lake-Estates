@@ -27,6 +27,7 @@ require_once get_stylesheet_directory() . '/inc/acf-json.php';
 require_once get_stylesheet_directory() . '/inc/class-nav-walker.php';
 require_once get_stylesheet_directory() . '/inc/header-block.php';
 require_once get_stylesheet_directory() . '/inc/footer-block.php';
+require_once get_stylesheet_directory() . '/inc/vendors.php';
 
 /**
  * Enqueue compiled theme assets and block view scripts.

@@ -46,6 +46,10 @@ function setup(): void {
 	\add_editor_style( 'blocks/venue-details/style.css' );
 	\add_editor_style( 'blocks/photographer-credits/style.css' );
 	\add_editor_style( 'blocks/contact-details/style.css' );
+	\add_editor_style( 'blocks/vendor-list/style.css' );
+	\add_editor_style( 'blocks/nearby-accommodations/style.css' );
+	\add_editor_style( 'blocks/availability-calendar/style.css' );
+	\add_editor_style( 'blocks/info/style.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 
