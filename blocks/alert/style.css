@@ -1,0 +1,127 @@
+/* Alert block styles */
+
+.ble-alert {
+	--ble-alert-bg: var(--color-champagne);
+	--ble-alert-fg: var(--color-charcoal);
+	--ble-alert-btn-border: var(--color-charcoal);
+
+	position: relative;
+	padding: 0.875rem 0;
+	background-color: var(--ble-alert-bg);
+	color: var(--ble-alert-fg);
+}
+
+/* Variants */
+.ble-alert--info {
+	--ble-alert-bg: var(--color-champagne);
+	--ble-alert-fg: var(--color-charcoal);
+	--ble-alert-btn-border: var(--color-charcoal);
+}
+
+.ble-alert--warning {
+	--ble-alert-bg: var(--color-charcoal);
+	--ble-alert-fg: var(--color-ivory);
+	--ble-alert-btn-border: var(--color-champagne);
+}
+
+.ble-alert--subtle {
+	--ble-alert-bg: var(--color-sage);
+	--ble-alert-fg: #fff;
+	--ble-alert-btn-border: #fff;
+}
+
+/* Sticky: pinned just below the fixed header (5rem), moves to the very top
+   when the desktop header hides on scroll down. Sits under the header. */
+.ble-alert--sticky {
+	position: sticky;
+	top: 5rem;
+	z-index: 40;
+	transition: top 0.3s ease;
+}
+
+body:has(.ble-header--hidden) .ble-alert--sticky {
+	top: 0;
+}
+
+.ble-alert__message {
+	margin: 0;
+	font-size: 0.9375rem;
+	color: inherit;
+}
+
+.ble-alert__btn {
+	color: inherit;
+	border: 1px solid var(--ble-alert-btn-border);
+	text-decoration: none;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ble-alert__btn:hover,
+.ble-alert__btn:focus-visible {
+	background-color: var(--ble-alert-fg);
+	color: var(--ble-alert-bg);
+}
+
+/* Room for the close button so text never sits under it */
+.ble-alert[data-ble-alert-dismissible] .ble-alert__inner {
+	padding-right: 3.5rem;
+}
+
+.ble-alert__close {
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	transform: translateY(-50%);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	opacity: 0.75;
+	transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.ble-alert__close:hover,
+.ble-alert__close:focus-visible {
+	opacity: 1;
+	background-color: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.ble-alert__close:focus-visible,
+.ble-alert__btn:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+/* Hidden once dismissed (set by view.js) */
+.ble-alert.is-dismissed {
+	display: none;
+}
+
+.ble-alert__placeholder {
+	padding: 1rem;
+	border: 1px dashed var(--color-taupe);
+	color: var(--color-taupe);
+	font-size: 0.875rem;
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	.ble-alert__message {
+		font-size: 1rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ble-alert--sticky,
+	.ble-alert__btn,
+	.ble-alert__close {
+		transition: none;
+	}
+}

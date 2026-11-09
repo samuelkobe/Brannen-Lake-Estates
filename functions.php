@@ -92,5 +92,16 @@ function enqueue_assets(): void {
 			$version
 		);
 	}
+
+	// Alert view script — dismiss button (only needed for dismissible alerts,
+	// but has_block() can't see field values, so load whenever the block is used).
+	if ( \has_block( 'acf/alert' ) ) {
+		\wp_enqueue_script_module(
+			'ble-alert-view',
+			$theme_uri . '/dist/blocks/alert/view.js',
+			[],
+			$version
+		);
+	}
 }
 \add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );

@@ -452,6 +452,31 @@ function register_blocks(): void {
 		'mode'            => 'preview',
 	] );
 
+	// ── Alert ───────────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-alert',
+		$theme_uri . '/blocks/alert/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'alert',
+		'title'           => \__( 'Alert', 'brannen-lake-estates' ),
+		'description'     => \__( 'Notice bar for short messages such as appointment-only visits. Optional button, dismiss, and sticky options.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'warning',
+		'keywords'        => [ 'alert', 'notice', 'banner', 'appointment', 'message' ],
+		'render_template' => $theme_dir . '/blocks/alert/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-alert' );
+		},
+		'supports'        => [ 'align' => [ 'full', 'wide' ] ],
+		'align'           => 'full',
+		'mode'            => 'preview',
+	] );
+
 	// ── CTA Banner ───────────────────────────────────────────────────────────
 
 	\wp_register_style(
@@ -507,6 +532,7 @@ function load_block_fields(): void {
 	require_once \get_stylesheet_directory() . '/blocks/nearby-accommodations/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/availability-calendar/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/info/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/alert/fields.php';
 }
 \add_action( 'acf/init', __NAMESPACE__ . '\\load_block_fields' );
 
