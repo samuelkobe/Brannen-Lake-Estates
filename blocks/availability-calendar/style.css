@@ -24,6 +24,37 @@
 	border: none;
 }
 
+/* Status key */
+.ble-availability-calendar__legend {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem 2rem;
+	margin: 1.5rem 0 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.875rem;
+	color: var(--color-charcoal);
+}
+
+.ble-availability-calendar__legend li {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.ble-availability-calendar__swatch {
+	display: inline-block;
+	width: 0.875rem;
+	height: 0.875rem;
+	border-radius: 2px;
+}
+
+.ble-availability-calendar__swatch--available {
+	background-color: #fff;
+	border: 1px solid var(--color-taupe);
+}
+
 /* Disclaimer */
 .ble-availability-calendar__disclaimer {
 	max-width: 36rem;
