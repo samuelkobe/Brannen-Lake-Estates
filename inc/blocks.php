@@ -477,6 +477,30 @@ function register_blocks(): void {
 		'mode'            => 'preview',
 	] );
 
+	// ── Pricing ─────────────────────────────────────────────────────────────
+
+	\wp_register_style(
+		'ble-pricing',
+		$theme_uri . '/blocks/pricing/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'pricing',
+		'title'           => \__( 'Pricing', 'brannen-lake-estates' ),
+		'description'     => \__( 'Grouped pricing: package cards (venue, capacity, price, includes) and a list layout for add-ons and rentals.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'money-alt',
+		'keywords'        => [ 'pricing', 'packages', 'price', 'rates', 'add-ons' ],
+		'render_template' => $theme_dir . '/blocks/pricing/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-pricing' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
 	// ── CTA Banner ───────────────────────────────────────────────────────────
 
 	\wp_register_style(
@@ -533,6 +557,7 @@ function load_block_fields(): void {
 	require_once \get_stylesheet_directory() . '/blocks/availability-calendar/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/info/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/alert/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/pricing/fields.php';
 }
 \add_action( 'acf/init', __NAMESPACE__ . '\\load_block_fields' );
 

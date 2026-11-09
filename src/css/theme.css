@@ -164,7 +164,8 @@ h3 {
     .wp-block-acf-vendor-list,
     .wp-block-acf-nearby-accommodations,
     .wp-block-acf-availability-calendar,
-    .wp-block-acf-info
+    .wp-block-acf-info,
+    .wp-block-acf-pricing
   )
   + :is(
     .wp-block-acf-welcome-intro,
@@ -180,7 +181,8 @@ h3 {
     .wp-block-acf-vendor-list,
     .wp-block-acf-nearby-accommodations,
     .wp-block-acf-availability-calendar,
-    .wp-block-acf-info
+    .wp-block-acf-info,
+    .wp-block-acf-pricing
   ) {
   margin-block-start: 0;
 }
@@ -201,7 +203,8 @@ h3 {
     .ble-vendor-list,
     .ble-nearby-accommodations,
     .ble-availability-calendar,
-    .ble-info
+    .ble-info,
+    .ble-pricing
   )
   + :is(
     .ble-welcome-intro,
@@ -217,7 +220,8 @@ h3 {
     .ble-vendor-list,
     .ble-nearby-accommodations,
     .ble-availability-calendar,
-    .ble-info
+    .ble-info,
+    .ble-pricing
   ) {
   padding-top: 0;
 }
@@ -254,7 +258,8 @@ h3 {
     .ble-vendor-list,
     .ble-nearby-accommodations,
     .ble-availability-calendar,
-    .ble-info
+    .ble-info,
+    .ble-pricing
   ) {
   padding-top: 4rem;
 }

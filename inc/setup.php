@@ -51,6 +51,7 @@ function setup(): void {
 	\add_editor_style( 'blocks/availability-calendar/style.css' );
 	\add_editor_style( 'blocks/info/style.css' );
 	\add_editor_style( 'blocks/alert/style.css' );
+	\add_editor_style( 'blocks/pricing/style.css' );
 }
 \add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 

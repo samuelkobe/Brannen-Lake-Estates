@@ -1,7 +1,7 @@
 /* Availability Calendar block styles */
 
 .ble-availability-calendar {
-	padding: 4rem 0;
+	padding-block: 4rem;
 	background-color: var(--color-ivory);
 }
 
