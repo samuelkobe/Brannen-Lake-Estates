@@ -124,9 +124,9 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 						</h4>
 
 						<?php if ( $description ) : ?>
-						<p class="ble-vendor-list__description">
-							<?= \wp_kses_post( $description ); ?>
-						</p>
+						<div class="ble-vendor-list__description">
+							<?= \wp_kses_post( \wpautop( $description ) ); ?>
+						</div>
 						<?php endif; ?>
 
 						<?php if ( $email ) : ?>

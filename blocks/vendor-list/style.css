@@ -130,6 +130,24 @@
 	margin-bottom: 0.375rem;
 }
 
+.ble-vendor-list__description p {
+	margin: 0 0 0.375rem;
+}
+
+.ble-vendor-list__description p:last-child {
+	margin-bottom: 0;
+}
+
+.ble-vendor-list__description a {
+	color: var(--color-sage);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.ble-vendor-list__description strong {
+	font-weight: 500;
+}
+
 /* Email */
 .ble-vendor-list__email {
 	font-family: var(--font-sans);
