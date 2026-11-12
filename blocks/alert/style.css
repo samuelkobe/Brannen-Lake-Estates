@@ -78,7 +78,8 @@ body:has(.ble-header--hidden) .ble-alert--sticky {
 .wp-block-acf-alert,
 .ble-alert,
 .wp-block-acf-alert + *,
-.ble-alert + * {
+.ble-alert + *,
+.ble-alert + script + * {
 	margin-block-start: 0 !important;
 }
 
