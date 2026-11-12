@@ -88,3 +88,19 @@
 	transform: none !important;
 	transition: none !important;
 }
+
+/* Links inside the body (WYSIWYG) */
+.ble-image-content__body a {
+	color: var(--color-sage);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	transition: color 0.3s ease;
+}
+
+.ble-image-content__body a:hover {
+	color: var(--color-charcoal);
+}
+
+.ble-image-content__body strong {
+	font-weight: 500;
+}
