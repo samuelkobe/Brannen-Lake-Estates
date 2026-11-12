@@ -112,3 +112,20 @@ if ( $has_cta ) {
 
 	</div>
 </div>
+<?php if ( $dismissible && empty( $is_preview ) ) : ?>
+<script>
+/* Hide an already-dismissed alert before first paint, so it doesn't flash
+   on reload. view.js handles the close button. */
+( function () {
+	var a = document.currentScript && document.currentScript.previousElementSibling;
+	if ( ! a ) return;
+	try {
+		if ( /[?&]reset-alerts\b/.test( location.search ) ) {
+			Object.keys( localStorage ).forEach( function ( k ) { if ( k.indexOf( 'ble-alert-' ) === 0 ) localStorage.removeItem( k ); } );
+		} else if ( localStorage.getItem( a.getAttribute( 'data-ble-alert-key' ) ) === '1' ) {
+			a.classList.add( 'is-dismissed' );
+		}
+	} catch ( e ) {}
+} )();
+</script>
+<?php endif; ?>
