@@ -160,6 +160,8 @@
 }
 
 .ble-pricing__link {
+	position: relative;
+	isolation: isolate;
 	margin-top: auto;
 	display: flex;
 	align-items: center;
@@ -170,13 +172,30 @@
 	color: var(--color-sage);
 	border: 1px solid var(--color-sage);
 	text-decoration: none;
-	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Hover fill is a pseudo-element fading in behind the text, instead of
+   transitioning background-color and color on the link itself. Only
+   opacity animates (compositor-friendly), and the text colour swaps
+   instantly, which avoids the flicker seen on hover-out. */
+.ble-pricing__link::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-color: var(--color-sage);
+	opacity: 0;
+	transition: opacity 0.25s ease;
 }
 
 .ble-pricing__link:hover,
 .ble-pricing__link:focus-visible {
-	background-color: var(--color-sage);
 	color: #fff;
+}
+
+.ble-pricing__link:hover::before,
+.ble-pricing__link:focus-visible::before {
+	opacity: 1;
 }
 
 /* ── List (add-ons) ──────────────────────────────────────────────────────── */
@@ -290,7 +309,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.ble-pricing__link,
+	.ble-pricing__link::before,
 	.ble-pricing__cta {
 		transition: none;
 	}
