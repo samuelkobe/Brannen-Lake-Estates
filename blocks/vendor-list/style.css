@@ -1,5 +1,12 @@
 /* Vendor List block styles */
 
+/* Editor: let the block use the full canvas instead of the narrow content
+   column, so the preview matches the front end. */
+.editor-styles-wrapper .wp-block-acf-vendor-list {
+	width: 100% !important;
+	max-width: none !important;
+}
+
 .ble-vendor-list {
 	padding-block: 4rem;
 	background-color: var(--color-ivory);
@@ -76,6 +83,7 @@
 .ble-vendor-list__info {
 	flex: 1;
 	min-width: 0;
+	overflow-wrap: anywhere;
 }
 
 /* Name */
@@ -117,7 +125,7 @@
 	font-family: var(--font-sans);
 	font-size: 0.875rem;
 	font-weight: 300;
-	color: var(--color-taupe);
+	color: color-mix(in srgb, var(--color-charcoal) 72%, var(--color-cream));
 	line-height: 1.6;
 	margin-bottom: 0.375rem;
 }
@@ -172,7 +180,7 @@
 /* Tablet: 2 columns */
 @media (min-width: 768px) {
 	.ble-vendor-list__grid {
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 1.5rem;
 	}
 
@@ -184,6 +192,6 @@
 /* Desktop: 3 columns */
 @media (min-width: 1024px) {
 	.ble-vendor-list__grid {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 }
