@@ -30,17 +30,44 @@
 	--ble-alert-btn-border: #fff;
 }
 
-/* Sticky: pinned just below the fixed header (5rem), moves to the very top
-   when the desktop header hides on scroll down. Sits under the header. */
+/* Sticky: pinned just below the fixed header (5rem), moves up to the top
+   when the desktop header hides on scroll down. Sits under the header.
+   --ble-admin-bar offsets both positions for the logged-in WP admin bar. */
 .ble-alert--sticky {
+	--ble-admin-bar: 0px;
 	position: sticky;
-	top: 5rem;
+	top: calc(var(--ble-admin-bar) + 5rem);
 	z-index: 40;
 	transition: top 0.3s ease;
 }
 
+.admin-bar .ble-alert--sticky {
+	--ble-admin-bar: 32px;
+}
+
+@media (max-width: 782px) {
+	.admin-bar .ble-alert--sticky {
+		--ble-admin-bar: 46px;
+	}
+}
+
 body:has(.ble-header--hidden) .ble-alert--sticky {
-	top: 0;
+	top: var(--ble-admin-bar);
+}
+
+/* No block gap above or below the alert: it sits flush against the header
+   and the block that follows. Covers both DOM shapes (ACF wrapper div or
+   the alert rendered directly). */
+.wp-block-acf-alert,
+.ble-alert,
+.wp-block-acf-alert + *,
+.ble-alert + * {
+	margin-block-start: 0 !important;
+}
+
+/* Once dismissed, remove the wrapper too so no gap is left behind. */
+.wp-block-acf-alert:has(> .ble-alert.is-dismissed) {
+	display: none;
 }
 
 .ble-alert__message {

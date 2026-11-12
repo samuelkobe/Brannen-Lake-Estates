@@ -68,29 +68,12 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'default_value' => 0,
 		],
 		[
-			'key'               => 'field_ble_alert_cta_text',
-			'label'             => 'Button text',
-			'name'              => 'cta_text',
-			'type'              => 'text',
-			'placeholder'       => 'Book a Tour',
-			'wrapper'           => [ 'width' => '50' ],
-			'conditional_logic' => [
-				[
-					[
-						'field'    => 'field_ble_alert_show_cta',
-						'operator' => '==',
-						'value'    => '1',
-					],
-				],
-			],
-		],
-		[
-			'key'               => 'field_ble_alert_cta_url',
-			'label'             => 'Button URL',
-			'name'              => 'cta_url',
-			'type'              => 'url',
-			'placeholder'       => '/contact/',
-			'wrapper'           => [ 'width' => '50' ],
+			'key'               => 'field_ble_alert_cta',
+			'label'             => 'Button link',
+			'name'              => 'cta',
+			'type'              => 'link',
+			'return_format'     => 'array',
+			'instructions'      => 'Pick a page (or paste a URL) and set the button text. Tick "Open in new tab" only for external sites.',
 			'conditional_logic' => [
 				[
 					[

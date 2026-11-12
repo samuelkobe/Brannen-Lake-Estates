@@ -20,8 +20,16 @@ $style       = \get_field( 'style' ) ?: 'info';
 $dismissible = (bool) \get_field( 'dismissible' );
 $sticky      = (bool) \get_field( 'sticky' );
 $show_cta    = (bool) \get_field( 'show_cta' );
-$cta_text    = \get_field( 'cta_text' );
-$cta_url     = \get_field( 'cta_url' );
+$cta         = \get_field( 'cta' );
+
+// Fallback for alerts saved before the link field replaced text + URL.
+if ( empty( $cta['url'] ) && \get_field( 'cta_url' ) ) {
+	$cta = [
+		'url'    => \get_field( 'cta_url' ),
+		'title'  => \get_field( 'cta_text' ),
+		'target' => '',
+	];
+}
 
 if ( ! $message ) {
 	if ( ! empty( $is_preview ) ) {
@@ -41,7 +49,24 @@ if ( $sticky && empty( $is_preview ) ) {
 
 // Key changes whenever the message changes, so a new message re-appears.
 $dismiss_key = 'ble-alert-' . \substr( \md5( $message ), 0, 10 );
-$has_cta     = $show_cta && $cta_text && $cta_url;
+$has_cta     = $show_cta && ! empty( $cta['url'] ) && ! empty( $cta['title'] );
+
+// Descriptive label for screen readers and the title tooltip, e.g.
+// "Book a Tour: Contact | Brannen Lake Estates". Uses the linked page's
+// title when the link points at a page on this site.
+$cta_label = '';
+$cta_new   = false;
+if ( $has_cta ) {
+	$cta_new   = '_blank' === ( $cta['target'] ?? '' );
+	$post_id   = \url_to_postid( $cta['url'] );
+	$dest      = $post_id ? \get_the_title( $post_id ) : '';
+	$cta_label = $dest && 0 !== \strcasecmp( $dest, $cta['title'] )
+		? \sprintf( '%s: %s | %s', $cta['title'], $dest, \get_bloginfo( 'name' ) )
+		: \sprintf( '%s | %s', $cta['title'], \get_bloginfo( 'name' ) );
+	if ( $cta_new ) {
+		$cta_label .= ' ' . \__( '(opens in a new tab)', 'brannen-lake-estates' );
+	}
+}
 ?>
 <div
 	class="<?= \esc_attr( \implode( ' ', $classes ) ); ?>"
@@ -59,10 +84,16 @@ $has_cta     = $show_cta && $cta_text && $cta_url;
 
 		<?php if ( $has_cta ) : ?>
 		<a
-			href="<?= \esc_url( $cta_url ); ?>"
+			href="<?= \esc_url( $cta['url'] ); ?>"
 			class="ble-alert__btn font-sans text-xs tracking-[0.18em] uppercase whitespace-nowrap px-6 py-2 inline-flex items-center"
+			aria-label="<?= \esc_attr( $cta_label ); ?>"
+			title="<?= \esc_attr( $cta_label ); ?>"
+			<?php if ( $cta_new ) : ?>
+				target="_blank"
+				rel="noopener noreferrer"
+			<?php endif; ?>
 		>
-			<?= \esc_html( $cta_text ); ?>
+			<?= \esc_html( $cta['title'] ); ?>
 		</a>
 		<?php endif; ?>
 
