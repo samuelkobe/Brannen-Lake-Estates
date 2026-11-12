@@ -1,5 +1,22 @@
 /* Alert block styles */
 
+/* ── Full-width breakout ─────────────────────────────────────────────────── */
+/* Same approach as Hero and Page Banner: the ACF wrapper never inherits the
+   constrained content width, in the editor or on the front end. */
+
+.wp-block-acf-alert,
+.wp-block-acf-alert.alignfull,
+.wp-block-acf-alert .ble-alert {
+	width: 100%;
+	max-width: none !important;
+}
+
+.editor-styles-wrapper .wp-block-acf-alert,
+.editor-styles-wrapper .ble-alert {
+	width: 100% !important;
+	max-width: none !important;
+}
+
 .ble-alert {
 	--ble-alert-bg: var(--color-champagne);
 	--ble-alert-fg: var(--color-charcoal);
