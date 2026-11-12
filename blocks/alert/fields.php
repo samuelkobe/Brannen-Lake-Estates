@@ -23,7 +23,7 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'rows'         => 2,
 			'new_lines'    => '',
 			'required'     => 1,
-			'instructions' => 'Keep it to one or two sentences. Example: "Brannen Lake Estates is available by appointment only. Please contact us to schedule a visit."',
+			'instructions' => 'Keep it to one or two sentences. Example: "Brannen Lake Estates showings are available by appointment only. Please contact us to schedule a visit."',
 		],
 		[
 			'key'           => 'field_ble_alert_style',
