@@ -84,7 +84,10 @@ h3 {
 
 [data-ble-reveal].is-revealed {
   opacity: 1;
-  transform: translateY(0);
+  /* none, not translateY(0): a lingering transform keeps the element on its
+     own compositing layer, which makes hover colour transitions on text
+     inside it (e.g. Pricing card buttons) flicker in Chrome and Safari. */
+  transform: none;
 }
 
 /*

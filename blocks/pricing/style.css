@@ -170,7 +170,7 @@
 	color: var(--color-sage);
 	border: 1px solid var(--color-sage);
 	text-decoration: none;
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .ble-pricing__link:hover,
