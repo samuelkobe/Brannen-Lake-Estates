@@ -1,5 +1,13 @@
 /* Pricing block styles */
 
+/* Editor: the post content is constrained to the narrow content width, so the
+   card grid squeezed into ~650px. Let the block use the full canvas, like
+   the front end. */
+.editor-styles-wrapper .wp-block-acf-pricing {
+	width: 100% !important;
+	max-width: none !important;
+}
+
 /* Muted text that still passes WCAG AA on ivory/cream (taupe alone is ~2:1). */
 .ble-pricing {
 	--ble-pricing-muted: color-mix(in srgb, var(--color-charcoal) 72%, var(--color-ivory));
@@ -153,17 +161,22 @@
 
 .ble-pricing__link {
 	margin-top: auto;
-	align-self: flex-start;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 0.875rem 1rem;
+	text-align: center;
 	color: var(--color-sage);
+	border: 1px solid var(--color-sage);
 	text-decoration: none;
-	border-bottom: 1px solid currentColor;
-	padding-bottom: 0.25rem;
-	transition: color 0.3s ease;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .ble-pricing__link:hover,
 .ble-pricing__link:focus-visible {
-	color: var(--color-charcoal);
+	background-color: var(--color-sage);
+	color: #fff;
 }
 
 /* ── List (add-ons) ──────────────────────────────────────────────────────── */

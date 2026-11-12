@@ -153,6 +153,7 @@ $print_price = static function ( array $item, string $base ): void {
 					<a
 						href="<?= \esc_url( $link['url'] ); ?>"
 						class="ble-pricing__link font-sans text-xs tracking-[0.18em] uppercase"
+						aria-label="<?= \esc_attr( \sprintf( '%s: %s package | %s', $link['title'], $item['name'], \get_bloginfo( 'name' ) ) ); ?>"
 						<?php if ( ! empty( $link['target'] ) ) : ?>
 							target="<?= \esc_attr( $link['target'] ); ?>"
 							rel="noopener noreferrer"
