@@ -689,6 +689,34 @@ h3 {
     border-color 0.5s ease;
 }
 
+/* Never let menu labels or the CTA wrap onto two lines. */
+.ble-header__menu > li > a {
+  white-space: nowrap;
+}
+
+/* Tight desktop range, just above the mobile menu breakpoint: trim link
+   and CTA padding so the full menu plus button fits without the button
+   breaking. From 1200px the normal spacing returns. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .ble-header__menu > li > a {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    letter-spacing: 0.02em;
+  }
+
+  .ble-header__menu > li.menu-item-has-children > a {
+    padding-right: 0.125rem;
+  }
+
+  .ble-header__menu > .ble-header__cta {
+    margin-left: 0.25rem;
+  }
+
+  .ble-header__cta-link {
+    padding: 0.625rem 1rem !important;
+  }
+}
+
 /* Sage fill lives on a pseudo-element so we can fade it with opacity */
 .ble-header__cta-link::before {
   content: "";
