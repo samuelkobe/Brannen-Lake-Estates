@@ -28,6 +28,7 @@ require_once get_stylesheet_directory() . '/inc/class-nav-walker.php';
 require_once get_stylesheet_directory() . '/inc/header-block.php';
 require_once get_stylesheet_directory() . '/inc/footer-block.php';
 require_once get_stylesheet_directory() . '/inc/vendors.php';
+require_once get_stylesheet_directory() . '/inc/ics-availability.php';
 
 /**
  * Enqueue compiled theme assets and block view scripts.
@@ -88,6 +89,16 @@ function enqueue_assets(): void {
 		\wp_enqueue_script_module(
 			'ble-cta-banner-view',
 			$theme_uri . '/dist/blocks/cta-banner/view.js',
+			[],
+			$version
+		);
+	}
+
+	// Availability Calendar (Private Feed) — month paging.
+	if ( \has_block( 'acf/availability-feed' ) ) {
+		\wp_enqueue_script_module(
+			'ble-availability-feed-view',
+			$theme_uri . '/dist/blocks/availability-feed/view.js',
 			[],
 			$version
 		);

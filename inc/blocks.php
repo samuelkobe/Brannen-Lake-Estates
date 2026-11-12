@@ -428,6 +428,30 @@ function register_blocks(): void {
 		'mode'            => 'preview',
 	] );
 
+	// ── Availability Calendar (Private Feed) ────────────────────────────────
+
+	\wp_register_style(
+		'ble-availability-feed',
+		$theme_uri . '/blocks/availability-feed/style.css',
+		[ 'webok-theme-styles' ],
+		$version
+	);
+
+	\acf_register_block_type( [
+		'name'            => 'availability-feed',
+		'title'           => \__( 'Availability Calendar (Private Feed)', 'brannen-lake-estates' ),
+		'description'     => \__( 'Branded month calendar built from private Google Calendar iCal feeds. Shows only Booked / Unavailable dates, never event details.', 'brannen-lake-estates' ),
+		'category'        => 'webok-blocks',
+		'icon'            => 'calendar',
+		'keywords'        => [ 'calendar', 'availability', 'booking', 'dates', 'ical' ],
+		'render_template' => $theme_dir . '/blocks/availability-feed/render.php',
+		'enqueue_assets'  => function () {
+			\wp_enqueue_style( 'ble-availability-feed' );
+		},
+		'supports'        => [ 'align' => false ],
+		'mode'            => 'preview',
+	] );
+
 	// ── Info ────────────────────────────────────────────────────────────────
 
 	\wp_register_style(
@@ -555,6 +579,7 @@ function load_block_fields(): void {
 	require_once \get_stylesheet_directory() . '/blocks/vendor-list/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/nearby-accommodations/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/availability-calendar/fields.php';
+	require_once \get_stylesheet_directory() . '/blocks/availability-feed/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/info/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/alert/fields.php';
 	require_once \get_stylesheet_directory() . '/blocks/pricing/fields.php';
