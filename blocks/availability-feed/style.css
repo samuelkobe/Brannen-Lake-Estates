@@ -181,13 +181,15 @@
 	line-height: 1;
 }
 
+/* Open dates stay quiet (white + hairline) so the few taken dates stand
+   out. Taken dates are solid brand colours and also struck through, so
+   status never depends on colour alone. */
 td.is-available {
-	background-color: var(--color-cream); /* #f2ebe0 */
+	background-color: #fff;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-champagne) 55%, #fff);
 	color: var(--color-charcoal);
 }
 
-/* Taken dates are struck through as well as coloured, so status never
-   depends on colour alone. */
 td.is-booked {
 	background-color: var(--avfeed-booked);
 	color: #fff;
@@ -195,11 +197,6 @@ td.is-booked {
 
 td.is-unavailable {
 	background-color: var(--avfeed-unavailable);
-	background-image: repeating-linear-gradient(
-		135deg,
-		transparent 0 5px,
-		color-mix(in srgb, var(--color-charcoal) 10%, transparent) 5px 6px
-	);
 	color: var(--color-charcoal);
 }
 
@@ -247,8 +244,8 @@ td.is-today .ble-avfeed__day {
 }
 
 .ble-avfeed__swatch.is-available {
-	background-color: var(--color-cream);
-	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-charcoal) 15%, transparent);
+	background-color: #fff;
+	box-shadow: inset 0 0 0 1px var(--color-champagne);
 }
 
 .ble-avfeed__swatch.is-booked {
@@ -257,11 +254,6 @@ td.is-today .ble-avfeed__day {
 
 .ble-avfeed__swatch.is-unavailable {
 	background-color: var(--avfeed-unavailable);
-	background-image: repeating-linear-gradient(
-		135deg,
-		transparent 0 3px,
-		color-mix(in srgb, var(--color-charcoal) 14%, transparent) 3px 4px
-	);
 }
 
 .ble-avfeed__note {
