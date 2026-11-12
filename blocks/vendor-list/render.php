@@ -87,64 +87,116 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 			<div class="ble-vendor-list__grid">
 				<?php foreach ( $vendors as $vendor ) :
 					$website     = \get_field( 'website', $vendor->ID );
+					$booking     = \get_field( 'booking_url', $vendor->ID );
 					$email       = \get_field( 'email', $vendor->ID );
 					$phone       = \get_field( 'phone', $vendor->ID );
 					$description = \get_field( 'description', $vendor->ID );
 					$logo_id     = \get_field( 'logo', $vendor->ID );
 					$name        = \get_the_title( $vendor );
 					$initial     = \mb_strtoupper( \mb_substr( $name, 0, 1 ) );
+					$has_actions = $website || $booking || $email || $phone;
+					$new_tab     = \__( '(opens in a new tab)', 'brannen-lake-estates' );
 				?>
 				<div class="ble-vendor-list__card">
-					<div class="ble-vendor-list__avatar">
-						<?php if ( $logo_id ) : ?>
-							<?= \wp_get_attachment_image( $logo_id, 'thumbnail', false, [
-								'class'   => 'ble-vendor-list__avatar-img',
-								'loading' => 'lazy',
-							] ); ?>
-						<?php else : ?>
-							<span class="ble-vendor-list__avatar-initial" aria-hidden="true">
-								<?= \esc_html( $initial ); ?>
-							</span>
-						<?php endif; ?>
-					</div>
-
-					<div class="ble-vendor-list__info">
-						<h4 class="ble-vendor-list__name">
-							<?php if ( $website ) : ?>
-								<a href="<?= \esc_url( $website ); ?>" target="_blank" rel="noopener">
-									<?= \esc_html( $name ); ?>
-									<svg class="ble-vendor-list__ext-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-										<path d="M7 17L17 7"/>
-										<path d="M7 7h10v10"/>
-									</svg>
-								</a>
+					<div class="ble-vendor-list__top">
+						<div class="ble-vendor-list__avatar">
+							<?php if ( $logo_id ) : ?>
+								<?= \wp_get_attachment_image( $logo_id, 'thumbnail', false, [
+									'class'   => 'ble-vendor-list__avatar-img',
+									'loading' => 'lazy',
+									'alt'     => \sprintf( '%s logo', $name ),
+								] ); ?>
 							<?php else : ?>
-								<?= \esc_html( $name ); ?>
+								<span class="ble-vendor-list__avatar-initial" aria-hidden="true">
+									<?= \esc_html( $initial ); ?>
+								</span>
 							<?php endif; ?>
-						</h4>
-
-						<?php if ( $description ) : ?>
-						<div class="ble-vendor-list__description">
-							<?= \wp_kses_post( \wpautop( $description ) ); ?>
 						</div>
+
+						<div class="ble-vendor-list__info">
+							<h4 class="ble-vendor-list__name"><?= \esc_html( $name ); ?></h4>
+
+							<?php if ( $description ) : ?>
+							<div class="ble-vendor-list__description">
+								<?php
+								// Text formatting only. Links belong in the action row, so any
+								// link left in older descriptions renders as plain text.
+								echo \wp_kses( \wpautop( $description ), [
+									'p'      => [],
+									'br'     => [],
+									'strong' => [],
+									'b'      => [],
+									'em'     => [],
+									'i'      => [],
+									'ul'     => [],
+									'ol'     => [],
+									'li'     => [],
+								] );
+								?>
+							</div>
+							<?php endif; ?>
+						</div>
+					</div>
+
+					<?php if ( $has_actions ) : ?>
+					<div class="ble-vendor-list__actions">
+						<?php if ( $website ) : ?>
+						<a
+							class="ble-vendor-list__btn ble-vendor-list__btn--primary"
+							href="<?= \esc_url( $website ); ?>"
+							target="_blank"
+							rel="noopener"
+							aria-label="<?= \esc_attr( \sprintf( 'Visit %s website %s', $name, $new_tab ) ); ?>"
+							title="<?= \esc_attr( \sprintf( 'Visit %s website', $name ) ); ?>"
+						>
+							<?= \esc_html__( 'Visit website', 'brannen-lake-estates' ); ?>
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+						</a>
 						<?php endif; ?>
 
-						<?php if ( $email ) : ?>
-						<p class="ble-vendor-list__email">
-							<a href="mailto:<?= \esc_attr( $email ); ?>">
-								<?= \esc_html( $email ); ?>
-							</a>
-						</p>
+						<?php if ( $booking ) : ?>
+						<a
+							class="ble-vendor-list__btn"
+							href="<?= \esc_url( $booking ); ?>"
+							target="_blank"
+							rel="nofollow noopener"
+							aria-label="<?= \esc_attr( \sprintf( 'Book with %s %s', $name, $new_tab ) ); ?>"
+							title="<?= \esc_attr( \sprintf( 'Book with %s', $name ) ); ?>"
+						>
+							<?= \esc_html__( 'Book now', 'brannen-lake-estates' ); ?>
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+						</a>
 						<?php endif; ?>
 
-						<?php if ( $phone ) : ?>
-						<p class="ble-vendor-list__phone">
-							<a href="tel:<?= \esc_attr( \preg_replace( '/[^+\d]/', '', $phone ) ); ?>">
-								<?= \esc_html( $phone ); ?>
+						<?php if ( $email || $phone ) : ?>
+						<span class="ble-vendor-list__contact">
+							<?php if ( $email ) : ?>
+							<a
+								class="ble-vendor-list__icon-link"
+								href="mailto:<?= \esc_attr( $email ); ?>"
+								aria-label="<?= \esc_attr( \sprintf( 'Email %s at %s', $name, $email ) ); ?>"
+								title="<?= \esc_attr( $email ); ?>"
+							>
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+								<?= \esc_html__( 'Email', 'brannen-lake-estates' ); ?>
 							</a>
-						</p>
+							<?php endif; ?>
+
+							<?php if ( $phone ) : ?>
+							<a
+								class="ble-vendor-list__icon-link"
+								href="tel:<?= \esc_attr( \preg_replace( '/[^+\d]/', '', $phone ) ); ?>"
+								aria-label="<?= \esc_attr( \sprintf( 'Call %s at %s', $name, $phone ) ); ?>"
+								title="<?= \esc_attr( $phone ); ?>"
+							>
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+								<?= \esc_html__( 'Call', 'brannen-lake-estates' ); ?>
+							</a>
+							<?php endif; ?>
+						</span>
 						<?php endif; ?>
 					</div>
+					<?php endif; ?>
 				</div>
 				<?php endforeach; ?>
 			</div>

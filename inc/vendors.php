@@ -88,7 +88,14 @@ function register_vendor_fields(): void {
 				'label'        => 'Website',
 				'name'         => 'website',
 				'type'         => 'url',
-				'instructions' => 'Vendor\'s website URL.',
+				'instructions' => 'Vendor\'s website. Shown as the "Visit website" button (dofollow).',
+			],
+			[
+				'key'          => 'field_ble_vendor_booking_url',
+				'label'        => 'Booking link',
+				'name'         => 'booking_url',
+				'type'         => 'url',
+				'instructions' => 'Optional. A separate booking page (e.g. a third-party booking site). Shown as a "Book now" button (nofollow).',
 			],
 			[
 				'key'          => 'field_ble_vendor_email',
@@ -110,10 +117,10 @@ function register_vendor_fields(): void {
 				'name'         => 'description',
 				'type'         => 'wysiwyg',
 				'tabs'         => 'visual',
-				'toolbar'      => 'basic',
+				'toolbar'      => 'ble_text_only',
 				'media_upload' => 0,
 				'delay'        => 1,
-				'instructions' => 'One or two sentences about this vendor. Bold, italic and links are supported.',
+				'instructions' => 'One or two sentences about this vendor. Bold, italic and lists only: put links in the Website or Booking link fields.',
 			],
 			[
 				'key'           => 'field_ble_vendor_logo',
@@ -137,3 +144,18 @@ function register_vendor_fields(): void {
 	] );
 }
 \add_action( 'acf/init', __NAMESPACE__ . '\\register_vendor_fields' );
+
+/**
+ * Text-only WYSIWYG toolbar for vendor descriptions: no link button, so every
+ * card keeps its links in one consistent action row.
+ *
+ * @param array $toolbars Toolbars keyed by name.
+ * @return array
+ */
+function vendor_wysiwyg_toolbar( array $toolbars ): array {
+	$toolbars['ble_text_only'] = [
+		1 => [ 'bold', 'italic', 'bullist', 'numlist', 'undo', 'redo' ],
+	];
+	return $toolbars;
+}
+\add_filter( 'acf/fields/wysiwyg/toolbars', __NAMESPACE__ . '\\vendor_wysiwyg_toolbar' );
