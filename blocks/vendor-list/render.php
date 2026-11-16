@@ -154,76 +154,65 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 						</div>
 					</div>
 
-					<?php if ( $has_actions ) : ?>
+					<?php
+					// One clear primary action, then every other contact point as a
+					// compact round icon button. Priority: website > booking >
+					// Instagram > email > phone.
+					$icons = [
+						'website'   => '<path d="M7 17L17 7"/><path d="M7 7h10v10"/>',
+						'booking'   => '<rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+						'instagram' => '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.75" fill="currentColor"/>',
+						'email'     => '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/>',
+						'phone'     => '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+					];
+					$actions = [];
+					if ( $website ) {
+						$actions[] = [ 'key' => 'website', 'href' => $website, 'label' => \__( 'Visit website', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Visit %s website %s', $name, $new_tab ), 'rel' => 'noopener', 'blank' => true ];
+					}
+					if ( $booking ) {
+						$actions[] = [ 'key' => 'booking', 'href' => $booking, 'label' => \__( 'Book now', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Book with %s %s', $name, $new_tab ), 'rel' => 'nofollow noopener', 'blank' => true ];
+					}
+					if ( $instagram ) {
+						$actions[] = [ 'key' => 'instagram', 'href' => $instagram, 'label' => \__( 'Instagram', 'brannen-lake-estates' ), 'aria' => \sprintf( '%s on Instagram %s', $name, $new_tab ), 'rel' => 'noopener', 'blank' => true ];
+					}
+					if ( $email ) {
+						$actions[] = [ 'key' => 'email', 'href' => 'mailto:' . $email, 'label' => \__( 'Email', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Email %s at %s', $name, $email ), 'rel' => '', 'blank' => false ];
+					}
+					if ( $phone ) {
+						$actions[] = [ 'key' => 'phone', 'href' => 'tel:' . \preg_replace( '/[^+\d]/', '', $phone ), 'label' => \__( 'Call', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Call %s at %s', $name, $phone ), 'rel' => '', 'blank' => false ];
+					}
+					$primary = \array_shift( $actions );
+					?>
+					<?php if ( $primary ) : ?>
 					<div class="ble-vendor-list__actions">
-						<?php if ( $website ) : ?>
 						<a
 							class="ble-vendor-list__btn ble-vendor-list__btn--primary"
-							href="<?= \esc_url( $website ); ?>"
-							target="_blank"
-							rel="noopener"
-							aria-label="<?= \esc_attr( \sprintf( 'Visit %s website %s', $name, $new_tab ) ); ?>"
-							title="<?= \esc_attr( \sprintf( 'Visit %s website', $name ) ); ?>"
+							href="<?= \esc_url( $primary['href'] ); ?>"
+							<?php if ( $primary['blank'] ) : ?>target="_blank"<?php endif; ?>
+							<?php if ( $primary['rel'] ) : ?>rel="<?= \esc_attr( $primary['rel'] ); ?>"<?php endif; ?>
+							aria-label="<?= \esc_attr( $primary['aria'] ); ?>"
 						>
-							<?= \esc_html__( 'Visit website', 'brannen-lake-estates' ); ?>
-							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+							<?= \esc_html( $primary['label'] ); ?>
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><?= $icons[ $primary['key'] === 'website' || $primary['key'] === 'booking' ? 'website' : $primary['key'] ]; // phpcs:ignore ?></svg>
 						</a>
-						<?php endif; ?>
 
-						<?php if ( $booking ) : ?>
-						<a
-							class="ble-vendor-list__btn"
-							href="<?= \esc_url( $booking ); ?>"
-							target="_blank"
-							rel="nofollow noopener"
-							aria-label="<?= \esc_attr( \sprintf( 'Book with %s %s', $name, $new_tab ) ); ?>"
-							title="<?= \esc_attr( \sprintf( 'Book with %s', $name ) ); ?>"
-						>
-							<?= \esc_html__( 'Book now', 'brannen-lake-estates' ); ?>
-							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-						</a>
-						<?php endif; ?>
-
-						<?php if ( $instagram ) : ?>
-						<a
-							class="ble-vendor-list__btn<?= $website ? '' : ' ble-vendor-list__btn--primary'; ?>"
-							href="<?= \esc_url( $instagram ); ?>"
-							target="_blank"
-							rel="noopener"
-							aria-label="<?= \esc_attr( \sprintf( '%s on Instagram %s', $name, $new_tab ) ); ?>"
-							title="<?= \esc_attr( \sprintf( '%s on Instagram', $name ) ); ?>"
-						>
-							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.75" fill="currentColor"/></svg>
-							<?= \esc_html__( 'Instagram', 'brannen-lake-estates' ); ?>
-						</a>
-						<?php endif; ?>
-
-						<?php if ( $email || $phone ) : ?>
-						<span class="ble-vendor-list__contact">
-							<?php if ( $email ) : ?>
-							<a
-								class="ble-vendor-list__icon-link"
-								href="mailto:<?= \esc_attr( $email ); ?>"
-								aria-label="<?= \esc_attr( \sprintf( 'Email %s at %s', $name, $email ) ); ?>"
-								title="<?= \esc_attr( $email ); ?>"
-							>
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
-								<?= \esc_html__( 'Email', 'brannen-lake-estates' ); ?>
-							</a>
-							<?php endif; ?>
-
-							<?php if ( $phone ) : ?>
-							<a
-								class="ble-vendor-list__icon-link"
-								href="tel:<?= \esc_attr( \preg_replace( '/[^+\d]/', '', $phone ) ); ?>"
-								aria-label="<?= \esc_attr( \sprintf( 'Call %s at %s', $name, $phone ) ); ?>"
-								title="<?= \esc_attr( $phone ); ?>"
-							>
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-								<?= \esc_html__( 'Call', 'brannen-lake-estates' ); ?>
-							</a>
-							<?php endif; ?>
-						</span>
+						<?php if ( $actions ) : ?>
+						<ul class="ble-vendor-list__icons" role="list">
+							<?php foreach ( $actions as $a ) : ?>
+							<li>
+								<a
+									class="ble-vendor-list__icon-btn"
+									href="<?= \esc_url( $a['href'] ); ?>"
+									<?php if ( $a['blank'] ) : ?>target="_blank"<?php endif; ?>
+									<?php if ( $a['rel'] ) : ?>rel="<?= \esc_attr( $a['rel'] ); ?>"<?php endif; ?>
+									aria-label="<?= \esc_attr( $a['aria'] ); ?>"
+									data-tooltip="<?= \esc_attr( $a['label'] ); ?>"
+								>
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><?= $icons[ $a['key'] ]; // phpcs:ignore ?></svg>
+								</a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
 						<?php endif; ?>
 					</div>
 					<?php endif; ?>
