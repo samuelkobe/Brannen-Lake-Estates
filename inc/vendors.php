@@ -98,6 +98,14 @@ function register_vendor_fields(): void {
 				'instructions' => 'Optional. A separate booking page (e.g. a third-party booking site). Shown as a "Book now" button (nofollow).',
 			],
 			[
+				'key'          => 'field_ble_vendor_instagram',
+				'label'        => 'Instagram',
+				'name'         => 'instagram',
+				'type'         => 'url',
+				'placeholder'  => 'https://www.instagram.com/handle/',
+				'instructions' => 'Optional. Full Instagram profile link. Shown as an "Instagram" button.',
+			],
+			[
 				'key'          => 'field_ble_vendor_email',
 				'label'        => 'Email',
 				'name'         => 'email',

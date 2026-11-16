@@ -88,13 +88,14 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 				<?php foreach ( $vendors as $vendor ) :
 					$website     = \get_field( 'website', $vendor->ID );
 					$booking     = \get_field( 'booking_url', $vendor->ID );
+					$instagram   = \get_field( 'instagram', $vendor->ID );
 					$email       = \get_field( 'email', $vendor->ID );
 					$phone       = \get_field( 'phone', $vendor->ID );
 					$description = \get_field( 'description', $vendor->ID );
 					$logo_id     = \get_field( 'logo', $vendor->ID );
 					$name        = \get_the_title( $vendor );
 					$initial     = \mb_strtoupper( \mb_substr( $name, 0, 1 ) );
-					$has_actions = $website || $booking || $email || $phone;
+					$has_actions = $website || $booking || $instagram || $email || $phone;
 					$new_tab     = \__( '(opens in a new tab)', 'brannen-lake-estates' );
 				?>
 				<div class="ble-vendor-list__card">
@@ -165,6 +166,20 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 						>
 							<?= \esc_html__( 'Book now', 'brannen-lake-estates' ); ?>
 							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+						</a>
+						<?php endif; ?>
+
+						<?php if ( $instagram ) : ?>
+						<a
+							class="ble-vendor-list__btn<?= $website ? '' : ' ble-vendor-list__btn--primary'; ?>"
+							href="<?= \esc_url( $instagram ); ?>"
+							target="_blank"
+							rel="noopener"
+							aria-label="<?= \esc_attr( \sprintf( '%s on Instagram %s', $name, $new_tab ) ); ?>"
+							title="<?= \esc_attr( \sprintf( '%s on Instagram', $name ) ); ?>"
+						>
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.75" fill="currentColor"/></svg>
+							<?= \esc_html__( 'Instagram', 'brannen-lake-estates' ); ?>
 						</a>
 						<?php endif; ?>
 
