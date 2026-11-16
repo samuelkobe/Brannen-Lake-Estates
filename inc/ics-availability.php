@@ -7,7 +7,7 @@
  * attendees are never stored or sent to the browser: only "this date has an
  * event". Used by the Availability Calendar (Private Feed) block.
  *
- * Caching: each feed is cached for 15 minutes in a transient. The last good
+ * Caching: each feed is cached for 5 minutes in a transient. The last good
  * result is also kept in an option, so if Google is unreachable the calendar
  * keeps showing the most recent known dates instead of going blank.
  *
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const ICS_CACHE_TTL = 15 * MINUTE_IN_SECONDS;
+const ICS_CACHE_TTL = 5 * MINUTE_IN_SECONDS;
 
 /**
  * Get the set of dates (Y-m-d => true) covered by events in an iCal feed.
