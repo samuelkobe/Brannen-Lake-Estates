@@ -17,6 +17,9 @@ $eyebrow = \get_field( 'eyebrow' );
 $heading = \get_field( 'heading' );
 $body    = \get_field( 'body' );
 
+$category_order = \get_field( 'category_order' ) ?: 'custom';
+$vendor_order   = \get_field( 'vendor_order' ) ?: 'alpha';
+
 // Get all vendor type terms that have at least one vendor.
 $terms = \get_terms( [
 	'taxonomy'   => 'ble_vendor_type',
@@ -24,6 +27,17 @@ $terms = \get_terms( [
 	'orderby'    => 'name',
 	'order'      => 'ASC',
 ] );
+
+// Custom category order: by each type's Display order, blanks last (A–Z).
+if ( 'custom' === $category_order && \is_array( $terms ) ) {
+	\usort( $terms, static function ( $a, $b ): int {
+		$oa = \get_term_meta( $a->term_id, 'display_order', true );
+		$ob = \get_term_meta( $b->term_id, 'display_order', true );
+		$oa = '' === $oa ? PHP_INT_MAX : (int) $oa;
+		$ob = '' === $ob ? PHP_INT_MAX : (int) $ob;
+		return $oa <=> $ob ?: \strcasecmp( $a->name, $b->name );
+	} );
+}
 
 if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 	// Nothing to show — render nothing on the frontend,
@@ -64,7 +78,7 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 			$vendors = \get_posts( [
 				'post_type'      => 'ble_vendor',
 				'posts_per_page' => -1,
-				'orderby'        => 'title',
+				'orderby'        => 'custom' === $vendor_order ? [ 'menu_order' => 'ASC', 'title' => 'ASC' ] : 'title',
 				'order'          => 'ASC',
 				'tax_query'      => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 					[

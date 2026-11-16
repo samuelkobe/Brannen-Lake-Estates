@@ -39,7 +39,7 @@ function register_vendor_cpt(): void {
 		'show_in_menu' => true,
 		'menu_icon'    => 'dashicons-businessperson',
 		'menu_position' => 25,
-		'supports'     => [ 'title' ],
+		'supports'     => [ 'title', 'page-attributes' ], // page-attributes = the Order box, used when the Vendor List block is set to Custom order.
 		'has_archive'  => false,
 		'rewrite'      => false,
 	] );
@@ -167,3 +167,66 @@ function vendor_wysiwyg_toolbar( array $toolbars ): array {
 	return $toolbars;
 }
 \add_filter( 'acf/fields/wysiwyg/toolbars', __NAMESPACE__ . '\\vendor_wysiwyg_toolbar' );
+
+/**
+ * Vendor Type ordering: a "Display order" number on each type, used by the
+ * Vendor List block when its category order is set to Custom.
+ */
+function vendor_type_order_field(): void {
+	if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+	\acf_add_local_field_group( [
+		'key'      => 'group_ble_vendor_type_order',
+		'title'    => 'Vendor Type Order',
+		'fields'   => [
+			[
+				'key'          => 'field_ble_vendor_type_order',
+				'label'        => 'Display order',
+				'name'         => 'display_order',
+				'type'         => 'number',
+				'min'          => 0,
+				'step'         => 1,
+				'instructions' => 'Lower numbers show first on the Preferred Vendors page (when the Vendor List block is set to Custom order). Types without a number go last, A–Z.',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'taxonomy',
+					'operator' => '==',
+					'value'    => 'ble_vendor_type',
+				],
+			],
+		],
+	] );
+}
+\add_action( 'acf/init', __NAMESPACE__ . '\\vendor_type_order_field' );
+
+/**
+ * Show the order numbers in the admin lists so they're easy to scan.
+ */
+\add_filter( 'manage_edit-ble_vendor_type_columns', function ( array $cols ): array {
+	$cols['ble_order'] = \__( 'Order', 'brannen-lake-estates' );
+	return $cols;
+} );
+\add_filter( 'manage_ble_vendor_type_custom_column', function ( $out, string $col, int $term_id ) {
+	if ( 'ble_order' === $col ) {
+		$v = \get_term_meta( $term_id, 'display_order', true );
+		return '' === $v ? '—' : \esc_html( $v );
+	}
+	return $out;
+}, 10, 3 );
+\add_filter( 'manage_ble_vendor_posts_columns', function ( array $cols ): array {
+	$cols['ble_order'] = \__( 'Order', 'brannen-lake-estates' );
+	return $cols;
+} );
+\add_action( 'manage_ble_vendor_posts_custom_column', function ( string $col, int $post_id ): void {
+	if ( 'ble_order' === $col ) {
+		echo \esc_html( (string) \get_post_field( 'menu_order', $post_id ) );
+	}
+}, 10, 2 );
+\add_filter( 'manage_edit-ble_vendor_sortable_columns', function ( array $cols ): array {
+	$cols['ble_order'] = 'menu_order';
+	return $cols;
+} );
