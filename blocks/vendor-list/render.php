@@ -105,7 +105,8 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 								<?= \wp_get_attachment_image( $logo_id, 'thumbnail', false, [
 									'class'   => 'ble-vendor-list__avatar-img',
 									'loading' => 'lazy',
-									'alt'     => \sprintf( '%s logo', $name ),
+									// Media Library alt text wins; fall back to "<name> logo".
+									'alt'     => \get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) ?: \sprintf( '%s logo', $name ),
 								] ); ?>
 							<?php else : ?>
 								<span class="ble-vendor-list__avatar-initial" aria-hidden="true">
