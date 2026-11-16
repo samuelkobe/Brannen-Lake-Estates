@@ -56,9 +56,9 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'type'          => 'select',
 			'choices'       => [
 				'alpha'  => 'Alphabetical',
-				'custom' => 'Custom (each vendor\'s Order number)',
+				'custom' => 'Custom (Order number, then A–Z)',
 			],
-			'default_value' => 'alpha',
+			'default_value' => 'custom',
 			'wrapper'       => [ 'width' => '50' ],
 		],
 	],

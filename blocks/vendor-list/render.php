@@ -18,7 +18,7 @@ $heading = \get_field( 'heading' );
 $body    = \get_field( 'body' );
 
 $category_order = \get_field( 'category_order' ) ?: 'custom';
-$vendor_order   = \get_field( 'vendor_order' ) ?: 'alpha';
+$vendor_order   = \get_field( 'vendor_order' ) ?: 'custom';
 
 // Get all vendor type terms that have at least one vendor.
 $terms = \get_terms( [
