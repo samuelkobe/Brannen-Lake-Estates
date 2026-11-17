@@ -106,6 +106,14 @@ function register_vendor_fields(): void {
 				'instructions' => 'Optional. Full Instagram profile link. Shown as an "Instagram" button.',
 			],
 			[
+				'key'          => 'field_ble_vendor_facebook',
+				'label'        => 'Facebook',
+				'name'         => 'facebook',
+				'type'         => 'url',
+				'placeholder'  => 'https://www.facebook.com/page/',
+				'instructions' => 'Optional. Full Facebook page link. Shown as a "Facebook" button.',
+			],
+			[
 				'key'          => 'field_ble_vendor_email',
 				'label'        => 'Email',
 				'name'         => 'email',

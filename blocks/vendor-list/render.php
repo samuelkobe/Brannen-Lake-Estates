@@ -103,13 +103,14 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 					$website     = \get_field( 'website', $vendor->ID );
 					$booking     = \get_field( 'booking_url', $vendor->ID );
 					$instagram   = \get_field( 'instagram', $vendor->ID );
+					$facebook    = \get_field( 'facebook', $vendor->ID );
 					$email       = \get_field( 'email', $vendor->ID );
 					$phone       = \get_field( 'phone', $vendor->ID );
 					$description = \get_field( 'description', $vendor->ID );
 					$logo_id     = \get_field( 'logo', $vendor->ID );
 					$name        = \get_the_title( $vendor );
 					$initial     = \mb_strtoupper( \mb_substr( $name, 0, 1 ) );
-					$has_actions = $website || $booking || $instagram || $email || $phone;
+					$has_actions = $website || $booking || $instagram || $facebook || $email || $phone;
 					$new_tab     = \__( '(opens in a new tab)', 'brannen-lake-estates' );
 				?>
 				<div class="ble-vendor-list__card">
@@ -162,6 +163,7 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 						'website'   => '<path d="M7 17L17 7"/><path d="M7 7h10v10"/>',
 						'booking'   => '<rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
 						'instagram' => '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.75" fill="currentColor"/>',
+						'facebook'  => '<path d="M14 8.5h2.5V5H14c-2.2 0-3.5 1.4-3.5 3.6V11H8v3.5h2.5V21H14v-6.5h2.5l.5-3.5h-3V9.2c0-.4.3-.7.7-.7z"/>',
 						'email'     => '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/>',
 						'phone'     => '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
 					];
@@ -174,6 +176,9 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 					}
 					if ( $instagram ) {
 						$actions[] = [ 'key' => 'instagram', 'href' => $instagram, 'label' => \__( 'Instagram', 'brannen-lake-estates' ), 'aria' => \sprintf( '%s on Instagram %s', $name, $new_tab ), 'rel' => 'noopener', 'blank' => true ];
+					}
+					if ( $facebook ) {
+						$actions[] = [ 'key' => 'facebook', 'href' => $facebook, 'label' => \__( 'Facebook', 'brannen-lake-estates' ), 'aria' => \sprintf( '%s on Facebook %s', $name, $new_tab ), 'rel' => 'noopener', 'blank' => true ];
 					}
 					if ( $email ) {
 						$actions[] = [ 'key' => 'email', 'href' => 'mailto:' . $email, 'label' => \__( 'Email', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Email %s at %s', $name, $email ), 'rel' => '', 'blank' => false ];
