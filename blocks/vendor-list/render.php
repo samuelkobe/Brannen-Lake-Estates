@@ -13,6 +13,15 @@
 
 namespace WebOk\BrannenLakeEstates;
 
+if ( ! \function_exists( __NAMESPACE__ . '\\ble_vendor_tel' ) ) {
+	/** Phone text to a tel: value, keeping an extension as a pause ("250-555-1234 ext. 12" => "2505551234,12"). */
+	function ble_vendor_tel( string $phone ): string {
+		$parts = \preg_split( '/\s*(?:ext\.?|x)\s*/i', $phone, 2 );
+		$tel   = \preg_replace( '/[^+\d]/', '', $parts[0] );
+		return isset( $parts[1] ) ? $tel . ',' . \preg_replace( '/\D/', '', $parts[1] ) : $tel;
+	}
+}
+
 $eyebrow = \get_field( 'eyebrow' );
 $heading = \get_field( 'heading' );
 $body    = \get_field( 'body' );
@@ -184,7 +193,7 @@ if ( \is_wp_error( $terms ) || empty( $terms ) ) {
 						$actions[] = [ 'key' => 'email', 'href' => 'mailto:' . $email, 'label' => \__( 'Email', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Email %s at %s', $name, $email ), 'rel' => '', 'blank' => false ];
 					}
 					if ( $phone ) {
-						$actions[] = [ 'key' => 'phone', 'href' => 'tel:' . \preg_replace( '/[^+\d]/', '', $phone ), 'label' => \__( 'Call', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Call %s at %s', $name, $phone ), 'rel' => '', 'blank' => false ];
+						$actions[] = [ 'key' => 'phone', 'href' => 'tel:' . ble_vendor_tel( $phone ), 'label' => \__( 'Call', 'brannen-lake-estates' ), 'aria' => \sprintf( 'Call %s at %s', $name, $phone ), 'rel' => '', 'blank' => false ];
 					}
 					$primary = \array_shift( $actions );
 					?>
