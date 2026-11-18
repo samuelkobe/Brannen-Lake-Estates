@@ -117,3 +117,65 @@ document.querySelectorAll<HTMLButtonElement>( '[data-ble-scroll-next]' ).forEach
 		}
 	} )
 } )
+
+// ── 4. Background video (desktop only) ─────────────────────────────────────
+//
+// The <video> ships without a source. It's attached only on screens 1024px+,
+// and never with reduced motion or Data Saver, so phones and tablets don't
+// download it. The hero image stays underneath until the video is playing.
+
+const desktopQuery = window.matchMedia( '(min-width: 1024px)' )
+const saveData = ( navigator as Navigator & { connection?: { saveData?: boolean } } ).connection?.saveData === true
+
+document.querySelectorAll<HTMLVideoElement>( '[data-ble-hero-video]' ).forEach( ( video ) => {
+	if ( prefersReducedMotion || saveData ) return
+
+	const hero   = video.closest<HTMLElement>( '[data-ble-hero]' )
+	const toggle = hero?.querySelector<HTMLButtonElement>( '[data-ble-hero-video-toggle]' ) ?? null
+	let userPaused = false
+
+	const load = (): void => {
+		if ( video.querySelector( 'source' ) ) return
+		const source = document.createElement( 'source' )
+		source.src  = video.dataset.src ?? ''
+		source.type = video.dataset.type ?? 'video/mp4'
+		video.appendChild( source )
+		video.load()
+	}
+
+	const play = (): void => {
+		if ( userPaused ) return
+		video.play().catch( () => { /* Autoplay blocked: the image stays. */ } )
+	}
+
+	video.addEventListener( 'playing', () => {
+		video.classList.add( 'is-playing' )
+		if ( toggle ) toggle.hidden = false
+	} )
+
+	const apply = (): void => {
+		if ( desktopQuery.matches ) {
+			load()
+			play()
+		} else if ( ! video.paused ) {
+			video.pause()
+		}
+	}
+
+	apply()
+	desktopQuery.addEventListener( 'change', apply )
+
+	// Pause while the tab is hidden; resume when it's back.
+	document.addEventListener( 'visibilitychange', () => {
+		if ( document.hidden ) video.pause()
+		else if ( desktopQuery.matches ) play()
+	} )
+
+	toggle?.addEventListener( 'click', () => {
+		userPaused = ! video.paused
+		if ( userPaused ) video.pause()
+		else video.play().catch( () => {} )
+		toggle.setAttribute( 'aria-pressed', String( userPaused ) )
+		toggle.setAttribute( 'aria-label', userPaused ? 'Play background video' : 'Pause background video' )
+	} )
+} )

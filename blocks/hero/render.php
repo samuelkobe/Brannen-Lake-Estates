@@ -17,6 +17,7 @@ $heading         = \get_field( 'heading' );
 $heading_size    = \get_field( 'heading_size' );
 $tagline         = \get_field( 'tagline' );
 $image           = \get_field( 'background_image' );
+$video           = \get_field( 'background_video' );
 $overlay_color   = \get_field( 'overlay_color' ) ?: '#2C2A27';
 $overlay_opacity = \get_field( 'overlay_opacity' );
 $primary_cta     = \get_field( 'primary_cta' );
@@ -68,6 +69,30 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 			width="<?= \esc_attr( $image['width'] ?? '' ); ?>"
 			height="<?= \esc_attr( $image['height'] ?? '' ); ?>"
 		/>
+		<?php endif; ?>
+		<?php
+		/*
+		 * Optional desktop video. No <source> is output: view.js adds it only on
+		 * screens 1024px+ (and not with reduced motion or Data Saver), so phones
+		 * and tablets never download the file. The image above stays underneath
+		 * as the poster and fallback; the video fades in once it's playing.
+		 */
+		if ( ! empty( $video['url'] ) && empty( $is_preview ) ) : ?>
+		<video
+			class="ble-hero__video"
+			muted
+			loop
+			playsinline
+			preload="none"
+			disablepictureinpicture
+			disableremoteplayback
+			aria-hidden="true"
+			tabindex="-1"
+			<?php if ( $image ) : ?>poster="<?= \esc_url( $image['url'] ); ?>"<?php endif; ?>
+			data-ble-hero-video
+			data-src="<?= \esc_url( $video['url'] ); ?>"
+			data-type="<?= \esc_attr( $video['mime_type'] ?? 'video/mp4' ); ?>"
+		></video>
 		<?php endif; ?>
 		<?php /* Overlay: colour + opacity set by ACF fields */ ?>
 		<div class="ble-hero__overlay absolute inset-0" style="<?= \esc_attr( $overlay_style ); ?>"></div>
@@ -125,6 +150,21 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 
 		</div>
 	</div>
+
+	<?php if ( ! empty( $video['url'] ) && empty( $is_preview ) ) : ?>
+	<?php /* Pause/play for the background video (WCAG 2.2.2). Shown only once the video plays. */ ?>
+	<button
+		type="button"
+		class="ble-hero__video-toggle"
+		aria-label="<?= \esc_attr__( 'Pause background video', 'brannen-lake-estates' ); ?>"
+		aria-pressed="false"
+		data-ble-hero-video-toggle
+		hidden
+	>
+		<svg class="ble-hero__icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+		<svg class="ble-hero__icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>
+	</button>
+	<?php endif; ?>
 
 	<?php /* ── Scroll-down indicator (mobile only) ──────────────────────── */ ?>
 	<button
