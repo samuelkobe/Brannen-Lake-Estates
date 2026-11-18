@@ -29,6 +29,7 @@ require_once get_stylesheet_directory() . '/inc/header-block.php';
 require_once get_stylesheet_directory() . '/inc/footer-block.php';
 require_once get_stylesheet_directory() . '/inc/vendors.php';
 require_once get_stylesheet_directory() . '/inc/ics-availability.php';
+require_once get_stylesheet_directory() . '/inc/roles.php';
 
 /**
  * Enqueue compiled theme assets and block view scripts.
