@@ -21,7 +21,7 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'name'         => 'venue_name',
 			'type'         => 'text',
 			'required'     => 1,
-			'instructions' => 'Used in structured data (schema). e.g. "Lakeside Lovestory".',
+			'instructions' => 'Used in structured data (schema). e.g. "Lakeside Love Story".',
 		],
 		[
 			'key'          => 'field_ble_venue_details_setting_type',
