@@ -156,7 +156,7 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 							'return_format' => 'array',
 							'mime_types'    => 'pdf',
 							'library'       => 'all',
-							'instructions'  => 'Cards only. Optional. Shows a "Download package details" link under the button. To update prices later, use Media > Replace so the link stays the same.',
+							'instructions'  => 'Cards only. Optional. Shows a "Download package details" link under the button. To update prices later, replace the file in place (for example with the Enable Media Replace plugin) so the link stays the same.',
 						],
 					],
 				],
