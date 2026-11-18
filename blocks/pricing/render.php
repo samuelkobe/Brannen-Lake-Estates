@@ -114,6 +114,7 @@ $print_price = static function ( array $item, string $base ): void {
 					}
 					$includes = $to_lines( $item['includes'] ?? '' );
 					$link     = $item['link'] ?? null;
+					$pdf      = $item['pdf'] ?? null;
 				?>
 				<li class="ble-pricing__card" data-ble-reveal>
 
@@ -149,6 +150,8 @@ $print_price = static function ( array $item, string $base ): void {
 					</ul>
 					<?php endif; ?>
 
+					<?php if ( ( ! empty( $link['url'] ) && ! empty( $link['title'] ) ) || ! empty( $pdf['url'] ) ) : ?>
+					<div class="ble-pricing__actions">
 					<?php if ( ! empty( $link['url'] ) && ! empty( $link['title'] ) ) : ?>
 					<a
 						href="<?= \esc_url( $link['url'] ); ?>"
@@ -161,6 +164,24 @@ $print_price = static function ( array $item, string $base ): void {
 					>
 						<?= \esc_html( $link['title'] ); ?>
 					</a>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $pdf['url'] ) ) :
+						$pdf_size = ! empty( $pdf['filesize'] ) ? \size_format( (int) $pdf['filesize'], 1 ) : '';
+					?>
+					<a
+						href="<?= \esc_url( $pdf['url'] ); ?>"
+						class="ble-pricing__pdf font-sans"
+						target="_blank"
+						rel="noopener"
+						aria-label="<?= \esc_attr( \sprintf( 'Download the %s package details, PDF%s (opens in a new tab)', $item['name'], $pdf_size ? ', ' . $pdf_size : '' ) ); ?>"
+					>
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
+						<span><?= \esc_html__( 'Download package details', 'brannen-lake-estates' ); ?></span>
+						<span class="ble-pricing__pdf-meta">PDF<?= $pdf_size ? ' · ' . \esc_html( $pdf_size ) : ''; ?></span>
+					</a>
+					<?php endif; ?>
+					</div>
 					<?php endif; ?>
 
 				</li>

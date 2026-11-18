@@ -198,6 +198,55 @@
 	opacity: 1;
 }
 
+/* Button + optional PDF link, pinned to the bottom of the card */
+.ble-pricing__actions {
+	margin-top: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.ble-pricing__actions .ble-pricing__link { margin-top: 0; }
+
+/* PDF download link under the card button */
+.ble-pricing__pdf {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 0.25rem 0.4rem;
+	margin-top: 0.875rem;
+	text-align: center;
+	font-size: 0.8125rem;
+	color: var(--color-charcoal);
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, var(--color-sage) 50%, transparent);
+	text-underline-offset: 0.2em;
+	transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.ble-pricing__pdf svg { color: var(--color-sage); flex-shrink: 0; }
+
+.ble-pricing__pdf-meta {
+	font-size: 0.6875rem;
+	letter-spacing: 0.06em;
+	color: color-mix(in srgb, var(--color-charcoal) 60%, transparent);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.ble-pricing__pdf:hover,
+.ble-pricing__pdf:focus-visible {
+	color: var(--color-sage);
+	text-decoration-color: var(--color-sage);
+}
+
+.ble-pricing__pdf:focus-visible {
+	outline: 2px solid var(--color-sage);
+	outline-offset: 3px;
+}
+
 /* ── List (add-ons) ──────────────────────────────────────────────────────── */
 
 .ble-pricing__list {
