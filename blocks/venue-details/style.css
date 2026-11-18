@@ -64,12 +64,14 @@
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: 0.75rem;
 }
 
+/* Each item sets its own spacing, so a two-line item never leaves a gap
+   beside a one-line item. On desktop the list flows down column one, then
+   column two (CSS columns), so it still reads in order. */
 .ble-venue-details__feature {
+	break-inside: avoid;
+	margin: 0 0 0.75rem;
 	display: flex;
 	align-items: flex-start;
 	gap: 0.625rem;
@@ -93,6 +95,9 @@
 	}
 
 	.ble-venue-details__features {
-		grid-template-columns: 1fr 1fr;
+		columns: 2;
+		column-gap: 2.5rem;
 	}
 }
+
+.ble-venue-details__feature:last-child { margin-bottom: 0; }
