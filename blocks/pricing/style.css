@@ -77,6 +77,12 @@
 	}
 }
 
+/* A single package (venue pages): one centred card */
+.ble-pricing__cards:has(> li:only-child) {
+	grid-template-columns: minmax(0, 26rem);
+	justify-content: center;
+}
+
 .ble-pricing__card {
 	display: flex;
 	flex-direction: column;
