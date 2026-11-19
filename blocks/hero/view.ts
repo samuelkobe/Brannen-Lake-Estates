@@ -122,17 +122,37 @@ document.querySelectorAll<HTMLButtonElement>( '[data-ble-scroll-next]' ).forEach
 //
 // The <video> ships without a source. It's attached only on screens 1024px+,
 // and never with reduced motion or Data Saver, so phones and tablets don't
-// download it. The hero image stays underneath until the video is playing.
+// download it. The hero image stays underneath the whole time.
+//
+// data-plays: how many times it plays (0 = loop forever). During the last
+// 1.5s of the final play it fades out to the image, and the pause button
+// becomes a replay button (replay plays it once more).
 
 const desktopQuery = window.matchMedia( '(min-width: 1024px)' )
 const saveData = ( navigator as Navigator & { connection?: { saveData?: boolean } } ).connection?.saveData === true
+const FADE_SECONDS = 1.5
 
 document.querySelectorAll<HTMLVideoElement>( '[data-ble-hero-video]' ).forEach( ( video ) => {
 	if ( prefersReducedMotion || saveData ) return
 
 	const hero   = video.closest<HTMLElement>( '[data-ble-hero]' )
 	const toggle = hero?.querySelector<HTMLButtonElement>( '[data-ble-hero-video-toggle]' ) ?? null
+	const total  = Math.max( 0, parseInt( video.dataset.plays ?? '0', 10 ) || 0 )
+
+	let remaining  = total     // plays left, including the current one (0 = infinite)
 	let userPaused = false
+	let finished   = false
+
+	const setToggle = ( mode: 'pause' | 'play' | 'replay' ): void => {
+		if ( ! toggle ) return
+		toggle.dataset.mode = mode
+		toggle.setAttribute( 'aria-pressed', String( mode === 'play' ) )
+		toggle.setAttribute( 'aria-label', {
+			pause:  'Pause background video',
+			play:   'Play background video',
+			replay: 'Replay background video',
+		}[ mode ] )
+	}
 
 	const load = (): void => {
 		if ( video.querySelector( 'source' ) ) return
@@ -144,13 +164,32 @@ document.querySelectorAll<HTMLVideoElement>( '[data-ble-hero-video]' ).forEach( 
 	}
 
 	const play = (): void => {
-		if ( userPaused ) return
+		if ( userPaused || finished ) return
 		video.play().catch( () => { /* Autoplay blocked: the image stays. */ } )
 	}
 
 	video.addEventListener( 'playing', () => {
 		video.classList.add( 'is-playing' )
 		if ( toggle ) toggle.hidden = false
+	} )
+
+	// Fade out during the last moments of the final play.
+	video.addEventListener( 'timeupdate', () => {
+		if ( total === 0 || remaining !== 1 || ! video.duration ) return
+		if ( video.duration - video.currentTime <= FADE_SECONDS ) video.classList.add( 'is-fading' )
+	} )
+
+	video.addEventListener( 'ended', () => {
+		if ( total === 0 ) return // native loop handles it
+		remaining--
+		if ( remaining > 0 ) {
+			video.currentTime = 0
+			play()
+			return
+		}
+		finished = true
+		video.classList.add( 'is-fading' )
+		setToggle( 'replay' )
 	} )
 
 	const apply = (): void => {
@@ -172,10 +211,20 @@ document.querySelectorAll<HTMLVideoElement>( '[data-ble-hero-video]' ).forEach( 
 	} )
 
 	toggle?.addEventListener( 'click', () => {
+		if ( finished ) {
+			// Replay once.
+			finished   = false
+			userPaused = false
+			remaining  = 1
+			video.classList.remove( 'is-fading' )
+			video.currentTime = 0
+			video.play().catch( () => {} )
+			setToggle( 'pause' )
+			return
+		}
 		userPaused = ! video.paused
 		if ( userPaused ) video.pause()
 		else video.play().catch( () => {} )
-		toggle.setAttribute( 'aria-pressed', String( userPaused ) )
-		toggle.setAttribute( 'aria-label', userPaused ? 'Play background video' : 'Pause background video' )
+		setToggle( userPaused ? 'play' : 'pause' )
 	} )
 } )

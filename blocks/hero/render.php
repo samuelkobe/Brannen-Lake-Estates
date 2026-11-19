@@ -18,6 +18,8 @@ $heading_size    = \get_field( 'heading_size' );
 $tagline         = \get_field( 'tagline' );
 $image           = \get_field( 'background_image' );
 $video           = \get_field( 'background_video' );
+$video_plays     = \get_field( 'video_plays' );
+$video_plays     = ( null === $video_plays || '' === $video_plays ) ? 2 : \max( 0, (int) $video_plays );
 $overlay_color   = \get_field( 'overlay_color' ) ?: '#2C2A27';
 $overlay_opacity = \get_field( 'overlay_opacity' );
 $primary_cta     = \get_field( 'primary_cta' );
@@ -81,7 +83,7 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 		<video
 			class="ble-hero__video"
 			muted
-			loop
+			<?php if ( 0 === $video_plays ) : ?>loop<?php endif; ?>
 			playsinline
 			preload="none"
 			disablepictureinpicture
@@ -90,6 +92,7 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 			tabindex="-1"
 			<?php if ( $image ) : ?>poster="<?= \esc_url( $image['url'] ); ?>"<?php endif; ?>
 			data-ble-hero-video
+			data-plays="<?= \esc_attr( (string) $video_plays ); ?>"
 			data-src="<?= \esc_url( $video['url'] ); ?>"
 			data-type="<?= \esc_attr( $video['mime_type'] ?? 'video/mp4' ); ?>"
 		></video>
@@ -163,6 +166,7 @@ $img_alt = ! empty( $image['alt'] ) ? $image['alt'] : \esc_attr( $heading );
 	>
 		<svg class="ble-hero__icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
 		<svg class="ble-hero__icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>
+		<svg class="ble-hero__icon-replay" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
 	</button>
 	<?php endif; ?>
 

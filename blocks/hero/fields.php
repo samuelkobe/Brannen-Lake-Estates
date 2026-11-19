@@ -66,6 +66,18 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'instructions'  => 'Optional. Plays muted on a loop behind the hero on screens 1024px and wider; phones and tablets always show the image. Use a short MP4 (10 to 20 seconds, ideally under 8 MB, 1920×1080, no audio needed).',
 		],
 		[
+			'key'           => 'field_ble_hero_video_plays',
+			'label'         => 'Video Plays',
+			'name'          => 'video_plays',
+			'type'          => 'number',
+			'default_value' => 2,
+			'min'           => 0,
+			'max'           => 20,
+			'step'          => 1,
+			'instructions'  => 'How many times the video plays before it fades to the background image. 0 = loop forever. Visitors can replay it with the button in the corner.',
+			'conditional_logic' => [ [ [ 'field' => 'field_ble_hero_bg_video', 'operator' => '!=empty' ] ] ],
+		],
+		[
 			'key'           => 'field_ble_hero_overlay_color',
 			'label'         => 'Overlay Colour',
 			'name'          => 'overlay_color',
