@@ -15,7 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const REDIRECTS = [
-	'book-online' => 'availability', // Old Wix booking page, renamed 2026-11-19.
+	'book-online' => 'availability',           // Old Wix booking page, renamed 2026-11-19.
+	'elopements'  => 'venue/the-runaway-barn', // Old Wix elopements page.
+	'contact-2'   => 'contact-us',             // Old Wix contact page slug.
 ];
 
 \add_action(
