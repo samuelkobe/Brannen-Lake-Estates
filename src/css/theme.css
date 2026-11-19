@@ -1373,3 +1373,19 @@ body.scroll-locked {
     max-width: 80rem;
   }
 }
+
+
+/* Footer legal links (Privacy · Terms · Accessibility) */
+.ble-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-taupe);
+}
+
+.ble-footer__legal span {
+  opacity: 0.5;
+}

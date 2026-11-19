@@ -152,6 +152,20 @@ function render_footer_block(): string {
 			<?php /* ── Row 3: Copyright ────────────────────────────────────── */ ?>
 			<div class="ble-footer__bottom">
 				<p>&copy; <?= date( 'Y' ); ?> Brannen Lake Estates Ltd. All rights reserved.</p>
+				<?php
+				// Legal links: only pages that are published show up.
+				$legal = [];
+				foreach ( [ 'privacy-policy' => 'Privacy', 'terms' => 'Terms', 'accessibility' => 'Accessibility' ] as $slug => $label ) {
+					$page = \get_page_by_path( $slug );
+					if ( $page && 'publish' === $page->post_status ) {
+						$legal[] = '<a href="' . \esc_url( \get_permalink( $page ) ) . '">' . \esc_html( $label ) . '</a>';
+					}
+				}
+				if ( $legal ) : ?>
+				<nav class="ble-footer__legal" aria-label="<?= \esc_attr__( 'Legal', 'brannen-lake-estates' ); ?>">
+					<?= \implode( '<span aria-hidden="true">·</span>', $legal ); // phpcs:ignore ?>
+				</nav>
+				<?php endif; ?>
 				<p>Site by <a href="https://webok.ca" target="_blank" rel="noopener noreferrer">Web Ok Solutions Inc.</a></p>
 			</div>
 
