@@ -369,6 +369,11 @@ h3 {
   top: 1rem;
 }
 
+/* Focus lands on <main> via the skip link; no outline box around the whole page. */
+main#main:focus {
+  outline: none;
+}
+
 /* Header base */
 .ble-header {
   position: fixed;

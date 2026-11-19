@@ -132,3 +132,33 @@ function render_header_block(): string {
 	<?php
 	return \ob_get_clean();
 }
+
+/**
+ * Skip link support.
+ *
+ * Our header outputs its own styled skip link, so remove WordPress core's
+ * duplicate block-theme skip link, and give the template's <main> landmark
+ * id="main" plus tabindex="-1" so the link has a real, focusable target.
+ */
+\remove_action( 'wp_enqueue_scripts', 'wp_enqueue_block_template_skip_link' );
+\remove_action( 'wp_footer', 'the_block_template_skip_link' );
+
+\add_filter(
+	'render_block_core/group',
+	static function ( string $html, array $block ): string {
+		if ( ( $block['attrs']['tagName'] ?? '' ) !== 'main' || \str_contains( $html, 'id="main"' ) ) {
+			return $html;
+		}
+		$p = new \WP_HTML_Tag_Processor( $html );
+		if ( $p->next_tag( 'MAIN' ) ) {
+			if ( ! $p->get_attribute( 'id' ) ) {
+				$p->set_attribute( 'id', 'main' );
+			}
+			$p->set_attribute( 'tabindex', '-1' );
+			$html = $p->get_updated_html();
+		}
+		return $html;
+	},
+	10,
+	2
+);
