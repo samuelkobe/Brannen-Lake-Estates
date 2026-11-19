@@ -4,6 +4,8 @@
  *
  * Kept in the theme so they travel with the code and don't depend on a
  * redirects plugin. Add old paths (no domain, no trailing slash) to the map.
+ * If a published page is later created at an old path, that page is shown
+ * instead and the redirect is skipped.
  *
  * @package WebOk\BrannenLakeEstates
  */
@@ -24,7 +26,9 @@ const REDIRECTS = [
 	'template_redirect',
 	static function (): void {
 		$path = \trim( (string) \wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' );
-		if ( isset( REDIRECTS[ $path ] ) ) {
+		// A real published page at the old path always wins, so re-using a slug
+		// later (e.g. a new /book-online page) just works without editing this file.
+		if ( isset( REDIRECTS[ $path ] ) && ! \get_page_by_path( $path ) ) {
 			\wp_safe_redirect( \home_url( '/' . REDIRECTS[ $path ] . '/' ), 301 );
 			exit;
 		}
