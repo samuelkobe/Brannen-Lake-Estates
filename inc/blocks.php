@@ -150,7 +150,7 @@ function register_blocks(): void {
 	\acf_register_block_type( [
 		'name'            => 'testimonial',
 		'title'           => \__( 'Testimonial', 'brannen-lake-estates' ),
-		'description'     => \__( 'Displays a single randomly selected testimonial. Add multiple quotes and one is chosen on each page load.', 'brannen-lake-estates' ),
+		'description'     => \__( 'Shows a testimonial from the Testimonials list: all of them, or only selected types.', 'brannen-lake-estates' ),
 		'category'        => 'webok-blocks',
 		'icon'            => 'format-quote',
 		'keywords'        => [ 'testimonial', 'quote', 'review', 'feedback' ],

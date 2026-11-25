@@ -2,8 +2,8 @@
 /**
  * Testimonial — ACF field group registration.
  *
- * Displays a single randomly selected testimonial from a repeater.
- * Each testimonial has a quote, attribution name, and optional date.
+ * Pulls quotes from the Testimonials post type (WP admin › Testimonials),
+ * either all of them or only selected Testimonial Types.
  *
  * @package WebOk\BrannenLakeEstates
  */
@@ -33,40 +33,54 @@ if ( ! \function_exists( 'acf_add_local_field_group' ) ) {
 			'instructions' => 'Section heading. Optional.',
 		],
 		[
-			'key'          => 'field_ble_testimonial_items',
-			'label'        => 'Testimonials',
-			'name'         => 'items',
-			'type'         => 'repeater',
-			'min'          => 1,
-			'max'          => 20,
-			'layout'       => 'block',
-			'button_label' => 'Add Testimonial',
-			'sub_fields'   => [
+			'key'           => 'field_ble_testimonial_source',
+			'label'         => 'Show',
+			'name'          => 'source',
+			'type'          => 'radio',
+			'choices'       => [
+				'all'   => 'All testimonials',
+				'types' => 'Only selected types',
+			],
+			'default_value' => 'all',
+			'layout'        => 'horizontal',
+			'instructions'  => 'Add and edit testimonials under Testimonials in the admin menu.',
+		],
+		[
+			'key'               => 'field_ble_testimonial_types',
+			'label'             => 'Testimonial Types',
+			'name'              => 'types',
+			'type'              => 'taxonomy',
+			'taxonomy'          => 'ble_testimonial_type',
+			'field_type'        => 'checkbox',
+			'add_term'          => 0,
+			'save_terms'        => 0,
+			'load_terms'        => 0,
+			'return_format'     => 'id',
+			'multiple'          => 1,
+			'instructions'      => 'Testimonials with any of these types are included.',
+			'conditional_logic' => [
 				[
-					'key'          => 'field_ble_testimonial_item_quote',
-					'label'        => 'Quote',
-					'name'         => 'quote',
-					'type'         => 'textarea',
-					'rows'         => 3,
-					'required'     => 1,
-					'instructions' => 'The testimonial text. Keep it to 1-3 sentences for best display.',
-				],
-				[
-					'key'      => 'field_ble_testimonial_item_name',
-					'label'    => 'Name',
-					'name'     => 'name',
-					'type'     => 'text',
-					'required' => 1,
-					'instructions' => 'Attribution. e.g. "Sarah & James M."',
-				],
-				[
-					'key'          => 'field_ble_testimonial_item_date',
-					'label'        => 'Date',
-					'name'         => 'date',
-					'type'         => 'text',
-					'instructions' => 'Optional. e.g. "September 2024" or "Fall 2024".',
+					[
+						'field'    => 'field_ble_testimonial_source',
+						'operator' => '==',
+						'value'    => 'types',
+					],
 				],
 			],
+		],
+		[
+			'key'           => 'field_ble_testimonial_order',
+			'label'         => 'Which quote shows',
+			'name'          => 'order',
+			'type'          => 'radio',
+			'choices'       => [
+				'random' => 'A random one on each visit',
+				'newest' => 'The newest',
+				'custom' => 'The first by Order number',
+			],
+			'default_value' => 'random',
+			'layout'        => 'vertical',
+			'instructions'  => 'The block shows one quote at a time. "Order number" is the Order box on each testimonial (lowest first).',
 		],
 	],
 	'location' => [

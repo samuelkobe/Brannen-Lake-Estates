@@ -28,6 +28,7 @@ require_once get_stylesheet_directory() . '/inc/class-nav-walker.php';
 require_once get_stylesheet_directory() . '/inc/header-block.php';
 require_once get_stylesheet_directory() . '/inc/footer-block.php';
 require_once get_stylesheet_directory() . '/inc/vendors.php';
+require_once get_stylesheet_directory() . '/inc/testimonials.php';
 require_once get_stylesheet_directory() . '/inc/ics-availability.php';
 require_once get_stylesheet_directory() . '/inc/roles.php';
 require_once get_stylesheet_directory() . '/inc/redirects.php';
@@ -91,6 +92,16 @@ function enqueue_assets(): void {
 		\wp_enqueue_script_module(
 			'ble-cta-banner-view',
 			$theme_uri . '/dist/blocks/cta-banner/view.js',
+			[],
+			$version
+		);
+	}
+
+	// Testimonial — pick a random quote in the browser (works with page caching).
+	if ( \has_block( 'acf/testimonial' ) ) {
+		\wp_enqueue_script_module(
+			'ble-testimonial-view',
+			$theme_uri . '/dist/blocks/testimonial/view.js',
 			[],
 			$version
 		);
